@@ -1,0 +1,3 @@
+make
+./minishell
+make fclean
