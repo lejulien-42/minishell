@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/05 22:22:23 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/05 22:38:22 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,41 @@ void
 	write(1, &entry->c, 1);
 }
 
-int
-	free_entry(t_entry *entry)
+void	ft_lstclear(t_entry **lst)
 {
-	t_entry	*ptr;
+	t_entry	*tmp;
+	t_entry	*nxt;
 
-	while (entry != NULL)
+	if (!*lst)
+		return ;
+	tmp = *lst;
+	while (tmp != NULL)
 	{
-		ptr = entry;
-		while (ptr->next != NULL)
-			ptr = ptr->next;
-		ptr = NULL;
-		free(ptr);
+		nxt = tmp->next;
+		tmp->c = 0;
+		free(tmp);
+		tmp = nxt;
 	}
-	return (0);
+	*lst = NULL;
 }
 
+int
+	lst_str_cmp(t_entry	*entry, char *str)
+{
+	int i = 0;
+
+	while (str[i] != 0 && entry->next != 0)
+	{
+		if (str[i] != entry->c)
+			return (0);
+		i++;
+		entry = entry->next;
+	}
+	if (str[i] != entry->c)
+		return (0);
+	return (1);
+}
+	
 t_entry
 	*add_entry(t_entry *prev_entry, char c)
 {
@@ -140,15 +159,13 @@ int
 		read(0, buffer, 1);
 		if (buffer[0] == '\n')
 		{
-			ft_putstr("i -=> ");
-			ft_putnbr_fd(i, 1);
-			i = -1;
-			ft_putstr("\n");
-			ft_printf_entry(entry);
-			ft_putstr("\n");
 			// free the entry
+			if (lst_str_cmp(entry, "exit") == 1)
+				shell->is_active = 0;
+			ft_lstclear(&entry);
 			//free_entry(entry);
-			ft_putstr(shell->prefix);
+			if (shell->is_active)
+				ft_putstr(shell->prefix);
 		}
 		else
 		{
