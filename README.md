@@ -2,8 +2,6 @@
 
 un simple bash-like shell
 
-COMPILING : 
-		L_> make
+COMPILING : make
 
-RUNNING : 
-	  L_> ./minishell
+RUNNING : ./minishell
