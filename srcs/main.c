@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/06 01:29:44 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/06 04:00:21 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_shell
 {
 	t_shell	*shell = malloc(sizeof(t_shell));
 	
-	ft_strcpy(shell->prefix, "minichill $ ");
+	ft_strcpy(shell->prefix, "minishell-1.0$ ");
 	shell->is_active = 1;
 
 	return (shell);
@@ -186,6 +186,40 @@ void
 }
 
 int
+	ft_is_space(char *str)
+{
+	int i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' ||
+		str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	else
+		return (0);
+}
+
+void
+	ft_wrong(char *str)
+{
+	int i = 0;
+	if (!ft_is_space(str))
+	{
+		ft_putstr("minishell: ");
+		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' ||
+			str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
+			i++;
+		while (str[i] != ' ' && str[i] != '\t' && str[i] != '\f' &&
+			str[i] != '\n' && str[i] != '\r' && str[i] != '\v' && str[i] != '\0')
+		{
+			write(1, &str[i], 1);
+			i++;
+		}
+
+		ft_putstr(": command not found\n");
+	}
+}
+
+int
 	main(void)
 {
 	char buffer[2];
@@ -205,8 +239,12 @@ int
 				char *str = entry_to_str(entry);
 				if (ft_strcmp(str, "exit") == 0)
 					shell->is_active = 0;
-				if (ft_strcmp(str, "pwd") == 0)
+				else if (ft_strcmp(str, "pwd") == 0)
 					ft_get_pwd();
+				else if (ft_strcmp(str, "leaks") == 0)
+					system("leaks minishell");
+				else
+					ft_wrong(str);
 				free(str);
 				ft_lstclear(&entry);
 			}
