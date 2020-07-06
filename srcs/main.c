@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/05 22:38:22 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/06 01:29:44 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,28 @@ void
 		i++;
 	}
 }
+
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	int index;
+
+	index = 0;
+	while (s2[index] && s1[index])
+	{
+		if (s1[index] == s2[index])
+		{
+			index++;
+		}
+		else
+			return ((unsigned char)s1[index] - (unsigned char)s2[index]);
+	}
+	if (s1[index] == '\0' || s2[index] == '\0')
+	{
+		return ((unsigned char)s1[index] - (unsigned char)s2[index]);
+	}
+	return (0);
+}
+
 
 static void	ft_putchar(char c, int fd)
 {
@@ -108,23 +130,31 @@ void	ft_lstclear(t_entry **lst)
 	*lst = NULL;
 }
 
-int
-	lst_str_cmp(t_entry	*entry, char *str)
+char
+	*entry_to_str(t_entry *entry)
 {
-	int i = 0;
+	int i;
+	t_entry *ptr;
 
-	while (str[i] != 0 && entry->next != 0)
+	ptr = entry;
+	i = 0;
+	while (ptr->next != NULL)
 	{
-		if (str[i] != entry->c)
-			return (0);
 		i++;
+		ptr = ptr->next;
+	}
+	char *str = malloc(i * sizeof(char) + 1);
+	int j = 0;
+	while (j <= i)
+	{
+		str[j] = entry->c;
+		j++;
 		entry = entry->next;
 	}
-	if (str[i] != entry->c)
-		return (0);
-	return (1);
+	str[j] = '\0';
+	return (str);
 }
-	
+
 t_entry
 	*add_entry(t_entry *prev_entry, char c)
 {
@@ -145,6 +175,16 @@ t_entry
 	return (prev_entry);
 }
 
+void
+	ft_get_pwd()
+{
+	char str[50];
+	
+	getcwd(str, 50);
+	ft_putstr(str);
+	ft_putstr("\n");
+}
+
 int
 	main(void)
 {
@@ -160,12 +200,20 @@ int
 		if (buffer[0] == '\n')
 		{
 			// free the entry
-			if (lst_str_cmp(entry, "exit") == 1)
-				shell->is_active = 0;
-			ft_lstclear(&entry);
-			//free_entry(entry);
+			if (entry)
+			{
+				char *str = entry_to_str(entry);
+				if (ft_strcmp(str, "exit") == 0)
+					shell->is_active = 0;
+				if (ft_strcmp(str, "pwd") == 0)
+					ft_get_pwd();
+				free(str);
+				ft_lstclear(&entry);
+			}
 			if (shell->is_active)
 				ft_putstr(shell->prefix);
+			else
+				ft_putstr("exit\n");
 		}
 		else
 		{
