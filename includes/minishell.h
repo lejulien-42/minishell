@@ -6,13 +6,13 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/06 04:18:58 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/06 23:10:28 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _MINISHELL_H
 # define _MINISHELL_H
-
+# include <unistd.h>
 /*
 ** structure pour les variables globales du shell
 */
@@ -49,4 +49,10 @@ typedef struct	s_envars
 	void	*next;
 }				t_envars;
 
+
+void			ft_putstr(char *str);
+int				ft_strcmp(const char *s1, const char *s2);
+void			ft_strcpy(char *dest, char *src);
+void			ft_putchar(char c, int fd);
+void			ft_putnbr_fd(int nb, int fd);
 #endif

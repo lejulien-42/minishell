@@ -6,11 +6,11 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/07/05 18:54:51 by lejulien         ###   ########.fr        #
+#    Updated: 2020/07/06 19:24:24 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ./srcs/main.c
+SRCS = ./srcs/main.c ./srcs/utils_0.c
 
 OBJS = ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/06 04:00:21 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/06 23:06:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,88 +14,29 @@
 #include <unistd.h>
 #include "../includes/minishell.h"
 
-void
-	ft_putstr(char *str)
+int
+	ft_strlen(char *str)
 {
-	int i;
+	int i = 0;
 
-	i = 0;
 	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
 		i++;
-	}
-}
-
-int		ft_strcmp(const char *s1, const char *s2)
-{
-	int index;
-
-	index = 0;
-	while (s2[index] && s1[index])
-	{
-		if (s1[index] == s2[index])
-		{
-			index++;
-		}
-		else
-			return ((unsigned char)s1[index] - (unsigned char)s2[index]);
-	}
-	if (s1[index] == '\0' || s2[index] == '\0')
-	{
-		return ((unsigned char)s1[index] - (unsigned char)s2[index]);
-	}
-	return (0);
-}
-
-
-static void	ft_putchar(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void
-	ft_strcpy(char *dest, char *src)
-{
-	int i;
-
-	i = 0;
-	if (!src || !dest)
-		return;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-}
-
-void		ft_putnbr_fd(int nb, int fd)
-{
-	unsigned int dnb;
-
-	if (nb < 0)
-	{
-		ft_putchar('-', fd);
-		dnb = nb * (-1);
-	}
-	else
-		dnb = nb;
-	if (dnb >= 10)
-	{
-		ft_putnbr_fd(dnb / 10, fd);
-		ft_putchar(dnb % 10 + '0', fd);
-	}
-	else
-		ft_putchar(dnb + '0', fd);
+	return (i);
 }
 
 t_shell
 	*init_shell()
 {
 	t_shell	*shell = malloc(sizeof(t_shell));
-	
-	ft_strcpy(shell->prefix, "minishell-1.0$ ");
+
+	char path[60];
+	getcwd(path, 60);
+	char *ptr;
+	ptr = &path[ft_strlen(path) - 1];
+	while (*ptr != '/')
+		ptr++;
+	ptr++;
+	ft_strcpy(shell->prefix, "minishell$ ");
 	shell->is_active = 1;
 
 	return (shell);
