@@ -6,7 +6,11 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/07/10 04:51:27 by lejulien         ###   ########.fr       */
+=======
+/*   Updated: 2020/07/06 23:06:03 by lejulien         ###   ########.fr       */
+>>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,66 +19,34 @@
 #include "../includes/minishell.h"
 #include "../libft/libft.h"
 
-void
-	ft_putstr(char *str)
+int
+	ft_strlen(char *str)
 {
-	int i;
+	int i = 0;
 
-	i = 0;
 	while (str[i] != '\0')
-	{
-		write(1, &str[i], 1);
 		i++;
-	}
-}
-
-static void	ft_putchar(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void
-	ft_strcpy(char *dest, char *src)
-{
-	int i;
-
-	i = 0;
-	if (!src || !dest)
-		return;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-}
-
-void		ft_putnbr_fd(int nb, int fd)
-{
-	unsigned int dnb;
-
-	if (nb < 0)
-	{
-		ft_putchar('-', fd);
-		dnb = nb * (-1);
-	}
-	else
-		dnb = nb;
-	if (dnb >= 10)
-	{
-		ft_putnbr_fd(dnb / 10, fd);
-		ft_putchar(dnb % 10 + '0', fd);
-	}
-	else
-		ft_putchar(dnb + '0', fd);
+	return (i);
 }
 
 t_shell
 	*init_shell()
 {
 	t_shell	*shell = malloc(sizeof(t_shell));
+<<<<<<< HEAD
 	
 	ft_strcpy(shell->prefix, "minichell $ ");
+=======
+
+	char path[60];
+	getcwd(path, 60);
+	char *ptr;
+	ptr = &path[ft_strlen(path) - 1];
+	while (*ptr != '/')
+		ptr++;
+	ptr++;
+	ft_strcpy(shell->prefix, "minishell$ ");
+>>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 	shell->is_active = 1;
 
 	return (shell);
@@ -124,6 +96,7 @@ void	ft_lstclear(t_entry **lst)
 }
 
 char
+<<<<<<< HEAD
 	*lst_to_str(t_entry	*entry)
 {
 	t_entry *ptr;
@@ -148,13 +121,36 @@ char
 	while (entry->next != NULL)
 	{
 		str[i] = entry->c;
+=======
+	*entry_to_str(t_entry *entry)
+{
+	int i;
+	t_entry *ptr;
+
+	ptr = entry;
+	i = 0;
+	while (ptr->next != NULL)
+	{
+>>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 		i++;
+		ptr = ptr->next;
+	}
+	char *str = malloc(i * sizeof(char) + 1);
+	int j = 0;
+	while (j <= i)
+	{
+		str[j] = entry->c;
+		j++;
 		entry = entry->next;
 	}
+<<<<<<< HEAD
 	str[i] = entry->c;
+=======
+	str[j] = '\0';
+>>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 	return (str);
 }
-	
+
 t_entry
 	*add_entry(t_entry *prev_entry, char c)
 {
@@ -175,6 +171,50 @@ t_entry
 	return (prev_entry);
 }
 
+void
+	ft_get_pwd()
+{
+	char str[50];
+	
+	getcwd(str, 50);
+	ft_putstr(str);
+	ft_putstr("\n");
+}
+
+int
+	ft_is_space(char *str)
+{
+	int i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' ||
+		str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	else
+		return (0);
+}
+
+void
+	ft_wrong(char *str)
+{
+	int i = 0;
+	if (!ft_is_space(str))
+	{
+		ft_putstr("minishell: ");
+		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' ||
+			str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
+			i++;
+		while (str[i] != ' ' && str[i] != '\t' && str[i] != '\f' &&
+			str[i] != '\n' && str[i] != '\r' && str[i] != '\v' && str[i] != '\0')
+		{
+			write(1, &str[i], 1);
+			i++;
+		}
+
+		ft_putstr(": command not found\n");
+	}
+}
+
 int
 	main(void)
 {
@@ -189,6 +229,7 @@ int
 		read(0, buffer, 1);
 		if (buffer[0] == '\n')
 		{
+<<<<<<< HEAD
 			if (i > 0)
 			{
 				char *str = lst_to_str(entry);
@@ -208,12 +249,31 @@ int
 					system("sh test.sh");
 					exit(0);
 				}
+=======
+			// free the entry
+			if (entry)
+			{
+				char *str = entry_to_str(entry);
+				if (ft_strcmp(str, "exit") == 0)
+					shell->is_active = 0;
+				else if (ft_strcmp(str, "pwd") == 0)
+					ft_get_pwd();
+				else if (ft_strcmp(str, "leaks") == 0)
+					system("leaks minishell");
+				else
+					ft_wrong(str);
+>>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 				free(str);
 				ft_lstclear(&entry);
 			}
 			if (shell->is_active)
 				ft_putstr(shell->prefix);
+<<<<<<< HEAD
 			i = 0;
+=======
+			else
+				ft_putstr("exit\n");
+>>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 		}
 		else
 		{
