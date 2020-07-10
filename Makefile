@@ -6,7 +6,7 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/07/05 18:54:51 by lejulien         ###   ########.fr        #
+#    Updated: 2020/07/10 04:52:09 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,17 @@ FLAGS = -Wall -Wextra -Werror
 NAME = minishell
 
 $(NAME): $(OBJS)
+	@$(MAKE) -C ./libft
 	@gcc $(FLAGS) -o $(NAME) $(OBJS)
 
 clean:
+	@$(MAKE) -C ./libft/. clean
 	@rm -f $(OBJS)
 
 fclean: clean
+	@$(MAKE) -C ./libft/. clean
 	@rm -f $(NAME)
+	@rm -f libft/libft.a
 
 re: fclean all
 
