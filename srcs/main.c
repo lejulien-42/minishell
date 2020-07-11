@@ -6,11 +6,8 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/07/10 04:51:27 by lejulien         ###   ########.fr       */
-=======
+/*   Updated: 2020/07/11 21:38:06 by lejulien         ###   ########.fr       */
 /*   Updated: 2020/07/06 23:06:03 by lejulien         ###   ########.fr       */
->>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +16,12 @@
 #include "../includes/minishell.h"
 #include "../libft/libft.h"
 
-int
-	ft_strlen(char *str)
-{
-	int i = 0;
-
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
 t_shell
 	*init_shell()
 {
 	t_shell	*shell = malloc(sizeof(t_shell));
-<<<<<<< HEAD
 	
 	ft_strcpy(shell->prefix, "minichell $ ");
-=======
 
 	char path[60];
 	getcwd(path, 60);
@@ -46,7 +31,6 @@ t_shell
 		ptr++;
 	ptr++;
 	ft_strcpy(shell->prefix, "minishell$ ");
->>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 	shell->is_active = 1;
 
 	return (shell);
@@ -96,11 +80,9 @@ void	ft_lstclear(t_entry **lst)
 }
 
 char
-<<<<<<< HEAD
 	*lst_to_str(t_entry	*entry)
 {
 	t_entry *ptr;
-	char *str;
 	int i;
 
 	i = 0;
@@ -113,7 +95,7 @@ char
 		i++;
 		ptr = ptr->next;
 	}
-	str = malloc(i + sizeof(char) + 1);
+	char *str = malloc(i + sizeof(char) + 1);
 	i = 0;
 	while (entry->c == '\v' || entry->c == '\r' || entry->c == '\n' ||
 			entry->c == '\t' || entry->c == '\f' || entry->c == ' ')
@@ -121,33 +103,11 @@ char
 	while (entry->next != NULL)
 	{
 		str[i] = entry->c;
-=======
-	*entry_to_str(t_entry *entry)
-{
-	int i;
-	t_entry *ptr;
-
-	ptr = entry;
-	i = 0;
-	while (ptr->next != NULL)
-	{
->>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
 		i++;
-		ptr = ptr->next;
-	}
-	char *str = malloc(i * sizeof(char) + 1);
-	int j = 0;
-	while (j <= i)
-	{
-		str[j] = entry->c;
-		j++;
 		entry = entry->next;
 	}
-<<<<<<< HEAD
 	str[i] = entry->c;
-=======
-	str[j] = '\0';
->>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
+	str[i + 1] = '\0';
 	return (str);
 }
 
@@ -229,51 +189,18 @@ int
 		read(0, buffer, 1);
 		if (buffer[0] == '\n')
 		{
-<<<<<<< HEAD
 			if (i > 0)
 			{
 				char *str = lst_to_str(entry);
 				if (check_first_arg(str, "exit"))
 					shell->is_active = 0;
-				if (check_first_arg(str, "pwd"))
-				{
-					char pwd[50];
-					getcwd(pwd, 50);
-					ft_putstr(pwd);
-					ft_putstr("\n");
-				}
-				if (check_first_arg(str, "leaks"))
-					system("leaks minishell");
-				if (check_first_arg(str, "recomp"))
-				{
-					system("sh test.sh");
-					exit(0);
-				}
-=======
-			// free the entry
-			if (entry)
-			{
-				char *str = entry_to_str(entry);
-				if (ft_strcmp(str, "exit") == 0)
-					shell->is_active = 0;
-				else if (ft_strcmp(str, "pwd") == 0)
-					ft_get_pwd();
-				else if (ft_strcmp(str, "leaks") == 0)
-					system("leaks minishell");
-				else
-					ft_wrong(str);
->>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
-				free(str);
 				ft_lstclear(&entry);
 			}
 			if (shell->is_active)
 				ft_putstr(shell->prefix);
-<<<<<<< HEAD
-			i = 0;
-=======
 			else
 				ft_putstr("exit\n");
->>>>>>> e0e92544ea25f4909e5d5d23f8eabdd05b43a61b
+			i = 0;
 		}
 		else
 		{

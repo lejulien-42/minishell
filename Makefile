@@ -6,11 +6,11 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/07/10 04:52:09 by lejulien         ###   ########.fr        #
+#    Updated: 2020/07/11 21:38:08 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ./srcs/main.c
+SRCS = ./srcs/main.c ./srcs/utils_0.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -23,7 +23,7 @@ NAME = minishell
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C ./libft
-	@gcc $(FLAGS) -o $(NAME) $(OBJS)
+	@gcc $(FLAGS) -o $(NAME) $(OBJS) ./libft/libft.a
 
 clean:
 	@$(MAKE) -C ./libft/. clean
