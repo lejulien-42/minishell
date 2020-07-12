@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/11 21:38:06 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/12 21:19:45 by lejulien         ###   ########.fr       */
 /*   Updated: 2020/07/06 23:06:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -87,8 +87,8 @@ char
 
 	i = 0;
 	ptr = entry;
-	while (ptr->c == '\v' || ptr->c == '\r' || ptr->c == '\n' ||
-			ptr->c == '\t' || ptr->c == '\f' || ptr->c == ' ')
+	while ((ptr->c == '\v' || ptr->c == '\r' || ptr->c == '\n' ||
+			ptr->c == '\t' || ptr->c == '\f' || ptr->c == ' ') && ptr->next != NULL)
 		ptr = ptr->next;
 	while (ptr->next != NULL)
 	{
@@ -97,8 +97,8 @@ char
 	}
 	char *str = malloc(i + sizeof(char) + 1);
 	i = 0;
-	while (entry->c == '\v' || entry->c == '\r' || entry->c == '\n' ||
-			entry->c == '\t' || entry->c == '\f' || entry->c == ' ')
+	while ((entry->c == '\v' || entry->c == '\r' || entry->c == '\n' ||
+			entry->c == '\t' || entry->c == '\f' || entry->c == ' ') && entry->next != NULL)
 		entry = entry->next;
 	while (entry->next != NULL)
 	{
@@ -176,6 +176,30 @@ void
 }
 
 int
+	ft_full_space(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] == '\f' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == ' ')
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	return (0);
+}
+
+void
+	get_pwd(void)
+{
+	char str[60];
+
+	getcwd(str, 60);
+	ft_putstr(str);
+	ft_putstr("\n");
+}
+
+int
 	main(void)
 {
 	char buffer[2];
@@ -192,8 +216,22 @@ int
 			if (i > 0)
 			{
 				char *str = lst_to_str(entry);
-				if (check_first_arg(str, "exit"))
-					shell->is_active = 0;
+				if (!ft_full_space(str))
+				{
+					if (check_first_arg(str, "exit"))
+						shell->is_active = 0;
+					else if (check_first_arg(str, "leaks"))
+						system("leaks minishell");
+					else if (check_first_arg(str, "pwd"))
+						get_pwd();
+					else
+					{
+						ft_putstr("minishell: command not found: ");
+						ft_putstr(str);
+						ft_putstr("\n");
+					}
+				}
+				free(str);
 				ft_lstclear(&entry);
 			}
 			if (shell->is_active)
