@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 19:20:01 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/06 23:09:33 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/12 21:54:56 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void
 	}
 }
 
-int		ft_strcmp(const char *s1, const char *s2)
+int
+	ft_strcmp(const char *s1, const char *s2)
 {
 	int index;
 
@@ -46,7 +47,8 @@ int		ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-void	ft_putchar(char c, int fd)
+void
+	ft_putchar(char c, int fd)
 {
 	write(fd, &c, 1);
 }
@@ -58,7 +60,7 @@ void
 
 	i = 0;
 	if (!src || !dest)
-		return;
+		return ;
 	while (src[i] != '\0')
 	{
 		dest[i] = src[i];
@@ -67,7 +69,8 @@ void
 	dest[i] = '\0';
 }
 
-void		ft_putnbr_fd(int nb, int fd)
+void
+	ft_putnbr_fd(int nb, int fd)
 {
 	unsigned int dnb;
 

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/06 23:10:28 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/12 22:19:00 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,7 @@ int				ft_strcmp(const char *s1, const char *s2);
 void			ft_strcpy(char *dest, char *src);
 void			ft_putchar(char c, int fd);
 void			ft_putnbr_fd(int nb, int fd);
+void			get_pwd(void);
+int				ft_is_space(char *str);
+void			ft_wrong(char *str);
 #endif

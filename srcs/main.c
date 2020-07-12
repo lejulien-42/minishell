@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/12 21:21:01 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/12 22:18:35 by lejulien         ###   ########.fr       */
 /*   Updated: 2020/07/06 23:06:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -131,74 +131,6 @@ t_entry
 	return (prev_entry);
 }
 
-void
-	ft_get_pwd()
-{
-	char str[50];
-	
-	getcwd(str, 50);
-	ft_putstr(str);
-	ft_putstr("\n");
-}
-
-int
-	ft_is_space(char *str)
-{
-	int i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' ||
-		str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
-		i++;
-	if (str[i] == '\0')
-		return (1);
-	else
-		return (0);
-}
-
-void
-	ft_wrong(char *str)
-{
-	int i = 0;
-	if (!ft_is_space(str))
-	{
-		ft_putstr("minishell: ");
-		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' ||
-			str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
-			i++;
-		while (str[i] != ' ' && str[i] != '\t' && str[i] != '\f' &&
-			str[i] != '\n' && str[i] != '\r' && str[i] != '\v' && str[i] != '\0')
-		{
-			write(1, &str[i], 1);
-			i++;
-		}
-
-		ft_putstr(": command not found\n");
-	}
-}
-
-int
-	ft_full_space(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] == '\f' || str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
-			|| str[i] == '\v' || str[i] == ' ')
-		i++;
-	if (str[i] == '\0')
-		return (1);
-	return (0);
-}
-
-void
-	get_pwd(void)
-{
-	char str[60];
-
-	getcwd(str, 60);
-	ft_putstr(str);
-	ft_putstr("\n");
-}
-
 int
 	main(void)
 {
@@ -216,7 +148,7 @@ int
 			if (i > 0)
 			{
 				char *str = lst_to_str(entry);
-				if (!ft_full_space(str))
+				if (!ft_is_space(str))
 				{
 					if (check_first_arg(str, "exit"))
 						shell->is_active = 0;
@@ -225,11 +157,7 @@ int
 					else if (check_first_arg(str, "pwd"))
 						get_pwd();
 					else
-					{
-						ft_putstr("minishell: command not found: ");
-						ft_putstr(str);
-						ft_putstr("\n");
-					}
+						ft_wrong(str);
 				}
 				free(str);
 				ft_lstclear(&entry);
