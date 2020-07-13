@@ -6,13 +6,14 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/12 22:19:00 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/13 16:21:28 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _MINISHELL_H
 # define _MINISHELL_H
 # include <unistd.h>
+# include <stdlib.h>
 /*
 ** structure pour les variables globales du shell
 */
@@ -58,4 +59,6 @@ void			ft_putnbr_fd(int nb, int fd);
 void			get_pwd(void);
 int				ft_is_space(char *str);
 void			ft_wrong(char *str);
+t_entry			*lst_skip_white_space(t_entry *entry);
+char			*lst_to_str(t_entry *entry);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/12 22:18:35 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/13 16:18:41 by lejulien         ###   ########.fr       */
 /*   Updated: 2020/07/06 23:06:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -58,6 +58,8 @@ int check_first_arg(char *entry, char *presumed_entry)
 			return (0);
 		i++;
 	}
+	if (entry[i] != presumed_entry[i])
+		return (0);
 	return (1);
 }
 
@@ -77,38 +79,6 @@ void	ft_lstclear(t_entry **lst)
 		tmp = nxt;
 	}
 	*lst = NULL;
-}
-
-char
-	*lst_to_str(t_entry	*entry)
-{
-	t_entry *ptr;
-	int i;
-
-	i = 0;
-	ptr = entry;
-	while ((ptr->c == '\v' || ptr->c == '\r' || ptr->c == '\n' ||
-			ptr->c == '\t' || ptr->c == '\f' || ptr->c == ' ') && ptr->next != NULL)
-		ptr = ptr->next;
-	while (ptr->next != NULL)
-	{
-		i++;
-		ptr = ptr->next;
-	}
-	char *str = malloc(i + sizeof(char) + 1);
-	i = 0;
-	while ((entry->c == '\v' || entry->c == '\r' || entry->c == '\n' ||
-			entry->c == '\t' || entry->c == '\f' || entry->c == ' ') && entry->next != NULL)
-		entry = entry->next;
-	while (entry->next != NULL)
-	{
-		str[i] = entry->c;
-		i++;
-		entry = entry->next;
-	}
-	str[i] = entry->c;
-	str[i + 1] = '\0';
-	return (str);
 }
 
 t_entry
@@ -156,6 +126,8 @@ int
 						system("leaks minishell");
 					else if (check_first_arg(str, "pwd"))
 						get_pwd();
+					else if (check_first_arg(str, "make coffee"))
+						ft_putstr("☕️\n");
 					else
 						ft_wrong(str);
 				}
