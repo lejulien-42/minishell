@@ -6,12 +6,12 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/07/13 17:35:41 by lejulien         ###   ########.fr        #
+#    Updated: 2020/07/13 18:44:25 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = ./srcs/main.c ./srcs/utils_0.c ./srcs/utils_1.c ./srcs/lst_to_str.c     \
-	   ./srcs/utils_2.c
+	   ./srcs/utils_2.c ./srcs/shell_setup.c ./srcs/parse_helper.c
 
 OBJS = ${SRCS:.c=.o}
 
