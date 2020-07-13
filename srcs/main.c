@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 18:50:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/13 16:18:41 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:37:59 by lejulien         ###   ########.fr       */
 /*   Updated: 2020/07/06 23:06:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -32,22 +32,11 @@ t_shell
 	ptr++;
 	ft_strcpy(shell->prefix, "minishell$ ");
 	shell->is_active = 1;
-
 	return (shell);
 }
 
-void
-	ft_printf_entry(t_entry *entry)
-{
-	while (entry->next != NULL)
-	{
-		write(1, &entry->c, 1);
-		entry = entry->next;
-	}
-	write(1, &entry->c, 1);
-}
-
-int check_first_arg(char *entry, char *presumed_entry)
+int
+	check_first_arg(char *entry, char *presumed_entry)
 {
 	int i;
    
@@ -61,44 +50,6 @@ int check_first_arg(char *entry, char *presumed_entry)
 	if (entry[i] != presumed_entry[i])
 		return (0);
 	return (1);
-}
-
-void	ft_lstclear(t_entry **lst)
-{
-	t_entry	*tmp;
-	t_entry	*nxt;
-
-	if (!*lst)
-		return ;
-	tmp = *lst;
-	while (tmp != NULL)
-	{
-		nxt = tmp->next;
-		tmp->c = 0;
-		free(tmp);
-		tmp = nxt;
-	}
-	*lst = NULL;
-}
-
-t_entry
-	*add_entry(t_entry *prev_entry, char c)
-{
-	t_entry *new_entry = malloc(sizeof(t_entry));
-	t_entry	*ptr;
-
-	new_entry->c = c;
-	new_entry->next = NULL;
-	if (!prev_entry)
-		return (new_entry);
-	else
-	{
-		ptr = prev_entry;
-		while (ptr->next != NULL)
-			ptr = ptr->next;
-		ptr->next = new_entry;
-	}
-	return (prev_entry);
 }
 
 int

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/13 16:21:28 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:35:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ int				ft_is_space(char *str);
 void			ft_wrong(char *str);
 t_entry			*lst_skip_white_space(t_entry *entry);
 char			*lst_to_str(t_entry *entry);
+void			ft_lstclear(t_entry **lst);
+t_entry			*add_entry(t_entry *prev_entry, char c);
 #endif
