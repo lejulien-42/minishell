@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:23:11 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/13 20:31:03 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/14 20:48:42 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 void
 	ft_lstclear(t_entry **lst)
 {
-	t_entry *tmp;
-	t_entry *nxt;
+	t_entry	*tmp;
+	t_entry	*nxt;
 
 	if (!*lst)
 		return ;
@@ -29,24 +29,26 @@ void
 	{
 		nxt = tmp->next;
 		tmp->c = 0;
+		free(tmp);
 		tmp = nxt;
 	}
 	*lst = NULL;
 }
 
 t_entry
-	add_entry(t_entry *prev_entry, char c)
+	*add_entry(t_entry *prev_entry, char c)
 {
-	t_entry new_entry;
-	t_entry *ptr;
+	t_entry	*new_entry;
+	t_entry	*ptr;
 
-	new_entry.c = c;
-	new_entry.next = NULL;
+	new_entry = malloc(sizeof(t_entry));
+	new_entry->c = c;
+	new_entry->next = NULL;
 	if (!prev_entry)
 		return (new_entry);
 	ptr = prev_entry;
 	while (ptr->next != NULL)
 		ptr = ptr->next;
-	ptr->next = &new_entry;
-	return (*prev_entry);
+	ptr->next = new_entry;
+	return (prev_entry);
 }

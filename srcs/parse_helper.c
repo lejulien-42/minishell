@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/14 18:39:53 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/14 20:45:44 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,4 @@ void
 		ft_putstr("Here is your coffee : ☕️\n");
 	else
 		ft_wrong(str);
-}
-
-void
-	parse_entry(t_entry *entry, t_shell *shell)
-{
-	char	*str;
-
-	str = lst_to_str(entry);
-	if (!ft_is_space(str))
-		entry_checker(str, shell);
-	free(str);
-	ft_lstclear(&entry);
 }
