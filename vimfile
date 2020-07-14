@@ -1,0 +1,11 @@
+set rnu
+set nu
+syn on
+set mouse=a
+set tabstop=4
+set showmatch
+set list
+set listchars=eol:¬,tab:>-,trail:~,extends:>,precedes:<
+set colorcolumn=80
+
+plus colorsheme clovis iterm2
