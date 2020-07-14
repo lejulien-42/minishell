@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/13 20:23:28 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/14 18:39:40 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define _MINISHELL_H
 # include <unistd.h>
 # include <stdlib.h>
+
 /*
 ** structure pour les variables globales du shell
 */
@@ -65,6 +66,6 @@ void			ft_lstclear(t_entry **lst);
 t_entry			add_entry(t_entry *prev_entry, char c);
 t_shell			init_shell(void);
 int				check_first_arg(char *entry, char *presumed_entry);
-void			parse_entry(int *i, t_entry *entry, t_shell *shell);
+void			parse_entry(t_entry *entry, t_shell *shell);
 void			entry_checker(char *str, t_shell *shell);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/13 20:19:28 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/14 18:39:53 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,13 @@ void
 }
 
 void
-	parse_entry(int *i, t_entry *entry, t_shell *shell)
+	parse_entry(t_entry *entry, t_shell *shell)
 {
 	char	*str;
-	
-	if (*i > 0)
-	{
-		str = lst_to_str(entry);
-		if (!ft_is_space(str))
-			entry_checker(str, shell);
-		free(str);
-		ft_lstclear(&entry);
-	}
+
+	str = lst_to_str(entry);
+	if (!ft_is_space(str))
+		entry_checker(str, shell);
+	free(str);
+	ft_lstclear(&entry);
 }
