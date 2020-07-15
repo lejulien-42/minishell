@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 17:23:11 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/14 20:48:42 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/14 21:50:35 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_entry
 	t_entry	*new_entry;
 	t_entry	*ptr;
 
-	new_entry = malloc(sizeof(t_entry));
+	if (!(new_entry = malloc(sizeof(t_entry))))
+		return (NULL);
 	new_entry->c = c;
 	new_entry->next = NULL;
 	if (!prev_entry)

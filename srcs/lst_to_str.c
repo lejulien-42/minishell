@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 16:09:30 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/13 19:59:24 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/14 21:52:04 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char
 		i++;
 		ptr = ptr->next;
 	}
-	str = malloc(i * sizeof(char) + 1);
+	if (!(str = malloc(i * sizeof(char) + 1)))
+		return (NULL);
 	i = 0;
 	entry = lst_skip_white_space(entry);
 	while (entry->next != NULL)

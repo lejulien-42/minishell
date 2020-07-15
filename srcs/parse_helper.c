@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/14 20:45:44 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/14 21:55:14 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int
 
 /*
 **	The function bellow handle the parsing
+**	It has the entry in a string and shell structure
 */
 
 void
@@ -48,6 +49,8 @@ void
 		get_pwd();
 	else if (check_first_arg(str, "make coffee"))
 		ft_putstr("Here is your coffee : ☕️\n");
+	else if (check_first_arg(str, "lambda"))
+		ft_strcpy(shell->prefix, "λ ");
 	else
 		ft_wrong(str);
 }
