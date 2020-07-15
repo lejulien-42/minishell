@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/14 21:55:14 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/15 05:53:18 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void
 	else if (check_first_arg(str, "make coffee"))
 		ft_putstr("Here is your coffee : ☕️\n");
 	else if (check_first_arg(str, "lambda"))
-		ft_strcpy(shell->prefix, "λ ");
+		ft_strcpy(shell->prefix, "\e[91mHalf-Life λ ");
 	else
 		ft_wrong(str);
 }
