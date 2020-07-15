@@ -50,7 +50,7 @@ void
 	else if (check_first_arg(str, "make coffee"))
 		ft_putstr("Here is your coffee : ☕️\n");
 	else if (check_first_arg(str, "lambda"))
-		ft_strcpy(shell->prefix, "\e[91mHalf-Life λ ");
+		ft_strcpy(shell->prefix, "\e[91mHalf-Life λ \e[39m");
 	else
 		ft_wrong(str);
 }
