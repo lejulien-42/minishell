@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/14 20:50:37 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:36:22 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define _MINISHELL_H
 # include <unistd.h>
 # include <stdlib.h>
+# include "../libft/libft.h"
 
 /*
 ** structure pour les variables globales du shell
@@ -21,8 +22,8 @@
 
 typedef struct	s_shell
 {
-	char	prefix[64];
-	int		is_active;
+	char		prefix[64];
+	int			is_active;
 }				t_shell;
 
 /*
@@ -31,9 +32,32 @@ typedef struct	s_shell
 
 typedef struct	s_entry
 {
-	char	c;
-	void	*next;
+	char		c;
+	void		*next;
 }				t_entry;
+
+/*
+** Liste chainee pour les arguments
+*/
+
+typedef struct	s_arg
+{
+	char		*argu;
+	void		*next;
+}				t_arg;
+
+/*
+** Liste chainee pour le parsing des entrees
+*/
+
+typedef struct	s_parse
+{
+	char	*cmd;
+	char	*flag;
+	t_arg	*arg;
+	char	*sep;
+	void	*next;
+}				t_parse;
 
 /*
 ** Liste des variables d'environement
@@ -45,10 +69,10 @@ typedef struct	s_entry
 
 typedef struct	s_envars
 {
-	char	*var_name;
-	char	*var_value;
-	int		visibility;
-	void	*next;
+	char		*var_name;
+	char		*var_value;
+	int			visibility;
+	void		*next;
 }				t_envars;
 
 void			ft_putstr(char *str);
@@ -67,4 +91,15 @@ t_shell			init_shell(void);
 int				check_first_arg(char *entry, char *presumed_entry);
 void			parse_entry(t_entry *entry, t_shell *shell);
 void			entry_checker(char *str, t_shell *shell);
+int				cp_until_space(char *str, char **st);
+int				is_sep(char *str);
+int				cp_sep(char *str, char **to_fill);
+int				cp_until_cote(char *str, char **to_fill);
+t_parse			*init_struct_parse(void);
+t_parse			*parser(char *str);
+t_arg			*init_arg(void);
+t_parse			*init_struct_parse(void);
+int				add_arg(t_parse *res, char *str);
+void			ft_free_parse(t_parse *res);
+void			ft_free_arg(t_arg *arg);
 #endif

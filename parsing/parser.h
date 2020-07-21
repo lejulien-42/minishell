@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 11:35:19 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/07/19 11:35:20 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/07/21 12:25:57 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,8 @@ int				cp_sep(char *str, char **to_fill);
 int				cp_until_cote(char *str, char **to_fill);
 t_parse			*init_struct_parse(void);
 t_parse			*parser(char *str);
+t_arg			*init_arg(void);
+t_parse			*init_struct_parse(void);
+int				add_arg(t_parse *res, char *str);
+
 #endif

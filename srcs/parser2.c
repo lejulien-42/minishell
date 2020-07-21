@@ -6,14 +6,29 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:46:26 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/07/21 12:45:36 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:42:00 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "stdio.h"
-#include "GNL/get_next_line.h"
 
+void	ft_free_parse(t_parse *res)
+{
+	t_parse *node;
+
+	node = res;
+	while(node != NULL)
+	{
+		free(res->cmd);
+		free(res->flag);
+		free(res->sep);
+		ft_free_arg(res->arg);
+		node = res->next;
+		free(res);
+		res = node;
+	}
+}
 int	is_sep(char *str)
 {
 	if (str[0] != '<' && str[0] != '>' && str[0] != '|' && str[0] != ';')

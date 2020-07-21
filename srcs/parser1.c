@@ -6,13 +6,26 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:45:48 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/07/21 12:45:05 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:36:20 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "stdio.h"
-#include "GNL/get_next_line.h"
+
+void	ft_free_arg(t_arg *arg)
+{
+	t_arg *node;
+	
+	node = arg;
+	while (arg != NULL)
+	{
+		free(arg->argu);
+		arg = arg->next;
+		free(node);
+		node = arg;
+	}
+}
 
 t_arg	*init_arg(void)
 {
