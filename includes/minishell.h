@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/21 17:06:12 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/22 11:30:19 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,6 @@ int				add_arg(t_parse *res, char *str);
 void			ft_free_parse(t_parse *res);
 void			ft_free_arg(t_arg *arg);
 void			get_env(char ***envp);
+int				check_env(char *str, char ***envp);
+void			ft_echo(t_shell *shell, t_parse *node);
 #endif
