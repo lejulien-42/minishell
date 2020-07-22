@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/21 17:06:12 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/22 18:14:19 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define _MINISHELL_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <signal.h>
 # include "../libft/libft.h"
 
 /*

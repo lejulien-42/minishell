@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/21 17:12:33 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/22 18:31:12 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,23 @@ static void
 	}
 }
 
+/*
+**	This function stop the execution of a ctrl-c
+*/
+
+static void
+	intHandler(int process)
+{
+	(void)process;
+}
+
 int
 	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
 	int		i;
 
+	signal(SIGINT, intHandler);
 	(void)ac;
 	(void)av;
 	i = 0;
