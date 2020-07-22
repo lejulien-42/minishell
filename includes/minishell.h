@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/21 15:36:22 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/07/21 17:06:12 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_shell
 {
 	char		prefix[64];
 	int			is_active;
+	char		***envp;
 }				t_shell;
 
 /*
@@ -102,4 +103,5 @@ t_parse			*init_struct_parse(void);
 int				add_arg(t_parse *res, char *str);
 void			ft_free_parse(t_parse *res);
 void			ft_free_arg(t_arg *arg);
+void			get_env(char ***envp);
 #endif

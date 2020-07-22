@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/14 22:30:08 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/21 17:12:33 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,16 @@ static void
 }
 
 int
-	main(void)
+	main(int ac, char **av, char **envp)
 {
 	t_shell	shell;
 	int		i;
 
+	(void)ac;
+	(void)av;
 	i = 0;
 	shell = init_shell();
+	shell.envp = &envp;
 	ft_putstr(shell.prefix);
 	while (shell.is_active)
 		get_inputs(&shell, &i);

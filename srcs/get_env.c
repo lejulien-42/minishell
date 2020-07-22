@@ -6,8 +6,22 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:58:25 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/21 16:59:39 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/21 17:21:45 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void
+	get_env(char ***envp)
+{
+	int i;
+
+	i = 0;
+	while (envp[0][i])
+	{
+		ft_putstr(envp[0][i]);
+		ft_putstr("\n");
+		i++;
+	}
+}

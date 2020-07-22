@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/21 16:32:52 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/07/21 17:23:11 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void
 			ft_putstr("Here is your coffee : ☕️\n");
 		else if (ft_strncmp(node->cmd, "lambda", ft_strlen(node->cmd)) == 0)
 			ft_strcpy(shell->prefix, "\e[91mHalf-Life λ \e[39m");
+		else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
+			get_env(shell->envp);
 		else
-			ft_wrong(str);
+			ft_wrong(node->cmd);
 		node = node->next;
 	}
 	ft_free_parse(res);
