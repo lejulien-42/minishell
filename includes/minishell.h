@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/22 11:30:19 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/24 16:26:29 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,22 @@
 # include "../libft/libft.h"
 
 /*
+** Liste des variables d'environement
+**
+** contient le nom et la valeur d'une variable
+** et l'adresse de la suivante
+** visibility = 1 si var exported
+*/
+
+typedef struct	s_envars
+{
+	char		*name;
+	char		*value;
+	int			visibility;
+	void		*next;
+}				t_envars;
+
+/*
 ** structure pour les variables globales du shell
 */
 
@@ -24,7 +40,7 @@ typedef struct	s_shell
 {
 	char		prefix[64];
 	int			is_active;
-	char		***envp;
+	t_envars	*envp;
 }				t_shell;
 
 /*
@@ -60,22 +76,6 @@ typedef struct	s_parse
 	void	*next;
 }				t_parse;
 
-/*
-** Liste des variables d'environement
-**
-** contient le nom et la valeur d'une variable
-** et l'adresse de la suivante
-** visibility = 1 si var exported
-*/
-
-typedef struct	s_envars
-{
-	char		*var_name;
-	char		*var_value;
-	int			visibility;
-	void		*next;
-}				t_envars;
-
 void			ft_putstr(char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 void			ft_strcpy(char *dest, char *src);
@@ -103,7 +103,6 @@ t_parse			*init_struct_parse(void);
 int				add_arg(t_parse *res, char *str);
 void			ft_free_parse(t_parse *res);
 void			ft_free_arg(t_arg *arg);
-void			get_env(char ***envp);
-int				check_env(char *str, char ***envp);
-void			ft_echo(t_shell *shell, t_parse *node);
+t_envars		*ft_get_envp(char ***envp, t_envars *env);
+void			ft_print_env(t_envars *env);
 #endif
