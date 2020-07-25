@@ -1,173 +1,70 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/19 11:34:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/07/19 11:34:46 by frtalleu         ###   ########.fr       */
+/*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
+/*   Updated: 2020/07/25 16:07:20 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minishell.h"
 
-
-#include "./parser.h"
-#include "stdio.h"
-#include "GNL/get_next_line.h"
-
-/*int	is_sep(char *str)
-  {
-  if (str[0] != '<' && str[0] != '>' && str[0] != '|' && str[0] != ';')
-  return (1);
-  return (0);
-  }
-
-  int	cp_until_space(char *str, char **to_fill)
-  {
-  int		i;
-  char	*st;
-
-  i = 0;
-  while (str[i] != ' ' && str[i] != '\0' && is_sep(&str[i]) == 1)
-  i++;
-  if (!(st = malloc(sizeof(char) * (i + 1))))
-  return (0);
-  i = 0;
-  while (str[i] != ' ' && str[i] != '\0' && is_sep(&str[i]) == 1)
-  {
-  st[i] = str[i];
-  i++;
-  }
-  st[i] = '\0';
- *to_fill = st;
- return (i);
- }
-
- int	cp_sep(char *str, char **to_fill)
- {
- int		i;
- char	*st;
-
- i = 0;
- while (is_sep(&str[i]) == 0)
- i++;
- if (!(st = malloc(sizeof(char) * (i + 1))))
- return (0);
- i = 0;
- while (is_sep(&str[i]) == 0)
- {
- st[i] = str[i];
- i++;
- }
- st[i] = '\0';
- *to_fill = st;
- return (i);
- }
-
- int	cp_until_cote(char *str, char **to_fill)
- {
- int		i;
- char	*st;
-
- i = 1;
- while (str[i] != str[0] && str[i] != '\0')
- i++;
- if (str[i] != str[0])
- return (-1);
- if (!(st = malloc(sizeof(char) * i)))
- return (0);
- i = 1;
- while (str[i] != str[0])
- {
- st[i - 1] = str[i];
- i++;
- }
- st[i - 1] = '\0';
- *to_fill = st;
- return (i);
- }
-
-t_parse	*init_struct_parse(void)
+static void
+	parse_and_clear(t_entry **entry, t_shell *shell)
 {
-	t_parse *res;
+	char	*str;
 
-	if (!(res = malloc(sizeof(*res))))
-		return (NULL);
-	res->cmd = NULL;
-	res->flag = NULL;
-	res->arg = NULL;
-	res->sep = NULL;
-	res->next = NULL;
-	return (res);
+	str = lst_to_str(*entry);
+	if (!ft_is_space(str))
+		entry_checker(str, shell);
+	free(str);
+	ft_lstclear(entry);
 }
 
-t_parse	*parser(char *str)
+static void
+	get_inputs(t_shell *shell, int *i)
 {
-	t_parse	*res;
-	int		i;
+	static t_entry	*entry = NULL;
+	char			buffer[2];
 
-	i = 0;
-	res = init_struct_parse();
-	while (str[i] == ' ')
-		i++;
-	i = i + cp_until_space(&str[i], &res->cmd);
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '-')
-		i = i + 1 + cp_until_space(&str[i + 1], &res->flag);
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '"' || str[i] == '\'')
-		i = i + cp_until_cote(&str[i], &res->arg);
-	else if (is_sep(&str[i]) == 1)
-		i = i + cp_until_space(&str[i], &res->arg);
-	while (str[i] == ' ')
-		i++;
-	if (is_sep(&str[i]) == 0)
-		res->next = parser(&str[i + cp_sep(&str[i], &res->sep)]);
-	return (res);
-}
-*/
-
-int main(void)
-{
-	char *line;
-	t_parse *res;
-	t_arg *argus;
-	write(1, "zsh$>", 5);
-	while ((get_next_line(0, &line)) == 1)
+	read(0, buffer, 1);
+	buffer[1] = '\0';
+	if (buffer[0] == '\n')
 	{
-		printf("line = |%s|\n", line);
-		res = parser(line);
-		printf("cmd = |%s|\n", res->cmd);
-		printf("flag = |%s|\n", res->flag);
-		if (res->arg != NULL)
-		{
-			argus = res->arg;
-			printf("arg = |%s|\n", argus->argu);
-			while (argus->next != NULL && (argus = argus->next))
-			{
-				printf("arg = |%s|\n", argus->argu);
-			}
-		}
-		printf("sep = |%s|\n", res->sep);
-		while (res->next != NULL)
-		{
-			res = res->next;
-			printf("cmd = |%s|\n", res->cmd);
-			printf("flag = |%s|\n", res->flag);
-			if (res->arg != NULL)
-			{
-				argus = res->arg;
-				printf("arg = |%s|\n", argus->argu);
-				while (argus->next != NULL && (argus = argus->next))
-				{
-					printf("arg = |%s|\n", argus->argu);
-				}
-			}
-			printf("sep = |%s|\n", res->sep);
-		}
-		write(1, "zsh$>", 5);
+		if (*i > 0)
+			parse_and_clear(&entry, shell);
+		if (shell->is_active)
+			ft_putstr(shell->prefix);
+		else
+			ft_putstr("exit\n");
+		*i = 0;
+	}
+	else
+	{
+		entry = add_entry(entry, buffer[0]);
+		*i = *i + 1;
 	}
 }
+
+int
+	main(int ac, char **av, char **envp)
+{
+	t_shell		shell;
+	int			i;
+	t_envars	envars;
+
+	(void)ac;
+	(void)av;
+	i = 0;
+	ft_get_envp(&envp, &envars);
+	shell = init_shell();
+	shell.envp = &envars;
+	ft_putstr(shell.prefix);
+	while (shell.is_active)
+		get_inputs(&shell, &i);
+	return (0);
+}
+

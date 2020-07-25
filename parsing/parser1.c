@@ -49,7 +49,7 @@ int		add_arg(t_parse *res, char *str)
 	argu = res->arg;
 	argument = init_arg();
 	if (str[i] == '"' || str[i] == '\'')
-		i = i + cp_until_cote(&str[i], &argument->argu);
+		i = i + 1 + cp_until_cote(&str[i], &argument->argu);
 	else if (is_sep(&str[i]) == 1)
 		i = i + cp_until_space(&str[i], &argument->argu);
 	if (res->arg == NULL)
