@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/21 17:23:11 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/24 16:26:22 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void
 		else if (ft_strncmp(node->cmd, "lambda", ft_strlen(node->cmd)) == 0)
 			ft_strcpy(shell->prefix, "\e[91mHalf-Life λ \e[39m");
 		else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
-			get_env(shell->envp);
+			ft_print_env(shell->envp);
 		else
 			ft_wrong(node->cmd);
 		node = node->next;

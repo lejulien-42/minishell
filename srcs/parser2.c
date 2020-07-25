@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:46:26 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/07/21 15:42:00 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/07/25 16:09:16 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_free_parse(t_parse *res)
 		res = node;
 	}
 }
+
 int	is_sep(char *str)
 {
 	if (str[0] != '<' && str[0] != '>' && str[0] != '|' && str[0] != ';')
@@ -86,12 +87,10 @@ int	cp_until_cote(char *str, char **to_fill)
 	i = 1;
 	while (str[i] != str[0] && str[i] != '\0')
 		i++;
-	if (str[i] != str[0])
-		return (-1);
 	if (!(st = malloc(sizeof(char) * i)))
 		return (0);
 	i = 1;
-	while (str[i] != str[0])
+	while (str[i] != str[0] && str[i] != '\0')
 	{
 		st[i - 1] = str[i];
 		i++;

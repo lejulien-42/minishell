@@ -71,12 +71,10 @@ int	cp_until_cote(char *str, char **to_fill)
 	i = 1;
 	while (str[i] != str[0] && str[i] != '\0')
 		i++;
-	if (str[i] != str[0])
-		return (-1);
 	if (!(st = malloc(sizeof(char) * i)))
 		return (0);
 	i = 1;
-	while (str[i] != str[0])
+	while (str[i] != str[0] && str[i] != '\0')
 	{
 		st[i - 1] = str[i];
 		i++;
