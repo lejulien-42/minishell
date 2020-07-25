@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/25 16:07:20 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/07/25 17:22:16 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int
 	(void)av;
 	i = 0;
 	ft_get_envp(&envp, &envars);
+	set_env("MAIL", "iwioehf", 0, &envars);
 	shell = init_shell();
 	shell.envp = &envars;
 	ft_putstr(shell.prefix);
