@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/24 16:26:22 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/25 22:28:13 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int
 
 /*
 **	The function bellow handle the parsing
-**	It has the entry in a string and shell structure
+**	It has the entry in a string and shell 
 */
 
 void
@@ -60,7 +60,7 @@ void
 		else if (ft_strncmp(node->cmd, "lambda", ft_strlen(node->cmd)) == 0)
 			ft_strcpy(shell->prefix, "\e[91mHalf-Life λ \e[39m");
 		else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
-			ft_print_env(shell->envp);
+			ft_print_env(*shell->envp);
 		else
 			ft_wrong(node->cmd);
 		node = node->next;

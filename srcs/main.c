@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/25 17:22:16 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/25 20:16:40 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ int
 	t_shell		shell;
 	int			i;
 	t_envars	envars;
+	t_envars	*lsenv;
 
 	(void)ac;
 	(void)av;
 	i = 0;
-	ft_get_envp(&envp, &envars);
-	set_env("MAIL", "iwioehf", 0, &envars);
+	lsenv = ft_get_envp(&envp, &envars);
 	shell = init_shell();
-	shell.envp = &envars;
+	shell.envp = &lsenv;
 	ft_putstr(shell.prefix);
 	while (shell.is_active)
 		get_inputs(&shell, &i);

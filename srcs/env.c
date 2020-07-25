@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 15:19:44 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/24 16:14:34 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/25 21:06:21 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void
 	t_envars	*ptr;
 
 	ptr = env;
-	while(ptr->next != NULL)
+	while(ptr != NULL)
 	{
 		if (ptr->visibility)
 		{
