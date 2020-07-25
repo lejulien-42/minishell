@@ -106,11 +106,7 @@ char		**ft_split(char const *s1, char const c)
 {
 	int		nb;
 	char	**strs;
-	int		count;
-	int		cursor;
 
-	cursor = 0;
-	count = 0;
 	if (s1 == 0)
 		return (0);
 	nb = countstr(s1, c);

@@ -12,11 +12,9 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int		isbeforeend;
 	int		isencounter;
 	char	*tempptr;
 
-	isbeforeend = 0;
 	isencounter = 0;
 	if (c == '\0')
 	{

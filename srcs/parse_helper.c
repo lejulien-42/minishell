@@ -61,6 +61,8 @@ void
 			ft_strcpy(shell->prefix, "\e[91mHalf-Life λ \e[39m");
 		else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
 			ft_print_env(*shell->envp);
+		else if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
+			set_env("PS1", "ok$ ", 1, shell->envp);
 		else
 			ft_wrong(node->cmd);
 		node = node->next;

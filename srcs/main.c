@@ -37,7 +37,7 @@ static void
 		if (*i > 0)
 			parse_and_clear(&entry, shell);
 		if (shell->is_active)
-			ft_putstr(shell->prefix);
+			ft_putstr(get_env_val("PS1", shell->envp));
 		else
 			ft_putstr("exit\n");
 		*i = 0;
@@ -63,7 +63,8 @@ int
 	lsenv = ft_get_envp(&envp, &envars);
 	shell = init_shell();
 	shell.envp = &lsenv;
-	ft_putstr(shell.prefix);
+	set_env("PS1", "\e[95mminichill\e[92m$ \e[39m", 0, &lsenv);
+	ft_putstr(get_env_val("PS1", &lsenv));
 	while (shell.is_active)
 		get_inputs(&shell, &i);
 	return (0);
