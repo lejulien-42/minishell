@@ -54,11 +54,11 @@ void
 			system("leaks minishell");
 		else if (ft_strncmp(node->cmd, "pwd", ft_strlen(node->cmd)) == 0)
 			get_pwd();
-		else if (ft_strncmp(node->cmd, "make coffee",
+		else if (ft_strncmp(node->cmd, "makeCoffee",
 				ft_strlen(node->cmd)) == 0)
 			ft_putstr("Here is your coffee : ☕️\n");
 		else if (ft_strncmp(node->cmd, "lambda", ft_strlen(node->cmd)) == 0)
-			ft_strcpy(shell->prefix, "\e[91mHalf-Life λ \e[39m");
+			set_env("PS1", "\e[91mHalf-Life λ \e[39m", 1, shell->envp);
 		else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
 			ft_print_env(*shell->envp);
 		else if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
