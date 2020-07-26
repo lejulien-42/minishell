@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/25 21:47:24 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/26 03:12:57 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void			ft_print_env(t_envars *env);
 void			set_env(char *name, char *value, int visib, t_envars **envp);
 char			*get_env_val(char *name, t_envars **envp);
 void			unset_env(char *name, t_envars **envp);
+void			unset(t_shell *shell, t_parse *node);
 #endif

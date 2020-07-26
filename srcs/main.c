@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/25 20:16:40 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/26 03:17:01 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ static void
 		if (*i > 0)
 			parse_and_clear(&entry, shell);
 		if (shell->is_active)
-			ft_putstr(get_env_val("PS1", shell->envp));
+		{
+			if (get_env_val("PS1", shell->envp) != NULL)
+				ft_putstr(get_env_val("PS1", shell->envp));
+		}
 		else
 			ft_putstr("exit\n");
 		*i = 0;
@@ -64,7 +67,8 @@ int
 	shell = init_shell();
 	shell.envp = &lsenv;
 	set_env("PS1", "\e[95mminichill\e[92m$ \e[39m", 0, &lsenv);
-	ft_putstr(get_env_val("PS1", &lsenv));
+	if (get_env_val("PS1", &lsenv) != NULL)
+		ft_putstr(get_env_val("PS1", &lsenv));
 	while (shell.is_active)
 		get_inputs(&shell, &i);
 	return (0);

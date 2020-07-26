@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/25 22:28:13 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/26 03:02:09 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void
 			set_env("PS1", "\e[91mHalf-Life λ \e[39m", 1, shell->envp);
 		else if (ft_strncmp(node->cmd, "env", ft_strlen(node->cmd)) == 0)
 			ft_print_env(*shell->envp);
+		else if (ft_strncmp(node->cmd, "unset", ft_strlen(node->cmd)) == 0)
+			unset(shell, node);
 		else if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
 			set_env("PS1", "ok$ ", 1, shell->envp);
 		else
