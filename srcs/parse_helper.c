@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/26 03:39:19 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:27:30 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ void
 			unset(shell, node);
 		else if (ft_strncmp(node->cmd, "export", ft_strlen(node->cmd)) == 0)
 			export_env(shell, node);
+		else if (is_prog(node->cmd, shell, node))
+		{
+		}
 		else
 			ft_wrong(node->cmd);
 		node = node->next;

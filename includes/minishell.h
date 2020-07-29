@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/26 04:35:40 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:31:15 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
+# include <fcntl.h>
 
 /*
 ** Liste des variables d'environement
@@ -110,4 +111,7 @@ char			*get_env_val(char *name, t_envars **envp);
 void			unset_env(char *name, t_envars **envp);
 void			unset(t_shell *shell, t_parse *node);
 void			export_env(t_shell *shell, t_parse *node);
+int				is_prog(char *cmd, t_shell *shell, t_parse *node);
+char			**ft_env_back(t_envars **envp);
+char			**ft_get_av(t_arg *arg);
 #endif
