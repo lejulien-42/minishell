@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/29 18:51:22 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/30 16:15:02 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,18 @@ static int
 	int		status;
 	int		ret;
 
+	int	i = 0;
+	while (av[i])
+	{
+		ft_putstr(av[i]);
+		ft_putstr("\n");
+		i++;
+	}
+
+
 	pid = fork();
 	if (pid == -1)
-		return (-1);
+	{}//	return (-1);
 	else if (pid == 0)
 	{
 		if ((ret = execve(path, av, envp)) < 0)
@@ -34,7 +43,7 @@ static int
 		if (WIFEXITED(status))
 			ret = WIFEXITED(status);
 	}
-	return (ret);
+	return (1);
 }
 
 static int

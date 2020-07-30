@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:59:26 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/29 18:36:23 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/07/30 16:15:48 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char
 
 	i = 0;
 	ptr = *envp;
-	env = malloc(lst_len(*envp) * sizeof(char *));
+	env = malloc((lst_len(*envp) + 1) * sizeof(char *));
 	while (i < lst_len(*envp))
 	{
 		equal = ft_strjoin(ptr->name, "=");
@@ -66,6 +66,7 @@ char
 		i++;
 		ptr = ptr->next;
 	}
+	env[i] = NULL;
 	return (env);
 }
 
@@ -78,12 +79,13 @@ char
 
 	ptr = arg;
 	i = 0;
-	av = malloc(av_len(arg) * sizeof(char *));
+	av = malloc((av_len(arg) + 1) * sizeof(char *));
 	while (i < av_len(arg))
 	{
 		av[i] = ft_strdup(ptr->argu);
 		i++;
 		ptr = ptr->next;
 	}
+	av[i] = NULL;
 	return (av);
 }
