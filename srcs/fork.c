@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/30 16:15:02 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/02 16:10:41 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,14 @@ static int
 		ft_putstr("\n");
 		i++;
 	}
-
-
 	pid = fork();
-	if (pid == -1)
-	{}//	return (-1);
-	else if (pid == 0)
+	if (pid == 0)
 	{
 		if ((ret = execve(path, av, envp)) < 0)
 			return (-1);
 		exit(ret);
 	}
-	else
+	else if (pid != -1)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
@@ -69,7 +65,8 @@ static void
 	env = ft_env_back(shell->envp);
 	av = ft_get_av(node->arg);
 	execute(path, av, env);
-	// Free env & av
+	free_tab(av);
+	free_tab(env);
 }
 
 int
@@ -96,11 +93,12 @@ int
 		{
 			execute_prog(tested, shell, node);
 			free(tested);
+			free_tab(path);
 			return (1);
 		}
 		free(tested);
 		i++;
 	}
-	// Free path please
+	free_tab(path);
 	return (0);
 }

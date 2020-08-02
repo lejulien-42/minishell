@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/29 18:31:15 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/02 16:05:13 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,5 @@ void			export_env(t_shell *shell, t_parse *node);
 int				is_prog(char *cmd, t_shell *shell, t_parse *node);
 char			**ft_env_back(t_envars **envp);
 char			**ft_get_av(t_arg *arg);
+void			free_tab(char **tab);
 #endif

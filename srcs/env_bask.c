@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:59:26 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/30 16:15:48 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/02 16:04:54 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,18 @@ char
 	}
 	av[i] = NULL;
 	return (av);
+}
+
+void
+	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
