@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 03:32:58 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/26 04:30:15 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/09 17:57:16 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void
 	char	*name;
 	int		i;
 
-	ptr = node->ar;
+	ptr = node->ar->next;
 	while (ptr)
 	{
 		if (len_equal(ptr->arg))
