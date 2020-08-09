@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 03:04:39 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/26 03:27:20 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:02:00 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void
 {
 	t_arg	*ptr;
 
-	ptr = node->ar;
+	ptr = node->ar->next;
 	while (ptr)
 	{
 		if (get_env_val(ptr->arg, shell->envp) != NULL)
