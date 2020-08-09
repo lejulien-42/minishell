@@ -50,7 +50,7 @@ static void
 	set_if_next_arg(char *name, t_arg *ptr, t_shell *shell)
 {
 	ptr = ptr->next;
-	set_env(name, ptr->argu, 1, shell->envp);
+	set_env(name, ptr->arg, 1, shell->envp);
 }
 
 void
@@ -60,18 +60,18 @@ void
 	char	*name;
 	int		i;
 
-	ptr = node->arg;
+	ptr = node->ar;
 	while (ptr)
 	{
-		if (len_equal(ptr->argu))
+		if (len_equal(ptr->arg))
 		{
 			i = 0;
-			name = ft_strldup(ptr->argu, len_equal(ptr->argu));
-			while (ptr->argu[i] != '=')
+			name = ft_strldup(ptr->arg, len_equal(ptr->arg));
+			while (ptr->arg[i] != '=')
 				i++;
 			i++;
-			if (ft_strlen(ptr->argu) > len_equal(ptr->argu))
-				set_env(name, &ptr->argu[i], 1, shell->envp);
+			if (ft_strlen(ptr->arg) > len_equal(ptr->arg))
+				set_env(name, &ptr->arg[i], 1, shell->envp);
 			else if (ptr->next != NULL)
 				set_if_next_arg(name, ptr, shell);
 			else

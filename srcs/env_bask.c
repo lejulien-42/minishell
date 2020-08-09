@@ -82,7 +82,7 @@ char
 	av = malloc((av_len(arg) + 1) * sizeof(char *));
 	while (i < av_len(arg))
 	{
-		av[i] = ft_strdup(ptr->argu);
+		av[i] = ft_strdup(ptr->arg);
 		i++;
 		ptr = ptr->next;
 	}

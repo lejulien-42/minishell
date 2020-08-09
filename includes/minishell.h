@@ -60,7 +60,7 @@ typedef struct	s_entry
 
 typedef struct	s_arg
 {
-	char		*argu;
+	char		*arg;
 	void		*next;
 }				t_arg;
 
@@ -70,9 +70,7 @@ typedef struct	s_arg
 
 typedef struct	s_parse
 {
-	char	*cmd;
-	char	*flag;
-	t_arg	*arg;
+	t_arg	*ar;
 	char	*sep;
 	void	*next;
 }				t_parse;
@@ -91,19 +89,31 @@ void			ft_lstclear(t_entry **lst);
 t_entry			*add_entry(t_entry *prev_entry, char c);
 t_shell			init_shell(void);
 int				check_first_arg(char *entry, char *presumed_entry);
+int				is_sep(char c);
+int				cp_sep(char *str, char **to_fill);
+t_parse			*init_struct_parse(void);
+t_arg			*init_arg(void);
+t_arg			*add_arg(t_arg *dest, t_arg *src);
+char			*cut_arg(char *str);
+int				backslash_dc(char c);
+int				backslash_wc(char c);
+int				fill_simple(char **dest, char *src);
+int				fill_dollar(char **dest, char *src, t_shell *shell);
+int				fill_backslash(char **dest, char *src, int(*f)(char));
+char			*dw_cote_built(char *str, t_shell *shell, int(*f)(char));
+int				manage_double_cote(char **dest, char *str, t_shell *shell,
+				int(*f)(char));
+int				manage_simple_cote(char **dest, char *str);
+int				manage_without_cote(char **dest, char *str,
+				t_shell *shell, int(*f)(char));
+char			*manage_arg(char *str, t_shell *shell);
+int				size_arg(char *str);
+t_parse			*take_arg(char *str, t_parse *res, t_shell *shell);
+t_parse			*parser(char *str, t_shell *shell);
+char			*ft_strjoindf(char *s1, char *s2);
+char			*ft_strndup(char *c, int i);
 void			parse_entry(t_entry *entry, t_shell *shell);
 void			entry_checker(char *str, t_shell *shell);
-int				cp_until_space(char *str, char **st);
-int				is_sep(char *str);
-int				cp_sep(char *str, char **to_fill);
-int				cp_until_cote(char *str, char **to_fill);
-t_parse			*init_struct_parse(void);
-t_parse			*parser(char *str);
-t_arg			*init_arg(void);
-t_parse			*init_struct_parse(void);
-int				add_arg(t_parse *res, char *str);
-void			ft_free_parse(t_parse *res);
-void			ft_free_arg(t_arg *arg);
 t_envars		*ft_get_envp(char ***envp, t_envars *env);
 void			ft_print_env(t_envars *env);
 void			set_env(char *name, char *value, int visib, t_envars **envp);

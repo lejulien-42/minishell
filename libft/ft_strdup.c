@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:04:32 by lejulien          #+#    #+#             */
-/*   Updated: 2019/11/15 01:39:11 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/07 12:06:01 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strdup(const char *src)
 	int		i;
 
 	i = 0;
+	if (src == NULL)
+		return (NULL);
 	size = ft_strlen(src) + 1;
 	if (!(dest = (char *)malloc(size * sizeof(char))))
 		return (NULL);

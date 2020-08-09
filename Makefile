@@ -12,9 +12,10 @@
 
 SRCS = 	./srcs/main.c ./srcs/utils_0.c ./srcs/utils_1.c ./srcs/lst_to_str.c    \
 		./srcs/utils_2.c ./srcs/shell_setup.c ./srcs/parse_helper.c            \
-		./srcs/parser1.c ./srcs/parser2.c ./srcs/env.c ./srcs/set_env.c        \
-		./srcs/get_env.c ./srcs/unset_env.c ./srcs/unset.c ./srcs/export.c     \
-		./srcs/fork.c ./srcs/env_bask.c
+		./srcs/parser.c ./srcs/env.c ./srcs/set_env.c ./srcs/get_env.c 		   \
+		./srcs/unset_env.c ./srcs/unset.c ./srcs/export.c ./srcs/fork.c 	   \
+		./srcs/env_bask.c ./srcs/ft_strndup.c ./srcs/parser1.c ./srcs/parser2.c\
+		./srcs/parser3.c
 
 OBJS = ${SRCS:.c=.o}
 

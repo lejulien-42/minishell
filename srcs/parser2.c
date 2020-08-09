@@ -5,97 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/20 16:46:26 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/07/25 16:09:16 by frtalleu         ###   ########.fr       */
+/*   Created: 2020/08/09 11:34:44 by frtalleu          #+#    #+#             */
+/*   Updated: 2020/08/09 11:34:45 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "../includes/minishell.h"
-#include "stdio.h"
 
-void	ft_free_parse(t_parse *res)
+int	backslash_dc(char c)
 {
-	t_parse *node;
-
-	node = res;
-	while(node != NULL)
-	{
-		free(res->cmd);
-		free(res->flag);
-		free(res->sep);
-		ft_free_arg(res->arg);
-		node = res->next;
-		free(res);
-		res = node;
-	}
-}
-
-int	is_sep(char *str)
-{
-	if (str[0] != '<' && str[0] != '>' && str[0] != '|' && str[0] != ';')
+	if (c == '$' || c == '`' || c == '"' || c == '\\')
 		return (1);
 	return (0);
 }
 
-int	cp_until_space(char *str, char **to_fill)
+int	backslash_wc(char c)
+{
+	return (1);
+}
+
+int	fill_simple(char **dest, char *src)
 {
 	int		i;
-	char	*st;
+	char	*tmp;
 
 	i = 0;
-	while (str[i] != ' ' && str[i] != '\0' && is_sep(&str[i]) == 1)
+	while (src[i] != '$' && src[i] != '\\' && src[i] != '\0' && src[i] != '"')
 		i++;
-	if (!(st = malloc(sizeof(char) * (i + 1))))
-		return (0);
-	i = 0;
-	while (str[i] != ' ' && str[i] != '\0' && is_sep(&str[i]) == 1)
-	{
-		st[i] = str[i];
-		i++;
-	}
-	st[i] = '\0';
-	*to_fill = st;
+	tmp = ft_strndup(src, i);
+	*dest = tmp;
 	return (i);
 }
 
-int	cp_sep(char *str, char **to_fill)
+int	fill_dollar(char **dest, char *src, t_shell *shell)
 {
 	int		i;
-	char	*st;
+	char	*tmp;
+	char	*tp;
 
-	i = 0;
-	while (is_sep(&str[i]) == 0)
+	i = 1;
+	while (src[i] != '$' && src[i] != '\0')
 		i++;
-	if (!(st = malloc(sizeof(char) * (i + 1))))
-		return (0);
-	i = 0;
-	while (is_sep(&str[i]) == 0)
-	{
-		st[i] = str[i];
-		i++;
-	}
-	st[i] = '\0';
-	*to_fill = st;
+	tmp = ft_strndup(&src[1], i - 1);
+	tp = ft_strdup(get_env_val(tmp, shell->envp));
+	free(tmp);
+	*dest = tp;
 	return (i);
 }
 
-int	cp_until_cote(char *str, char **to_fill)
+int	fill_backslash(char **dest, char *src, int (*f)(char))
 {
-	int		i;
-	char	*st;
+	char	*tmp;
 
-	i = 1;
-	while (str[i] != str[0] && str[i] != '\0')
-		i++;
-	if (!(st = malloc(sizeof(char) * i)))
-		return (0);
-	i = 1;
-	while (str[i] != str[0] && str[i] != '\0')
+	if (f(src[0]) == 0)
 	{
-		st[i - 1] = str[i];
-		i++;
+		if (!(tmp = malloc(sizeof(char) * 3)))
+			return (0);
+		tmp[0] = src[0];
+		tmp[1] = src[1];
+		tmp[2] = '\0';
 	}
-	st[i - 1] = '\0';
-	*to_fill = st;
-	return (i);
+	else
+	{
+		if (!(tmp = malloc(sizeof(char) * 2)))
+			return (0);
+		tmp[0] = src[1];
+		tmp[1] = '\0';
+	}
+	*dest = tmp;
+	return (2);
 }

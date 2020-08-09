@@ -67,7 +67,7 @@ static void
 	char	**av;
 
 	env = ft_env_back(shell->envp);
-	av = ft_get_av(node->arg);
+	av = ft_get_av(node->ar);
 	execute(path, av, env);
 	// Free env & av
 }

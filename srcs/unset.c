@@ -17,11 +17,11 @@ void
 {
 	t_arg	*ptr;
 
-	ptr = node->arg;
+	ptr = node->ar;
 	while (ptr)
 	{
-		if (get_env_val(ptr->argu, shell->envp) != NULL)
-			unset_env(ptr->argu, shell->envp);
+		if (get_env_val(ptr->arg, shell->envp) != NULL)
+			unset_env(ptr->arg, shell->envp);
 		ptr = ptr->next;
 	}
 }

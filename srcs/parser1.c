@@ -5,38 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/20 16:45:48 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/07/25 16:09:45 by frtalleu         ###   ########.fr       */
+/*   Created: 2020/08/09 11:30:43 by frtalleu          #+#    #+#             */
+/*   Updated: 2020/08/09 11:30:44 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "../includes/minishell.h"
-#include "stdio.h"
 
-
-void	ft_free_arg(t_arg *arg)
+int		is_sep(char c)
 {
-	t_arg *node;
-	
-	node = arg;
-	while (arg != NULL)
-	{
-		free(arg->argu);
-		arg = arg->next;
-		free(node);
-		node = arg;
-	}
+	if (c == '<' || c == '>' || c == ';' || c == '|')
+		return (1);
+	return (0);
 }
 
-t_arg	*init_arg(void)
+int		cp_sep(char *str, char **to_fill)
 {
-	t_arg *res;
+	int		i;
+	char	*st;
 
-	if (!(res = malloc(sizeof(t_arg))))
-		return (NULL);
-	res->argu = NULL;
-	res->next = NULL;
-	return (res);
+	i = 0;
+	while (is_sep(str[i]) == 1)
+		i++;
+	if (!(st = malloc(sizeof(char) * (i + 1))))
+		return (0);
+	i = 0;
+	while (is_sep(str[i]) == 1)
+	{
+		st[i] = str[i];
+		i++;
+	}
+	st[i] = '\0';
+	*to_fill = st;
+	return (i);
 }
 
 t_parse	*init_struct_parse(void)
@@ -45,62 +48,32 @@ t_parse	*init_struct_parse(void)
 
 	if (!(res = malloc(sizeof(t_parse))))
 		return (NULL);
-	res->cmd = NULL;
-	res->flag = NULL;
-	res->arg = NULL;
 	res->sep = NULL;
+	res->ar = NULL;
 	res->next = NULL;
 	return (res);
 }
 
-int		add_arg(t_parse *res, char *str)
+t_arg	*init_arg(void)
 {
-	int		i;
-	t_arg	*argument;
-	t_arg	*argu;
+	t_arg *res;
 
-	i = 0;
-	argu = res->arg;
-	argument = init_arg();
-	if (str[i] == '"' || str[i] == '\'')
-		i = i + 1 + cp_until_cote(&str[i], &argument->argu);
-	else if (is_sep(&str[i]) == 1)
-		i = i + cp_until_space(&str[i], &argument->argu);
-	if (res->arg == NULL)
-		res->arg = argument;
-	else
-	{
-		while (argu->next != NULL)
-			argu = argu->next;
-		argu->next = argument;
-	}
-	return (i);
+	if (!(res = malloc(sizeof(t_arg))))
+		return (NULL);
+	res->arg = NULL;
+	res->next = NULL;
+	return (res);
 }
 
-t_parse	*parser(char *str)
+t_arg	*add_arg(t_arg *dest, t_arg *src)
 {
-	t_parse	*res;
-	int		i;
+	t_arg *node;
 
-	i = 0;
-	res = init_struct_parse();
-	while (str[i] == ' ')
-		i++;
-	i = i + cp_until_space(&str[i], &res->cmd);
-	while (str[i] == ' ')
-		i++;
-	if (str[i] == '-')
-		i = i + 1 + cp_until_space(&str[i + 1], &res->flag);
-	while (str[i] == ' ')
-		i++;
-	while (is_sep(&str[i]) == 1 && str[i] != '\0')
-	{
-		if (str[i] != ' ')
-			i = i + add_arg(res, &str[i]);
-		while (str[i] == ' ')
-			i++;
-	}
-	if (is_sep(&str[i]) == 0)
-		res->next = parser(&str[i + cp_sep(&str[i], &res->sep)]);
-	return (res);
+	if (dest == NULL)
+		return (src);
+	node = dest;
+	while (node->next != NULL)
+		node = node->next;
+	node->next = src;
+	return (dest);
 }
