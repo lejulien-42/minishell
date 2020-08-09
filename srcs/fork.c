@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/02 16:10:41 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/09 16:36:35 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ static int
 	int		status;
 	int		ret;
 
-	int	i = 0;
-	while (av[i])
-	{
-		ft_putstr(av[i]);
-		ft_putstr("\n");
-		i++;
-	}
 	pid = fork();
 	if (pid == 0)
 	{
