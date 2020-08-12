@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 02:48:26 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/11 03:14:16 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/11 23:49:23 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,6 @@ void
 			ft_putstr(": No such file or directory\n");
 		}
 	}
+	else
+		chdir(get_env_val("HOME", shell->envp));
 }
