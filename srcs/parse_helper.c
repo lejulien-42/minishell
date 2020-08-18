@@ -6,12 +6,14 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/11 02:48:14 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/18 17:56:26 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
+
+int g_ctrl_c;
 
 /*
 ** These functions are for the parsing

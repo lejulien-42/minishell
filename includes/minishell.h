@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/11 02:53:14 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/18 17:29:11 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_shell
 	char		prefix[64];
 	int			is_active;
 	t_envars	**envp;
+	int			sig_quit;
 }				t_shell;
 
 /*
