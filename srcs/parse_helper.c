@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/18 17:56:26 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:51:44 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void
 		else if (ft_strncmp(node->ar->arg, "leaks", ft_strlen(node->ar->arg)) == 0)
 			system("leaks minishell");
 		else if (ft_strncmp(node->ar->arg, "pwd", ft_strlen(node->ar->arg)) == 0)
-			get_pwd();
+			get_pwd(shell);
 		else if (ft_strncmp(node->ar->arg, "makeCoffee",
 				ft_strlen(node->ar->arg)) == 0)
 			ft_putstr("Here is your coffee : ☕️\n");

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/18 17:29:11 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:16:27 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 # include <fcntl.h>
-
+# include <signal.h>
 /*
 ** Liste des variables d'environement
 **
@@ -81,7 +81,7 @@ int				ft_strcmp(const char *s1, const char *s2);
 void			ft_strcpy(char *dest, char *src);
 void			ft_putchar(char c, int fd);
 void			ft_putnbr_fd(int nb, int fd);
-void			get_pwd(void);
+void			get_pwd(t_shell *shell);
 int				ft_is_space(char *str);
 void			ft_wrong(char *str);
 t_entry			*lst_skip_white_space(t_entry *entry);

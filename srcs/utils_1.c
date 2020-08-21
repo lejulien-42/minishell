@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 21:55:10 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/26 14:22:27 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:54:31 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 ** Permet d'afficher le repertoire courant
 */
 
+#include <stdio.h>
+
 void
-	get_pwd(void)
+	get_pwd(t_shell *shell)
 {
 	char str[60];
 
-	getcwd(str, 60);
-	ft_putstr(str);
+	if (getcwd(str, 60))
+		ft_putstr(str);
+	else
+		ft_putstr(get_env_val("PWD", shell->envp));
 	ft_putstr("\n");
 }
 
