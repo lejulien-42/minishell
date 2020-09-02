@@ -77,6 +77,7 @@ void
 			else
 				set_env(name, "\0", 1, shell->envp);
 			free(name);
+
 		}
 		ptr = ptr->next;
 	}
