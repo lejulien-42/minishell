@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 03:32:58 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/09 17:57:16 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/09/04 16:08:07 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void
 	ptr = node->ar->next;
 	while (ptr)
 	{
-		if (len_equal(ptr->arg))
+		if (len_equal(ptr->arg) > 0)
 		{
 			i = 0;
 			name = ft_strldup(ptr->arg, len_equal(ptr->arg));
@@ -77,7 +77,6 @@ void
 			else
 				set_env(name, "\0", 1, shell->envp);
 			free(name);
-
 		}
 		ptr = ptr->next;
 	}
