@@ -74,7 +74,8 @@ void
 	t_parse *node;
 
 	res = parser(str, shell);
-//	parse_tester(res);
+	//parse_tester(res);
+	write(1, "WIN\n", 4);
 	node = res;
 	while (node != NULL)
 	{

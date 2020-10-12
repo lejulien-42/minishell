@@ -69,14 +69,15 @@ t_parse	*parser(char *str, t_shell *shell)
 		{
 			res = take_arg(&str[i], res, shell);
 			i = i + size_arg(&str[i]);
+			if ((ft_strncmp(res->ar->arg, "export",
+			ft_strlen(res->ar->arg))) == 0)
+				export_env(shell, res);
 		}
 		else if (is_sep(str[i]) == 0)
 			i++;
 		else
 			break ;
 	}
-	if ((ft_strncmp(res->ar->arg, "export", ft_strlen(res->ar->arg))) == 0)
-		export_env(shell, res);
 	if (is_sep(str[i]) == 1)
 		res->next = parser(&str[i + cp_sep(&str[i], &res->sep)], shell);
 	return (res);
