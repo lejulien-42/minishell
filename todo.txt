@@ -1,0 +1,5 @@
+	TODO:
+
+* Liste doublement chainée													: 🚫
+* Verification des built-in													: 🚫
+* Mise en place des pipes													: 🚫
