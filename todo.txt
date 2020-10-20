@@ -6,3 +6,5 @@
 		|_ renvoyer une chaine de caractere pour les pipes
 
 * Mise en place des pipes													: 🚫
+
+* Terminer les signaux														: 🚫
