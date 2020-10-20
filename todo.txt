@@ -1,12 +1,28 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	TODO:
 
-* Liste doublement chainée													: 🚫
+* Liste doublement chainée													: ✅
+
+* Ajouter ~ a cd															: ✅
 
 * Verification des built-in													: ✅
-		|_ renvoyer une chaine de caractere pour les pipes
+		|_ renvoyer une chaine de caractere pour les pipes					: 🚫
+
+* Faire les redirections <, > et ">>"										: 🚫
 
 * Mise en place des pipes													: 🚫
 
 * Terminer les signaux														: 🚫
-
-* Ajouter ~ a cd															: ✅
