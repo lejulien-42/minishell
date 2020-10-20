@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/10/20 15:47:22 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:52:26 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void
 	(void)nan;
 }
 
+void
+	get_ctrl_bs(int nan)
+{
+	(void)nan;
+}
+
 int
 	main(int ac, char **av, char **envp)
 {
@@ -83,6 +89,7 @@ int
 	(void)av;
 	i = 0;
 	signal(SIGINT, get_ctrl_c);
+	signal(SIGQUIT, get_ctrl_bs);
 	lsenv = ft_get_envp(&envp, &envars);
 	shell = init_shell();
 	shell.envp = &lsenv;
