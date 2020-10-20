@@ -25,5 +25,5 @@
 
 * Terminer les signaux														: 🚫
 		|_ ctrl-C													: ✅
-		|_ ctrl-D													: 🚫
+		|_ ctrl-D													: ✅
 		|_ ctrl-\													: 🚫

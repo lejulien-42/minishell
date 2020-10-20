@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/21 16:17:10 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:47:22 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,20 @@ static void
 {
 	static t_entry	*entry = NULL;
 	char			buffer[2];
+	int				ret;
+	static int		is_entry = 0;
 
-	read(0, buffer, 1);
+	ret = read(0, buffer, 1);
+	if (ret == 0 && is_entry == 0)
+	{
+		//exit properly
+		ft_putstr("exit\n");
+		exit(0);
+	}
 	buffer[1] = '\0';
 	if (buffer[0] == '\n')
 	{
+		is_entry = 0;
 		if (*i > 0)
 			parse_and_clear(&entry, shell);
 		if (shell->is_active)
@@ -47,8 +56,12 @@ static void
 	}
 	else
 	{
-		entry = add_entry(entry, buffer[0]);
-		*i = *i + 1;
+		if (ret != 0)
+		{
+			is_entry = 1;
+			entry = add_entry(entry, buffer[0]);
+			*i = *i + 1;
+		}
 	}
 }
 
