@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 02:48:26 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/11 23:49:23 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:22:10 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void
 		ptr = ptr->next;
 	}
 	ptr = node->ar->next;
+	if (ptr->arg[0] == '~')
+		ptr->arg = ft_strjoin(get_env_val("HOME", shell->envp), &ptr->arg[1]);
 	if (i >= 1)
 	{
 		if (chdir(ptr->arg) == 0)
