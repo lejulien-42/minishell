@@ -74,6 +74,7 @@ typedef struct	s_parse
 	t_arg	*ar;
 	char	*sep;
 	void	*next;
+	void	*prev;
 }				t_parse;
 
 void			ft_putstr(char *str);

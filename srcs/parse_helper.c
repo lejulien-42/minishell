@@ -40,7 +40,6 @@ int
 **	The function bellow handle the parsing
 **	It has the entry in a string and shell 
 */
-#include <stdio.h>
 
 void parse_tester(t_parse *res)
 {
@@ -66,6 +65,23 @@ void parse_tester(t_parse *res)
 	}
 }
 
+t_parse *db_lst(t_parse *res)
+{
+	t_parse *node;
+	t_parse *ret;
+
+	ret = res;
+	res->prev = NULL;
+	while (res->next != NULL)
+	{
+		node = res;
+		res = res->next;
+		res->prev = node;
+	}
+	res->prev = node;
+	return (ret);
+}
+
 
 void
 	entry_checker(char *str, t_shell *shell)
@@ -73,7 +89,8 @@ void
 	t_parse *res;
 	t_parse *node;
 
-	res = parser(str, shell);
+	res = db_lst(parser(str, shell));
+	//res = parser(str, shell);
 	//parse_tester(res);
 	node = res;
 
