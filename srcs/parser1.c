@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 11:30:43 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/08/09 11:30:44 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/02 18:25:42 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ t_parse	*init_struct_parse(void)
 		return (NULL);
 	res->sep = NULL;
 	res->ar = NULL;
+	res->is_next_pipe = 0;
 	res->next = NULL;
+	res->prev = NULL;
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/10/12 14:34:36 by lejulien         ###   ########.fr        #
+#    Updated: 2020/11/02 19:04:21 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ NAME = minishell
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C ./libft
-	@gcc $(FLAGS) -o $(NAME) $(OBJS) ./libft/libft.a
+	@clang $(FLAGS) -o $(NAME) $(OBJS) ./libft/libft.a
 
 clean:
 	@$(MAKE) -C ./libft/. clean

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/10/12 14:50:17 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/02 13:51:25 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void
 	//res = parser(str, shell);
 	//parse_tester(res);
 	node = res;
-
 	while (node != NULL)
 	{
 		if (node->ar == NULL)

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/09/04 18:18:50 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/02 18:30:54 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,12 @@ typedef struct	s_arg
 
 typedef struct	s_parse
 {
-	t_arg	*ar;
-	char	*sep;
-	void	*next;
-	void	*prev;
+	t_arg			*ar;
+	char			*sep;
+	int				pipes[2];
+	int				is_next_pipe;
+	struct s_parse	*next;
+	struct s_parse	*prev;
 }				t_parse;
 
 void			ft_putstr(char *str);

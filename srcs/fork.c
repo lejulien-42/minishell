@@ -6,22 +6,53 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/09 16:42:50 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/02 20:11:59 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 static int
-	execute(char *path, char **av, char **envp)
+	execute(char *path, char **av, char **envp, t_parse *node)
 {
 	pid_t	pid;
 	int		status;
 	int		ret;
+	int		is_pipe;
+	t_parse *prev;
+
+	if (node->prev)
+		prev = node->prev;
+	is_pipe = 0;
+	if (node->sep  && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0 ||
+		node->is_next_pipe)
+	{
+		is_pipe = 1;
+		if (pipe(node->pipes))
+			return (0);
+		if (node->next)
+			node->next->is_next_pipe = 1;
+		node->is_next_pipe = 1;
+	}
 
 	pid = fork();
 	if (pid == 0)
 	{
+		if (node->is_next_pipe &&
+			dup2(node->pipes[1], 1) < 0)
+			return (0);
+		if (node->prev != NULL)
+		{
+		ft_putstr("ok");
+			if (prev->is_next_pipe == 1)
+			{
+		ft_putstr("ok");
+				if (dup2(node->prev->pipes[0], 0) < 0)
+					return (0);
+			}
+		}
 		if ((ret = execve(path, av, envp)) < 0)
 			return (-1);
 		exit(ret);
@@ -29,6 +60,14 @@ static int
 	else if (pid != -1)
 	{
 		waitpid(pid, &status, 0);
+		if (is_pipe)
+		{
+			close(node->pipes[1]);
+			if (!node->next)
+				close(node->pipes[0]);
+		}
+		if (node->prev && node->prev->is_next_pipe)
+			close(node->prev->pipes[0]);
 		if (WIFEXITED(status))
 			ret = WIFEXITED(status);
 	}
@@ -57,7 +96,7 @@ static void
 
 	env = ft_env_back(shell->envp);
 	av = ft_get_av(node->ar);
-	execute(path, av, env);
+	execute(path, av, env, node);
 	free_tab(av);
 	free_tab(env);
 }
