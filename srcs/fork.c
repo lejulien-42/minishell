@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/03 16:16:58 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/03 17:12:29 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,17 @@ static int
 	int		ret;
 	int		is_pipe;
 
+	// Savoir si il y as eu un pipe
+	ret = EXIT_FAILURE;
 	is_pipe = 0;
 	if ((node->sep  && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0) ||
-		node->is_next_pipe)
+		(node->prev && node->prev->is_next_pipe))
 	{
 		is_pipe = 1;
-		if (node->next && node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
-			node->next->is_next_pipe = 1;
+		if (node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
+			node->is_next_pipe = 1;
 		if (pipe(node->pipes))
 			return (0);
-		node->is_next_pipe = 1;
 	}
 	pid = fork();
 	if (pid < 0)
@@ -62,7 +63,7 @@ static int
 		if (WIFEXITED(status))
 			ret = WIFEXITED(status);
 	}
-	return (1);
+	return (ret);
 }
 
 static int
