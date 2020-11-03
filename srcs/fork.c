@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/02 20:11:59 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:05:26 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ static int
 	int		status;
 	int		ret;
 	int		is_pipe;
-	t_parse *prev;
 
-	if (node->prev)
-		prev = node->prev;
 	is_pipe = 0;
 	if (node->sep  && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0 ||
 		node->is_next_pipe)
@@ -32,11 +29,10 @@ static int
 		is_pipe = 1;
 		if (pipe(node->pipes))
 			return (0);
-		if (node->next)
+		if (node->next && node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
 			node->next->is_next_pipe = 1;
 		node->is_next_pipe = 1;
 	}
-
 	pid = fork();
 	if (pid == 0)
 	{
@@ -45,16 +41,14 @@ static int
 			return (0);
 		if (node->prev != NULL)
 		{
-		ft_putstr("ok");
-			if (prev->is_next_pipe == 1)
+			if (node->prev->is_next_pipe == 1)
 			{
-		ft_putstr("ok");
 				if (dup2(node->prev->pipes[0], 0) < 0)
 					return (0);
 			}
 		}
 		if ((ret = execve(path, av, envp)) < 0)
-			return (-1);
+			return (0);
 		exit(ret);
 	}
 	else if (pid != -1)
@@ -66,8 +60,11 @@ static int
 			if (!node->next)
 				close(node->pipes[0]);
 		}
-		if (node->prev && node->prev->is_next_pipe)
-			close(node->prev->pipes[0]);
+		if (node->prev != NULL)
+		{
+			if (node->prev->is_next_pipe)
+				close(node->prev->pipes[0]);
+		}
 		if (WIFEXITED(status))
 			ret = WIFEXITED(status);
 	}

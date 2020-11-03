@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/02 13:51:25 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:01:32 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,15 @@ t_parse *db_lst(t_parse *res)
 	t_parse *ret;
 
 	ret = res;
-	res->prev = NULL;
-	while (res->next != NULL)
+	while (ret->next != NULL)
 	{
-		node = res;
-		res = res->next;
-		res->prev = node;
+		node = ret;
+		ret = node->next;
+		ret->prev = node;
 	}
-	res->prev = node;
-	return (ret);
+	ret->prev = node;
+	res->prev = NULL;
+	return (res);
 }
 
 
