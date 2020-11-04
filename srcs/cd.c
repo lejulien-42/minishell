@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 02:48:26 by lejulien          #+#    #+#             */
-/*   Updated: 2020/10/20 15:22:10 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/04 17:53:36 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,24 @@ void
 		i++;
 		ptr = ptr->next;
 	}
-	ptr = node->ar->next;
-	if (ptr->arg[0] == '~')
-		ptr->arg = ft_strjoin(get_env_val("HOME", shell->envp), &ptr->arg[1]);
-	if (i >= 1)
+	if (node->ar->next)
 	{
-		if (chdir(ptr->arg) == 0)
+		ptr = node->ar->next;
+		if (ptr->arg[0] == '~')
+			ptr->arg = ft_strjoin(get_env_val("HOME", shell->envp), &ptr->arg[1]);
+		if (i >= 1)
 		{
-			getcwd(buffer, 500);
-			set_env("PWD", buffer, 1, shell->envp);
-		}
-		else
-		{
-			ft_putstr("minishell: cd: ");
-			ft_putstr(ptr->arg);
-			ft_putstr(": No such file or directory\n");
+			if (chdir(ptr->arg) == 0)
+			{
+				getcwd(buffer, 500);
+				set_env("PWD", buffer, 1, shell->envp);
+			}
+			else
+			{
+				ft_putstr("minishell: cd: ");
+				ft_putstr(ptr->arg);
+				ft_putstr(": No such file or directory\n");
+			}
 		}
 	}
 	else
