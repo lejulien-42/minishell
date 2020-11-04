@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/03 17:12:29 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:28:02 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/wait.h>
 
 static int
-	execute(char *path, char **av, char **envp, t_parse *node)
+	execute(char *path, char **av, char **envp, t_parse *node, t_shell *shell)
 {
 	pid_t	pid;
 	int		status;
@@ -44,7 +44,9 @@ static int
 		if (node->prev && node->prev->is_next_pipe == 1 &&
 			dup2(node->prev->pipes[0], 0) < 0)
 			return (0);
-		if ((ret = execve(path, av, envp)) < 0)
+		if (is_built_in(node, shell))
+			ex_built_in(node, shell);
+		else if ((ret = execve(path, av, envp)) < 0)
 			return (0);
 		exit(ret);
 	}
@@ -88,7 +90,7 @@ static void
 
 	env = ft_env_back(shell->envp);
 	av = ft_get_av(node->ar);
-	execute(path, av, env, node);
+	execute(path, av, env, node, shell);
 	free_tab(av);
 	free_tab(env);
 }
@@ -102,6 +104,11 @@ int
 	char	*prepath;
 
 	i = 0;
+	if (is_built_in(node, shell))
+	{
+		execute_prog("built-in", shell, node);
+		return (1);
+	}
 	if (is_exist(cmd))
 	{
 		execute_prog(cmd, shell, node);

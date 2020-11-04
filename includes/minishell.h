@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/02 18:30:54 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:24:46 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_parse
 	char			*sep;
 	int				pipes[2];
 	int				is_next_pipe;
+	t_shell			**shell;
 	struct s_parse	*next;
 	struct s_parse	*prev;
 }				t_parse;
@@ -131,4 +132,6 @@ char			**ft_get_av(t_arg *arg);
 void			free_tab(char **tab);
 void			cd(t_shell *shell, t_parse *parse);
 void			ft_echo(t_shell *shell, t_parse *parse);
+int				is_built_in(t_parse *node, t_shell *shell);
+void			ex_built_in(t_parse *node, t_shell *shell);
 #endif

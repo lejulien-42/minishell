@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/03 16:01:32 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/04 14:37:19 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,27 +99,15 @@ void
 			return ;
 		if (node->ar->arg)
 		{
-			if (ft_strncmp(node->ar->arg, "exit", ft_strlen(node->ar->arg)) == 0)
+			if (ft_strncmp(node->ar->arg, "exit",
+				ft_strlen(node->ar->arg)) == 0)
 				shell->is_active = 0;
-			else if (ft_strncmp(node->ar->arg, "leaks", ft_strlen(node->ar->arg)) == 0)
-				system("leaks minishell");
-			else if (ft_strncmp(node->ar->arg, "pwd", ft_strlen(node->ar->arg)) == 0)
-				get_pwd(shell);
-			else if (ft_strncmp(node->ar->arg, "makeCoffee",
-					ft_strlen(node->ar->arg)) == 0)
-				ft_putstr("Here is your coffee : ☕️\n");
-			else if (ft_strncmp(node->ar->arg, "lambda", ft_strlen(node->ar->arg)) == 0)
-				set_env("PS1", "\e[91mHalf-Life λ \e[39m", 1, shell->envp);
-			else if (ft_strncmp(node->ar->arg, "env", ft_strlen(node->ar->arg)) == 0)
-				ft_print_env(*shell->envp);
-			else if (ft_strncmp(node->ar->arg, "unset", ft_strlen(node->ar->arg)) == 0)
+			else if (ft_strncmp(node->ar->arg, "unset",
+				ft_strlen(node->ar->arg)) == 0)
 				unset(shell, node);
-			else if (ft_strncmp(node->ar->arg, "export", ft_strlen(node->ar->arg)) == 0)
-				export_env(shell, node);
-			else if (ft_strncmp(node->ar->arg, "cd", ft_strlen(node->ar->arg)) == 0)
+			else if (ft_strncmp(node->ar->arg, "cd",
+				ft_strlen(node->ar->arg)) == 0)
 				cd(shell, node);
-			else if (ft_strncmp(node->ar->arg, "echo", ft_strlen(node->ar->arg)) == 0)
-				ft_echo(shell, node);
 			else if (is_prog(node->ar->arg, shell, node))
 			{
 			}
