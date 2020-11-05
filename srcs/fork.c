@@ -6,13 +6,55 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/04 15:09:03 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/05 15:19:01 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <sys/types.h>
 #include <sys/wait.h>
+
+void
+	check_redirect(t_parse *node)
+{
+	if (ft_strncmp(node->sep, ">", ft_strlen(node->sep)) == 0)
+	{
+		if (node->next && node->next->ar->arg)
+		{
+			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY);
+			dup2(node->fd, 1);
+		}
+	}
+	if (ft_strncmp(node->sep, "<", ft_strlen(node->sep)) == 0)
+	{
+		if (node->next && node->next->ar->arg)
+		{
+			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY);
+			dup2(node->fd, 0);
+		}
+	}
+}
+
+void
+	close_redirect(t_parse *node)
+{
+	if (ft_strncmp(node->sep, ">", ft_strlen(node->sep)) == 0)
+		close(node->fd);
+	if (ft_strncmp(node->sep, "<", ft_strlen(node->sep)) == 0)
+		close(node->fd);
+}
+
+int
+	skip_if_red(t_parse *node)
+{
+	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
+		">", ft_strlen(node->prev->sep)) == 0)
+		return (1);
+	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
+		"<", ft_strlen(node->prev->sep)) == 0)
+		return (1);
+	return (0);
+}
 
 static int
 	execute(char *path, char **av, char **envp, t_parse *node)
@@ -44,10 +86,14 @@ static int
 		if (node->prev && node->prev->is_next_pipe == 1 &&
 			dup2(node->prev->pipes[0], 0) < 0)
 			return (0);
+		if (node->sep)
+			check_redirect(node);
 		if (is_built_in(node, node->shell))
 			ex_built_in(node, node->shell);
 		else if ((ret = execve(path, av, envp)) < 0)
 			return (0);
+		if (node->sep)
+			close_redirect(node);
 		exit(ret);
 	}
 	else
@@ -105,6 +151,8 @@ int
 	char	*prepath;
 
 	i = 0;
+	if (skip_if_red(node))
+		return (1);
 	if (is_built_in(node, shell))
 	{
 		execute_prog("built-in", shell, node);
