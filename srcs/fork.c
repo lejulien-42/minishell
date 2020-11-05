@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/05 15:19:01 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/05 17:27:24 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void
 	{
 		if (node->next && node->next->ar->arg)
 		{
-			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY);
+			node->fd = open(node->next->ar->arg, O_CREAT | O_RDWR | O_TRUNC, 0664);
 			dup2(node->fd, 1);
 		}
 	}
@@ -29,8 +29,16 @@ void
 	{
 		if (node->next && node->next->ar->arg)
 		{
-			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY);
+			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY, 0664);
 			dup2(node->fd, 0);
+		}
+	}
+	if (ft_strncmp(node->sep, ">>", ft_strlen(node->sep)) == 0)
+	{
+		if (node->next && node->next->ar->arg)
+		{
+			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY, 0664);
+			dup2(node->fd, 1);
 		}
 	}
 }
@@ -42,6 +50,8 @@ void
 		close(node->fd);
 	if (ft_strncmp(node->sep, "<", ft_strlen(node->sep)) == 0)
 		close(node->fd);
+	if (ft_strncmp(node->sep, ">>", ft_strlen(node->sep)) == 0)
+		close(node->fd);
 }
 
 int
@@ -52,6 +62,9 @@ int
 		return (1);
 	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
 		"<", ft_strlen(node->prev->sep)) == 0)
+		return (1);
+	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
+		">>", ft_strlen(node->prev->sep)) == 0)
 		return (1);
 	return (0);
 }
