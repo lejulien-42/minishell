@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/05 17:27:24 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/06 12:02:42 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void
 	{
 		if (node->next && node->next->ar->arg)
 		{
-			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY, 0664);
+			node->fd = open(node->next->ar->arg, O_RDONLY);
 			dup2(node->fd, 0);
 		}
 	}
