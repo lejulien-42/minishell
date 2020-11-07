@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/06 12:02:42 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/07 12:10:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,14 @@ void
 		if (node->next && node->next->ar->arg)
 		{
 			node->fd = open(node->next->ar->arg, O_RDONLY);
-			dup2(node->fd, 0);
+			if (node->fd == -1)
+			{
+				ft_putstr("minishell: ");
+				ft_putstr(node->next->ar->arg);
+				ft_putstr(": No such file or directory\n");
+			}
+			else
+				dup2(node->fd, 0);
 		}
 	}
 	if (ft_strncmp(node->sep, ">>", ft_strlen(node->sep)) == 0)
@@ -103,7 +110,7 @@ static int
 			check_redirect(node);
 		if (is_built_in(node, node->shell))
 			ex_built_in(node, node->shell);
-		else if ((ret = execve(path, av, envp)) < 0)
+		else if (node->fd != -1 && (ret = execve(path, av, envp)) < 0)
 			return (0);
 		if (node->sep)
 			close_redirect(node);
