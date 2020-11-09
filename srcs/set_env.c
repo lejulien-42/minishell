@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:37:07 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/25 22:24:09 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:29:43 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,18 @@ static void
 void
 	set_env(char *name, char *value, int visib, t_envars **envp)
 {
+	t_envars	*ptr;
+
+	if (!*envp)
+	{
+		ptr = malloc(sizeof(t_envars));
+		ptr->name = ft_strdup(name);
+		ptr->value = ft_strdup(value);
+		ptr->visibility = visib;
+		ptr->next = NULL;
+		*envp = ptr;
+		return ;
+	}
 	if (var_is_set(name, *envp))
 		set_set_env(name, value, visib, *envp);
 	else

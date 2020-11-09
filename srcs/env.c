@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 15:19:44 by lejulien          #+#    #+#             */
-/*   Updated: 2020/07/25 21:06:21 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:16:28 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ t_envars
 
 	i = 1;
 	ptr2 = env;
-	if (envp[0][0])
+	if (*envp && envp[0][0])
 	{
 		if (!add_var_from_str(env, envp[0][0]))
 			return (NULL);
 	}
-	while (envp[0][i])
+	while (*envp && envp[0][i])
 	{
 		ptr = malloc(sizeof(t_envars));
 		if (!add_var_from_str(ptr, envp[0][i]))

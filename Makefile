@@ -6,7 +6,7 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/11/04 14:01:11 by lejulien         ###   ########.fr        #
+#    Updated: 2020/11/09 12:41:39 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f libft/libft.a
 
-re: fclean all
+re: fclean $(NAME)
 
 .PHONY: clean fclean re

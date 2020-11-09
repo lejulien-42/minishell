@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/07 12:10:03 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:41:14 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,8 @@ int
 		execute_prog(cmd, shell, node);
 		return (1);
 	}
+	if (!get_env_val("PATH", shell->envp))
+		return (0);
 	path	= ft_split(get_env_val("PATH", shell->envp), ':');
 	while (path[i])
 	{
