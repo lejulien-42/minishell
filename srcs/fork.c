@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/09 12:41:14 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/17 14:55:20 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int
 	int		i;
 	char	*tested;
 	char	*prepath;
+	char	*tmp;
 
 	i = 0;
 	if (skip_if_red(node))
@@ -183,9 +184,11 @@ int
 		execute_prog(cmd, shell, node);
 		return (1);
 	}
-	if (!get_env_val("PATH", shell->envp))
+	tmp = get_env_val("PATH", shell->envp);
+	if (!tmp)
 		return (0);
-	path	= ft_split(get_env_val("PATH", shell->envp), ':');
+	path	= ft_split(tmp, ':');
+	free(tmp);
 	while (path[i])
 	{
 		prepath = ft_strjoin("/", cmd);
