@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/05 14:37:18 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/17 16:14:33 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ typedef struct	s_entry
 
 typedef struct	s_arg
 {
-	char		*arg;
-	void		*next;
-}				t_arg;
+	char			*arg;
+	struct s_arg	*next;
+}					t_arg;
 
 /*
 ** Liste chainee pour le parsing des entrees
@@ -126,7 +126,7 @@ void			set_env(char *name, char *value, int visib, t_envars **envp);
 char			*get_env_val(char *name, t_envars **envp);
 void			unset_env(char *name, t_envars **envp);
 void			unset(t_shell *shell, t_parse *node);
-void			export_env(t_shell *shell, t_parse *node);
+void			export_env(t_shell *shell, t_parse *node, int out);
 int				is_prog(char *cmd, t_shell *shell, t_parse *node);
 char			**ft_env_back(t_envars **envp);
 char			**ft_get_av(t_arg *arg);

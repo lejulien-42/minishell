@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 19:01:03 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/11/02 20:25:17 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/17 16:15:15 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_parse	*parser(char *str, t_shell *shell)
 			i = i + size_arg(&str[i]);
 			if ((ft_strncmp(res->ar->arg, "export",
 			ft_strlen(res->ar->arg))) == 0)
-				export_env(shell, res);
+				export_env(shell, res, 0);
 		}
 		else if (is_sep(str[i]) == 0)
 			i++;

@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 14:01:17 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/04 14:37:15 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/17 16:15:57 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void
 	else if (ft_strncmp(node->ar->arg, "env", ft_strlen(node->ar->arg)) == 0)
 		ft_print_env(*shell->envp);
 	else if (ft_strncmp(node->ar->arg, "export", ft_strlen(node->ar->arg)) == 0)
-		export_env(shell, node);
+		export_env(shell, node, 1);
 	else if (ft_strncmp(node->ar->arg, "echo", ft_strlen(node->ar->arg)) == 0)
 		ft_echo(shell, node);
 }

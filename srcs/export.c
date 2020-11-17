@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 03:32:58 by lejulien          #+#    #+#             */
-/*   Updated: 2020/09/04 16:08:07 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/17 16:14:21 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,32 @@ static void
 }
 
 void
-	export_env(t_shell *shell, t_parse *node)
+	ft_print_env_ex(t_envars *env)
+{
+	t_envars	*ptr;
+	
+	ptr = env;
+	while (ptr != NULL)
+	{
+		ft_putstr("export ");
+		ft_putstr(ptr->name);
+		ft_putstr("=");
+		ft_putstr(ptr->value);
+		ft_putstr("\n");
+		ptr = ptr->next;
+	}
+}
+
+void
+	export_env(t_shell *shell, t_parse *node, int out)
 {
 	t_arg	*ptr;
 	char	*name;
 	int		i;
 
 	ptr = node->ar->next;
+	if (!node->ar->next && out)
+		ft_print_env_ex(*shell->envp);
 	while (ptr)
 	{
 		if (len_equal(ptr->arg) > 0)
