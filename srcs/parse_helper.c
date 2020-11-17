@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/07 12:14:57 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/17 16:39:05 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,29 @@ t_parse *db_lst(t_parse *res)
 	return (res);
 }
 
+void ft_free_parse(t_parse *node)
+{
+	t_arg *arr;
+	t_parse *temp;
+
+	while (node != NULL)
+	{
+		if (node->ar != NULL)
+		{
+			while (node->ar != NULL)
+			{
+				arr = node->ar;
+				free(arr->arg);
+				node->ar = arr->next;
+				free(arr);
+			}
+		}
+		temp = node->next;
+		free(node);
+		node = temp;
+	}
+}
+
 
 void
 	entry_checker(char *str, t_shell *shell)
@@ -116,5 +139,5 @@ void
 		}
 		node = node->next;
 	}
-//	ft_free_parse(res);
+	ft_free_parse(res);
 }
