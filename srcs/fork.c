@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/18 14:37:42 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:57:17 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,13 +181,15 @@ static int nb_word(char *str, char c)
 	return (nb);
 }
 
-char **ft_split2(char *str, char *c)
+char **ft_split2(char *st, char *c)
 {
 	int i;
 	int j;
 	int word;
 	char **tab;
+	char *str;
 
+	str = ft_strdup(st);
 	j = 0;
 	word = nb_word(str, c[0]);
 	if ((i = 0) || !(tab = malloc(sizeof(char *) * (word + 1))))
@@ -207,6 +209,7 @@ char **ft_split2(char *str, char *c)
 		j = 0;
 	}
 	tab[word] = 0;
+	free(str);
 	return(tab);
 }
 
@@ -234,9 +237,7 @@ int
 	}
 	if (!get_env_val("PATH", shell->envp))
 		return (0);
-	system("leaks minishell");
 	path	= ft_split2(get_env_val("PATH", shell->envp), ":");
-	system("leaks minishell");
 	while (path[i])
 	{
 		prepath = ft_strjoin("/", cmd);
