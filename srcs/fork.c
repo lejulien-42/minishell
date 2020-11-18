@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/17 14:58:52 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:37:42 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,55 @@ static void
 	free_tab(env);
 }
 
+static int nb_word(char *str, char c)
+{
+	int i;
+	int nb;
+
+	i = 0;
+	nb = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != c)
+			nb++;
+		 while (str[i] != c && str[i] != '\0')
+			 i++;
+		 while (str[i] == c)
+			 i++;
+	}
+	return (nb);
+}
+
+char **ft_split2(char *str, char *c)
+{
+	int i;
+	int j;
+	int word;
+	char **tab;
+
+	j = 0;
+	word = nb_word(str, c[0]);
+	if ((i = 0) || !(tab = malloc(sizeof(char *) * (word + 1))))
+		return (NULL);
+	while (!(word = 0) && str[i] == c[0])
+		i++;
+	while (str[i] != '\0')
+	{
+		while (str[i + j] != c[0] && str[i + j] != '\0')
+			j++;
+		while (str[i + j] == c[0])
+			j++;
+		if (str[i + j - 1] == c[0])
+			str[i + j - 1] = '\0';
+		tab[word++] = ft_strtrim(&str[i], c);
+		i = i + j;
+		j = 0;
+	}
+	tab[word] = 0;
+	return(tab);
+}
+
+
 int
 	is_prog(char *cmd, t_shell *shell, t_parse *node)
 {
@@ -185,7 +234,9 @@ int
 	}
 	if (!get_env_val("PATH", shell->envp))
 		return (0);
-	path	= ft_split(get_env_val("PATH", shell->envp), ':');
+	system("leaks minishell");
+	path	= ft_split2(get_env_val("PATH", shell->envp), ":");
+	system("leaks minishell");
 	while (path[i])
 	{
 		prepath = ft_strjoin("/", cmd);

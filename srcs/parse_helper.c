@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/17 16:39:05 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/18 14:26:54 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,7 @@ void
 			else if (ft_strncmp(node->ar->arg, "cd",
 				ft_strlen(node->ar->arg)) == 0)
 				cd(shell, node);
-			else if (is_prog(node->ar->arg, shell, node))
-			{
-			}
-			else
+			else if (!(is_prog(node->ar->arg, shell, node)))
 				ft_wrong(node->ar->arg);
 		}
 		node = node->next;
