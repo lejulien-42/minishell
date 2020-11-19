@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 03:32:58 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 15:19:34 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:53:43 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char
 	return (res);
 }
 
-static int
+int
 	len_equal(char *str)
 {
 	int	i;
@@ -47,7 +47,7 @@ static int
 	return (-1);
 }
 
-static void
+void
 	set_if_next_arg(char *name, t_arg *ptr, t_shell *shell)
 {
 	ptr = ptr->next;
@@ -58,7 +58,7 @@ void
 	ft_print_env_ex(t_envars *env)
 {
 	t_envars	*ptr;
-	
+
 	ptr = env;
 	while (ptr != NULL)
 	{
@@ -90,12 +90,7 @@ void
 			while (ptr->arg[i] != '=')
 				i++;
 			i++;
-			if (ft_strlen(ptr->arg) > len_equal(ptr->arg))
-				set_env(name, &ptr->arg[i], 1, shell->envp);
-			else if (ptr->next != NULL)
-				set_if_next_arg(name, ptr, shell);
-			else
-				set_env(name, "\0", 1, shell->envp);
+			export_env2(name, ptr, shell, i);
 			free(name);
 		}
 		ptr = ptr->next;

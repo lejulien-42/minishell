@@ -6,18 +6,12 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/18 14:26:54 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:03:11 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
-
-int g_ctrl_c;
-
-/*
-** These functions are for the parsing
-*/
 
 int
 	check_first_arg(char *entry, char *presumed_entry)
@@ -36,17 +30,14 @@ int
 	return (1);
 }
 
-/*
-**	The function bellow handle the parsing
-**	It has the entry in a string and shell 
-*/
-
-void parse_tester(t_parse *res)
+void
+	parse_tester(t_parse *res)
 {
-	t_arg *aa;
-	t_parse *node;
-	int i = 0;
-	
+	t_arg	*aa;
+	t_parse	*node;
+	int		i;
+
+	i = 0;
 	node = res;
 	aa = res->ar;
 	while (node != NULL)
@@ -65,7 +56,8 @@ void parse_tester(t_parse *res)
 	}
 }
 
-t_parse *db_lst(t_parse *res)
+t_parse
+	*db_lst(t_parse *res)
 {
 	t_parse *node;
 	t_parse *ret;
@@ -82,10 +74,11 @@ t_parse *db_lst(t_parse *res)
 	return (res);
 }
 
-void ft_free_parse(t_parse *node)
+void
+	ft_free_parse(t_parse *node)
 {
-	t_arg *arr;
-	t_parse *temp;
+	t_arg	*arr;
+	t_parse	*temp;
 
 	while (node != NULL)
 	{
@@ -105,7 +98,6 @@ void ft_free_parse(t_parse *node)
 	}
 }
 
-
 void
 	entry_checker(char *str, t_shell *shell)
 {
@@ -113,8 +105,6 @@ void
 	t_parse *node;
 
 	res = db_lst(parser(str, shell));
-	//res = parser(str, shell);
-	//parse_tester(res);
 	node = res;
 	while (node != NULL)
 	{
@@ -122,15 +112,9 @@ void
 			return ;
 		if (node->ar->arg)
 		{
-			if (ft_strncmp(node->ar->arg, "exit",
-				ft_strlen(node->ar->arg)) == 0)
-				shell->is_active = 0;
-			else if (ft_strncmp(node->ar->arg, "unset",
-				ft_strlen(node->ar->arg)) == 0)
-				unset(shell, node);
-			else if (ft_strncmp(node->ar->arg, "cd",
-				ft_strlen(node->ar->arg)) == 0)
-				cd(shell, node);
+			if (do_built_in(node, shell))
+			{
+			}
 			else if (!(is_prog(node->ar->arg, shell, node)))
 				ft_wrong(node->ar->arg);
 		}

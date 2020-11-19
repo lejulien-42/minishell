@@ -6,13 +6,13 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/18 14:59:25 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:19:46 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void
+void
 	parse_and_clear(t_entry **entry, t_shell *shell)
 {
 	char	*str;
@@ -35,7 +35,6 @@ static void
 	ret = read(0, buffer, 1);
 	if (ret == 0 && is_entry == 0)
 	{
-		//exit properly
 		ft_putstr("exit\n");
 		exit(0);
 	}

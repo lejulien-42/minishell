@@ -6,7 +6,7 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/11/09 12:41:39 by lejulien         ###   ########.fr        #
+#    Updated: 2020/11/19 16:12:38 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRCS = 	./srcs/main.c ./srcs/utils_0.c ./srcs/utils_1.c ./srcs/lst_to_str.c    \
 		./srcs/parser.c ./srcs/env.c ./srcs/set_env.c ./srcs/get_env.c 		   \
 		./srcs/unset_env.c ./srcs/unset.c ./srcs/export.c ./srcs/fork.c 	   \
 		./srcs/env_bask.c ./srcs/ft_strndup.c ./srcs/parser1.c ./srcs/parser2.c\
-		./srcs/parser3.c ./srcs/cd.c ./srcs/echo.c ./srcs/built_in.c
+		./srcs/parser3.c ./srcs/cd.c ./srcs/echo.c ./srcs/built_in.c 		   \
+		./srcs/export2.c ./srcs/parse_helper2.c
 
 OBJS = ${SRCS:.c=.o}
 

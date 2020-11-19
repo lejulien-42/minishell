@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:59:26 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 15:18:18 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:36:18 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ char
 {
 	t_arg	*ptr;
 	char	**av;
-	int		i = 0;
+	int		i;
 
+	i = 0;
 	ptr = arg;
 	i = 0;
 	if (!(av = malloc((av_len(arg) + 1) * sizeof(char *))))

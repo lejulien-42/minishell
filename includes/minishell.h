@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/17 16:14:33 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:11:14 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,11 @@ void			cd(t_shell *shell, t_parse *parse);
 void			ft_echo(t_shell *shell, t_parse *parse);
 int				is_built_in(t_parse *node, t_shell *shell);
 void			ex_built_in(t_parse *node, t_shell *shell);
+void			export_env2(char *name, t_arg *ptr, t_shell *shell, int i);
+int				len_equal(char *str);
+void			set_if_next_arg(char *name, t_arg *ptr, t_shell *shell);
+int				do_built_in(t_parse *node, t_shell *shell);
+void			get_inputs2(int *i, int is_entry, t_shell *shell,
+			   	t_entry * entry);
+void			parse_and_clear(t_entry **entry, t_shell *shell);
 #endif
