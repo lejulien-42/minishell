@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 03:32:58 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/17 16:14:21 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:19:34 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static char
 	int		i;
 
 	i = 0;
-	res = malloc((len + 1) * sizeof(char));
+	if (!(res = malloc((len + 1) * sizeof(char))))
+		return (NULL);
 	while (str[i] != '\0' && i < len)
 	{
 		res[i] = str[i];

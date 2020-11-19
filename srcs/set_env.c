@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:37:07 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/09 12:29:43 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:20:29 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static void
 	t_envars	*new;
 
 	ptr = *envp;
-	new = malloc(sizeof(t_envars));
+	if (!(new = malloc(sizeof(t_envars))))
+		return ;
 	while (ptr->next != NULL)
 		ptr = ptr->next;
 	new->name = ft_strdup(name);
@@ -70,7 +71,8 @@ void
 
 	if (!*envp)
 	{
-		ptr = malloc(sizeof(t_envars));
+		if (!(ptr = malloc(sizeof(t_envars))))
+			return ;
 		ptr->name = ft_strdup(name);
 		ptr->value = ft_strdup(value);
 		ptr->visibility = visib;
