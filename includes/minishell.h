@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 17:37:03 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 19:14:05 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libft/libft.h"
 # include <fcntl.h>
 # include <signal.h>
+
 /*
 ** Liste des variables d'environement
 **
@@ -63,7 +64,7 @@ typedef struct	s_arg
 {
 	char			*arg;
 	struct s_arg	*next;
-}					t_arg;
+}				t_arg;
 
 /*
 ** Liste chainee pour le parsing des entrees
@@ -140,7 +141,7 @@ int				len_equal(char *str);
 void			set_if_next_arg(char *name, t_arg *ptr, t_shell *shell);
 int				do_built_in(t_parse *node, t_shell *shell);
 void			get_inputs2(int *i, int is_entry, t_shell *shell,
-			   	t_entry * entry);
+				t_entry *entry);
 void			parse_and_clear(t_entry **entry, t_shell *shell);
 int				is_exist(char *path);
 int				skip_if_red(t_parse *node);
