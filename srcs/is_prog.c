@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:20:18 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 17:30:21 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 17:36:36 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,18 @@ int
 		if (pipe(node->pipes))
 			return (0);
 	}
+	return (1);
+}
+
+int
+	execute2(t_parse *node)
+{
+	if (node->is_next_pipe && dup2(node->pipes[1], 1) < 0)
+		return (0);
+	if (node->prev && node->prev->is_next_pipe == 1 &&
+		dup2(node->prev->pipes[0], 0) < 0)
+		return (0);
+	if (node->sep)
+		check_redirect(node);
 	return (1);
 }

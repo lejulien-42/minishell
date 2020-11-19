@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 17:30:25 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 17:35:37 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,9 @@ int
 	if (pid < 0)
 		return (0);
 	else if (pid == 0)
-	{
-		if (node->is_next_pipe && dup2(node->pipes[1], 1) < 0)
+	{	
+		if (!execute2(node))
 			return (0);
-		if (node->prev && node->prev->is_next_pipe == 1 &&
-			dup2(node->prev->pipes[0], 0) < 0)
-			return (0);
-		if (node->sep)
-			check_redirect(node);
 		if (is_built_in(node, node->shell))
 			ex_built_in(node, node->shell);
 		else if (node->fd != -1 && (ret = execve(path, av, envp)) < 0)
