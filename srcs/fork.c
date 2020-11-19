@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 16:52:49 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 17:30:25 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,23 @@ void
 	{
 		if (node->next && node->next->ar->arg)
 		{
-			node->fd = open(node->next->ar->arg, O_CREAT | O_RDWR | O_TRUNC, 0664);
+			node->fd = open(node->next->ar->arg, O_CREAT | O_RDWR |
+							O_TRUNC, 0664);
 			dup2(node->fd, 1);
 		}
 	}
 	if (ft_strncmp(node->sep, "<", ft_strlen(node->sep)) == 0)
-	{
-		if (node->next && node->next->ar->arg)
-		{
-			node->fd = open(node->next->ar->arg, O_RDONLY);
-			if (node->fd == -1)
-			{
-				ft_putstr("minishell: ");
-				ft_putstr(node->next->ar->arg);
-				ft_putstr(": No such file or directory\n");
-			}
-			else
-				dup2(node->fd, 0);
-		}
-	}
+		check_redirect2(node);
 	if (ft_strncmp(node->sep, ">>", ft_strlen(node->sep)) == 0)
 	{
 		if (node->next && node->next->ar->arg)
 		{
-			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND | O_WRONLY, 0664);
+			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND |
+							O_WRONLY, 0664);
 			dup2(node->fd, 1);
 		}
 	}
 }
-
 
 int
 	execute(char *path, char **av, char **envp, t_parse *node)
@@ -59,18 +47,10 @@ int
 	int		ret;
 	int		is_pipe;
 
-	// Savoir si il y as eu un pipe
 	ret = EXIT_FAILURE;
 	is_pipe = 0;
-	if ((node->sep  && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0) ||
-		(node->prev && node->prev->is_next_pipe))
-	{
-		is_pipe = 1;
-		if (node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
-			node->is_next_pipe = 1;
-		if (pipe(node->pipes))
-			return (0);
-	}
+	if (!initialize_pipe(node, &is_pipe))
+		return (0);
 	pid = fork();
 	if (pid < 0)
 		return (0);
@@ -109,14 +89,14 @@ int
 	return (ret);
 }
 
-
-char **ft_split2(char *st, char *c)
+char
+	**ft_split2(char *st, char *c)
 {
-	int i;
-	int j;
-	int word;
-	char **tab;
-	char *str;
+	int		i;
+	int		j;
+	int		word;
+	char	**tab;
+	char	*str;
 
 	str = ft_strdup(st);
 	j = 0;
@@ -139,19 +119,12 @@ char **ft_split2(char *st, char *c)
 	}
 	tab[word] = 0;
 	free(str);
-	return(tab);
+	return (tab);
 }
 
-
-int
-	is_prog(char *cmd, t_shell *shell, t_parse *node)
+static int
+	is_prog2(t_parse *node, t_shell *shell, char *cmd)
 {
-	char	**path;
-	int		i;
-	char	*tested;
-	char	*prepath;
-
-	i = 0;
 	if (skip_if_red(node))
 		return (1);
 	if (is_built_in(node, shell))
@@ -164,22 +137,30 @@ int
 		execute_prog(cmd, shell, node);
 		return (1);
 	}
+	return (0);
+}
+
+int
+	is_prog(char *cmd, t_shell *shell, t_parse *node)
+{
+	char	**path;
+	int		i;
+	char	*tested;
+	char	*prepath;
+
+	i = 0;
+	if (is_prog2(node, shell, cmd))
+		return (1);
 	if (!get_env_val("PATH", shell->envp))
 		return (0);
-	path	= ft_split2(get_env_val("PATH", shell->envp), ":");
+	path = ft_split2(get_env_val("PATH", shell->envp), ":");
 	while (path[i])
 	{
 		prepath = ft_strjoin("/", cmd);
 		tested = ft_strjoin(path[i], prepath);
 		free(prepath);
-		if (is_exist(tested))
-		{
-			execute_prog(tested, shell, node);
-			free(tested);
-			free_tab(path);
+		if (is_prog3(shell, path, node, tested))
 			return (1);
-		}
-		free(tested);
 		i++;
 	}
 	free_tab(path);
