@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 16:11:14 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:52:46 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,10 @@ int				do_built_in(t_parse *node, t_shell *shell);
 void			get_inputs2(int *i, int is_entry, t_shell *shell,
 			   	t_entry * entry);
 void			parse_and_clear(t_entry **entry, t_shell *shell);
+int				is_exist(char *path);
+int				skip_if_red(t_parse *node);
+void			close_redirect(t_parse *node);
+void			execute_prog(char *path, t_shell *shell, t_parse *node);
+int				nb_word(char *str, char c);
+int				execute(char *path, char **av, char **envp, t_parse *node);
 #endif

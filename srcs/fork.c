@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/18 14:57:17 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:52:49 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,8 @@ void
 	}
 }
 
-void
-	close_redirect(t_parse *node)
-{
-	if (ft_strncmp(node->sep, ">", ft_strlen(node->sep)) == 0)
-		close(node->fd);
-	if (ft_strncmp(node->sep, "<", ft_strlen(node->sep)) == 0)
-		close(node->fd);
-	if (ft_strncmp(node->sep, ">>", ft_strlen(node->sep)) == 0)
-		close(node->fd);
-}
 
 int
-	skip_if_red(t_parse *node)
-{
-	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
-		">", ft_strlen(node->prev->sep)) == 0)
-		return (1);
-	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
-		"<", ft_strlen(node->prev->sep)) == 0)
-		return (1);
-	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
-		">>", ft_strlen(node->prev->sep)) == 0)
-		return (1);
-	return (0);
-}
-
-static int
 	execute(char *path, char **av, char **envp, t_parse *node)
 {
 	pid_t	pid;
@@ -134,52 +109,6 @@ static int
 	return (ret);
 }
 
-static int
-	is_exist(char *path)
-{
-	int	fd;
-
-	if ((fd = open((const char *)path, O_RDONLY)) > 0)
-	{
-		close(fd);
-		return (1);
-	}
-	close(fd);
-	return (0);
-}
-
-static void
-	execute_prog(char *path, t_shell *shell, t_parse *node)
-{
-	char	**env;
-	char	**av;
-
-	env = ft_env_back(shell->envp);
-	av = ft_get_av(node->ar);
-	node->shell = shell;
-	execute(path, av, env, node);
-	free_tab(av);
-	free_tab(env);
-}
-
-static int nb_word(char *str, char c)
-{
-	int i;
-	int nb;
-
-	i = 0;
-	nb = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] != c)
-			nb++;
-		 while (str[i] != c && str[i] != '\0')
-			 i++;
-		 while (str[i] == c)
-			 i++;
-	}
-	return (nb);
-}
 
 char **ft_split2(char *st, char *c)
 {
