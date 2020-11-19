@@ -6,13 +6,14 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:46:13 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 16:50:32 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/19 16:55:17 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int nb_word(char *str, char c)
+int
+	nb_word(char *str, char c)
 {
 	int i;
 	int nb;
@@ -23,10 +24,10 @@ int nb_word(char *str, char c)
 	{
 		if (str[i] != c)
 			nb++;
-		 while (str[i] != c && str[i] != '\0')
-			 i++;
-		 while (str[i] == c)
-			 i++;
+		while (str[i] != c && str[i] != '\0')
+			i++;
+		while (str[i] == c)
+			i++;
 	}
 	return (nb);
 }
