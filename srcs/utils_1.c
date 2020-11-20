@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 21:55:10 by lejulien          #+#    #+#             */
-/*   Updated: 2020/08/21 15:54:31 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 17:42:57 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void
 	i = 0;
 	if (!ft_is_space(str))
 	{
-		ft_putstr("minishell: ");
+		ft_putstr("\e[95mminichill\e[92m$ \e[39m");
 		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f' ||
 			str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
 			i++;

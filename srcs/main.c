@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 17:36:51 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 17:40:36 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int
 	shell.envp = &lsenv;
 	if (!lsenv)
 		set_env("HOME", "/", 1, &lsenv);
+	set_env("?", "0", 0, &lsenv);
 	set_env("PS1", "\e[95mminichill\e[92m$ \e[39m", 0, &lsenv);
 	if (get_env_val("PS1", &lsenv) != NULL)
 		ft_putstr(get_env_val("PS1", &lsenv));
