@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 19:14:05 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/20 13:56:54 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,7 @@ void			export_env2(char *name, t_arg *ptr, t_shell *shell, int i);
 int				len_equal(char *str);
 void			set_if_next_arg(char *name, t_arg *ptr, t_shell *shell);
 int				do_built_in(t_parse *node, t_shell *shell);
-void			get_inputs2(int *i, int is_entry, t_shell *shell,
-				t_entry *entry);
+void			get_inputs2(int *i, t_shell *shell);
 void			parse_and_clear(t_entry **entry, t_shell *shell);
 int				is_exist(char *path);
 int				skip_if_red(t_parse *node);
@@ -155,4 +154,5 @@ int				is_prog3(t_shell *shell, char **path, t_parse *node,
 int				initialize_pipe(t_parse *node, int *is_pipe);
 int				execute2(t_parse *node);
 void			check_redirect(t_parse *node);
+void			get_inputs3(int ret, int is_entry);
 #endif

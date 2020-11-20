@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 16:19:46 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 13:55:56 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,14 @@ static void
 	static int		is_entry = 0;
 
 	ret = read(0, buffer, 1);
-	if (ret == 0 && is_entry == 0)
-	{
-		ft_putstr("exit\n");
-		exit(0);
-	}
+	get_inputs3(ret, is_entry);
 	buffer[1] = '\0';
 	if (buffer[0] == '\n')
 	{
 		is_entry = 0;
 		if (*i > 0)
 			parse_and_clear(&entry, shell);
-		if (shell->is_active)
-		{
-			if (get_env_val("PS1", shell->envp) != NULL)
-				ft_putstr(get_env_val("PS1", shell->envp));
-		}
-		else
-			ft_putstr("exit\n");
-		*i = 0;
+		get_inputs2(i, shell);
 	}
 	else
 	{
