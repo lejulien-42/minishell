@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 13:58:49 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 17:36:51 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void
 	get_ctrl_c(int nan)
 {
 	(void)nan;
+	ft_putstr("\n\e[95mminichill\e[92m$ \e[39m");
 }
 
 void
