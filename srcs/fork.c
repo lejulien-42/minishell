@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:36:48 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:39:11 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int
 		return (1);
 	if (!get_env_val("PATH", shell->envp))
 		return (0);
-	path = ft_split(get_env_val("PATH", shell->envp), ':');
+	path = ft_split(get_env_val("PATH", shell->envp), ":");
 	while (path[i])
 	{
 		prepath = ft_strjoin("/", cmd);
