@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:12:53 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:36:48 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,39 +67,6 @@ int
 	return (ret);
 }
 
-char
-	**ft_split2(char *st, char *c)
-{
-	int		i;
-	int		j;
-	int		word;
-	char	**tab;
-	char	*str;
-
-	str = ft_strdup(st);
-	j = 0;
-	word = nb_word(str, c[0]);
-	if ((i = 0) || !(tab = malloc(sizeof(char *) * (word + 1))))
-		return (NULL);
-	while (!(word = 0) && str[i] == c[0])
-		i++;
-	while (str[i] != '\0')
-	{
-		while (str[i + j] != c[0] && str[i + j] != '\0')
-			j++;
-		while (str[i + j] == c[0])
-			j++;
-		if (str[i + j - 1] == c[0])
-			str[i + j - 1] = '\0';
-		tab[word++] = ft_strtrim(&str[i], c);
-		i = i + j;
-		j = 0;
-	}
-	tab[word] = 0;
-	free(str);
-	return (tab);
-}
-
 static int
 	is_prog2(t_parse *node, t_shell *shell, char *cmd)
 {
@@ -131,7 +98,7 @@ int
 		return (1);
 	if (!get_env_val("PATH", shell->envp))
 		return (0);
-	path = ft_split2(get_env_val("PATH", shell->envp), ":");
+	path = ft_split(get_env_val("PATH", shell->envp), ':');
 	while (path[i])
 	{
 		prepath = ft_strjoin("/", cmd);

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 16:03:11 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:39:39 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void
 				free(arr);
 			}
 		}
+		free(node->sep);
 		temp = node->next;
 		free(node);
 		node = temp;
