@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 14:50:00 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:10:08 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ typedef struct	s_envars
 	int			visibility;
 	void		*next;
 }				t_envars;
+
+typedef struct	s_exinfo
+{
+	char		**env;
+	char		**av;
+}				t_exinfo;
 
 /*
 ** structure pour les variables globales du shell
@@ -147,7 +153,7 @@ int				skip_if_red(t_parse *node);
 void			close_redirect(t_parse *node);
 void			execute_prog(char *path, t_shell *shell, t_parse *node);
 int				nb_word(char *str, char c);
-int				execute(char *path, char **av, char **envp, t_parse *node);
+int				execute(char *path, t_exinfo *info, t_parse *node);
 void			check_redirect2(t_parse *node);
 int				is_prog3(t_shell *shell, char **path, t_parse *node,
 				char *tested);
@@ -156,4 +162,6 @@ int				execute2(t_parse *node);
 void			check_redirect(t_parse *node);
 void			get_inputs3(int ret, int is_entry);
 void			close_pipes(int is_pipe, t_parse *node);
+int				open_pipes(t_parse *node, t_exinfo *info, char *path, int *ret);
+int				init_fork(int *is_pipe, t_parse *node, int *pid);
 #endif

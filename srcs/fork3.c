@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 14:46:08 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 14:49:05 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:08:29 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,28 @@ void
 	}
 	if (node->prev && node->prev->is_next_pipe)
 		close(node->prev->pipes[0]);
+}
+
+int
+	open_pipes(t_parse *node, t_exinfo *info, char *path, int *ret)
+{
+	if (!execute2(node))
+		return (0);
+	if (is_built_in(node, node->shell))
+		ex_built_in(node, node->shell);
+	else if (node->fd != -1 && (*ret = execve(path, info->av, info->env)) < 0)
+		return (0);
+	if (node->sep)
+		close_redirect(node);
+	return (1);
+}
+
+int
+	init_fork(int *is_pipe, t_parse *node, int *pid)
+{
+	*is_pipe = 0;
+	if (!initialize_pipe(node, is_pipe))
+		return (0);
+	*pid = fork();
+	return (1);	
 }

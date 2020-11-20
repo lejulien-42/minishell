@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:46:13 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 16:55:17 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:04:30 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ int
 void
 	execute_prog(char *path, t_shell *shell, t_parse *node)
 {
-	char	**env;
-	char	**av;
+	t_exinfo	*info;
 
-	env = ft_env_back(shell->envp);
-	av = ft_get_av(node->ar);
+	if (!(info = malloc(sizeof(t_exinfo))))
+		return ;
+	info->env = ft_env_back(shell->envp);
+	info->av = ft_get_av(node->ar);
 	node->shell = shell;
-	execute(path, av, env, node);
-	free_tab(av);
-	free_tab(env);
+	execute(path, info, node);
+	free_tab(info->av);
+	free_tab(info->env);
+	free(info);
 }
 
 void
