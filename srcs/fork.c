@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 17:35:37 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 14:50:30 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,7 @@ int
 	else
 	{
 		waitpid(pid, &status, 0);
-		if (is_pipe)
-		{
-			close(node->pipes[1]);
-			if (!node->next || (node->sep &&
-				ft_strncmp(node->sep, ";", ft_strlen(node->sep)) == 0))
-				close(node->pipes[0]);
-		}
-		if (node->prev && node->prev->is_next_pipe)
-			close(node->prev->pipes[0]);
+		close_pipes(is_pipe, node);
 		if (WIFEXITED(status))
 			ret = WIFEXITED(status);
 	}

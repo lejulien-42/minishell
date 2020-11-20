@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 13:56:54 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 14:50:00 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,4 +155,5 @@ int				initialize_pipe(t_parse *node, int *is_pipe);
 int				execute2(t_parse *node);
 void			check_redirect(t_parse *node);
 void			get_inputs3(int ret, int is_entry);
+void			close_pipes(int is_pipe, t_parse *node);
 #endif
