@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 14:46:08 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:08:29 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:12:32 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int
 	if (!initialize_pipe(node, is_pipe))
 		return (0);
 	*pid = fork();
-	return (1);	
+	return (1);
 }

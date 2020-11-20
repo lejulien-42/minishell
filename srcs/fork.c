@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:10:12 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:12:53 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int
 	if (pid < 0)
 		return (0);
 	else if (pid == 0)
-	{	
-		if (!open_pipes(node, info, path, &ret))	
-			return (0);	
+	{
+		if (!open_pipes(node, info, path, &ret))
+			return (0);
 		exit(ret);
 	}
 	else
