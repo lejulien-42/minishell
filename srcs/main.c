@@ -6,11 +6,13 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 17:40:36 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/23 17:49:19 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	g_isex;
 
 void
 	parse_and_clear(t_entry **entry, t_shell *shell)
@@ -57,7 +59,8 @@ void
 	get_ctrl_c(int nan)
 {
 	(void)nan;
-	ft_putstr("\n\e[95mminichill\e[92m$ \e[39m");
+	if (!g_isex)
+		ft_putstr("\n\e[95mminichill\e[92m$ \e[39m");
 }
 
 void

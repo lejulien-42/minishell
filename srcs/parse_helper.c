@@ -6,12 +6,14 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 17:45:21 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/23 17:50:34 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
+
+extern int	g_isex;
 
 int
 	check_first_arg(char *entry, char *presumed_entry)
@@ -113,6 +115,7 @@ void
 			return ;
 		if (node->ar->arg)
 		{
+			g_isex = 1;
 			if (do_built_in(node, shell))
 			{
 			}
@@ -121,6 +124,7 @@ void
 				set_env("?", "1", 0, shell->envp);
 				ft_wrong(node->ar->arg);
 			}
+			g_isex = 0;
 		}
 		node = node->next;
 	}
