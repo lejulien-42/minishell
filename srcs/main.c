@@ -6,13 +6,14 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/23 17:49:19 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 13:48:41 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int	g_isex;
+int	g_error;
 
 void
 	parse_and_clear(t_entry **entry, t_shell *shell)

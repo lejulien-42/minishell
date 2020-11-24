@@ -6,13 +6,16 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 16:39:11 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 13:56:53 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
+
+extern int	g_error;
 
 void
 	check_redirect(t_parse *node)
@@ -62,7 +65,10 @@ int
 		waitpid(pid, &status, 0);
 		close_pipes(is_pipe, node);
 		if (WIFEXITED(status))
+		{
+			g_error = WEXITSTATUS(status);
 			ret = WIFEXITED(status);
+		}
 	}
 	return (ret);
 }

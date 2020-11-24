@@ -6,11 +6,13 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:46:13 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:04:30 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 13:57:48 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+extern int	g_error;
 
 int
 	nb_word(char *str, char c)
@@ -43,6 +45,7 @@ void
 	info->av = ft_get_av(node->ar);
 	node->shell = shell;
 	execute(path, info, node);
+	set_env("?", ft_itoa(g_error), 0, shell->envp);
 	free_tab(info->av);
 	free_tab(info->env);
 	free(info);
