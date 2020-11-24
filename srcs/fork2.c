@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:46:13 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 13:57:48 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:32:47 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void
 	info->av = ft_get_av(node->ar);
 	node->shell = shell;
 	execute(path, info, node);
+	if (g_error == 11)
+		ft_putstr("Segmentation fault (core dumped)\n");
 	set_env("?", ft_itoa(g_error), 0, shell->envp);
 	free_tab(info->av);
 	free_tab(info->env);

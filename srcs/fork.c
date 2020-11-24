@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 14:07:20 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:47:57 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,31 @@ void
 int
 	execute(char *path, t_exinfo *info, t_parse *node)
 {
-	pid_t	pid;
-	int		status;
-	int		ret;
-	int		is_pipe;
+	pid_t		pid;
+	int			status;
+	t_info_fork	inf;
 
-	init_fork(&is_pipe, node, &pid);
+	init_fork(&inf.is_pipe, node, &pid);
 	if (pid < 0)
 		return (0);
 	else if (pid == 0)
 	{
-		if (!open_pipes(node, info, path, &ret))
+		if (!open_pipes(node, info, path, &inf.ret))
 			return (0);
-		exit(ret);
+		exit(inf.ret);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		close_pipes(is_pipe, node);
+		close_pipes(inf.is_pipe, node);
 		if (WIFEXITED(status))
-		{
 			g_error = WEXITSTATUS(status);
-			ret = WIFEXITED(status);
-		}
+		if (WIFEXITED(status))
+			inf.ret = WIFEXITED(status);
+		if (WIFSIGNALED(status))
+			g_error = WTERMSIG(status);
 	}
-	return (ret);
+	return (inf.ret);
 }
 
 static int

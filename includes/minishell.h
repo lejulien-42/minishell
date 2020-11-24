@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:10:08 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:45:37 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ typedef struct	s_arg
 	char			*arg;
 	struct s_arg	*next;
 }				t_arg;
+
+typedef struct	s_info_fork
+{
+	int			ret;
+	int			is_pipe;
+}				t_info_fork;
 
 /*
 ** Liste chainee pour le parsing des entrees
