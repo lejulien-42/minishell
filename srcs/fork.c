@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 16:04:17 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 16:10:09 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int
 	int		ret;
 	int		is_pipe;
 
-	ret = EXIT_FAILURE;
 	init_fork(&is_pipe, node, &pid);
 	if (pid < 0)
 		return (0);
