@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 16:10:09 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 16:11:39 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void
 	}
 }
 
-int
+void
 	execute(char *path, t_exinfo *info, t_parse *node)
 {
 	pid_t	pid;
@@ -52,11 +52,11 @@ int
 
 	init_fork(&is_pipe, node, &pid);
 	if (pid < 0)
-		return (0);
+		return ;
 	else if (pid == 0)
 	{
 		if (!open_pipes(node, info, path, &ret))
-			return (0);
+			return ;
 		exit(ret);
 	}
 	else
@@ -70,7 +70,6 @@ int
 		if (WIFSIGNALED(status))
 			g_error = WTERMSIG(status);
 	}
-	return (ret);
 }
 
 static int
