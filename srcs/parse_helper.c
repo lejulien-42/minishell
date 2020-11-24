@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/23 17:50:34 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:17:40 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void
 			}
 			else if (!(is_prog(node->ar->arg, shell, node)))
 			{
-				set_env("?", "1", 0, shell->envp);
+				set_env("?", ft_strdup("127"), 0, shell->envp);
 				ft_wrong(node->ar->arg);
 			}
 			g_isex = 0;
