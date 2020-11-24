@@ -6,11 +6,12 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 14:01:17 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/17 16:15:57 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:00:59 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <errno.h>
 
 int
 	is_built_in(t_parse *node, t_shell *shell)
@@ -45,4 +46,5 @@ void
 		export_env(shell, node, 1);
 	else if (ft_strncmp(node->ar->arg, "echo", ft_strlen(node->ar->arg)) == 0)
 		ft_echo(shell, node);
+	errno = 0;
 }

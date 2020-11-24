@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 14:46:08 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:12:32 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 14:04:39 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int
 		return (0);
 	if (node->sep)
 		close_redirect(node);
-	return (1);
+	return (0);
 }
 
 int
