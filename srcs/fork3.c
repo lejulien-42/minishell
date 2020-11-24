@@ -6,13 +6,11 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 14:46:08 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 14:38:57 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/20 15:12:32 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern int	g_error;
 
 void
 	close_pipes(int is_pipe, t_parse *node)
@@ -39,7 +37,7 @@ int
 		return (0);
 	if (node->sep)
 		close_redirect(node);
-	return (0);
+	return (1);
 }
 
 int
@@ -50,15 +48,4 @@ int
 		return (0);
 	*pid = fork();
 	return (1);
-}
-
-void
-	error_handling(int status, int *ret)
-{
-	if (WIFEXITED(status))
-		g_error = WEXITSTATUS(status);
-	if (WIFEXITED(status))
-		*ret = WIFEXITED(status);
-	if (WIFSIGNALED(status))
-		g_error = WTERMSIG(status);
 }
