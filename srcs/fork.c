@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 13:56:53 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/24 15:40:41 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int
 	int		ret;
 	int		is_pipe;
 
-	ret = EXIT_FAILURE;
 	init_fork(&is_pipe, node, &pid);
 	if (pid < 0)
 		return (0);
@@ -65,10 +64,11 @@ int
 		waitpid(pid, &status, 0);
 		close_pipes(is_pipe, node);
 		if (WIFEXITED(status))
-		{
 			g_error = WEXITSTATUS(status);
+		if (WIFEXITED(status))
 			ret = WIFEXITED(status);
-		}
+		if (WIFSIGNALED(status))
+			g_error = WTERMSIG(status);
 	}
 	return (ret);
 }
