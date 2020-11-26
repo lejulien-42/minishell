@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:46:13 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 16:06:02 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/26 16:56:53 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void
 	execute_prog(char *path, t_shell *shell, t_parse *node)
 {
 	t_exinfo	*info;
+	char		*tmp;
 
 	if (!(info = malloc(sizeof(t_exinfo))))
 		return ;
@@ -50,7 +51,11 @@ void
 		ft_putstr("Segmentation fault (core dumped)\n");
 		g_error = 139;
 	}
-	set_env("?", ft_itoa(g_error), 0, shell->envp);
+	tmp = ft_itoa(g_error);
+	if (is_built_in(node, node->shell))
+		g_error = 0;
+	set_env("?", tmp, 0, shell->envp);
+	free(tmp);
 	free_tab(info->av);
 	free_tab(info->env);
 	free(info);
