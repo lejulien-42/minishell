@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 02:48:26 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 15:44:32 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:04:02 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ static void
 		{
 			getcwd(buffer, 500);
 			set_env("PWD", buffer, 1, shell->envp);
+			set_env("?", "0", 0, shell->envp);
 		}
 		else
 		{
 			ft_putstr("minishell: cd: ");
 			ft_putstr(ptr->arg);
 			ft_putstr(": No such file or directory\n");
+			set_env("?", "1", 0, shell->envp);
 		}
 	}
 }
