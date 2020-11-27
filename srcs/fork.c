@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 16:11:39 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/28 00:35:33 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,49 @@ extern int	g_error;
 void
 	check_redirect(t_parse *node)
 {
-	if (ft_strncmp(node->sep, ">", ft_strlen(node->sep)) == 0)
+	t_parse *ptr;
+
+	ptr = node;
+	while (ptr->next && ptr->next->sep && (ft_strncmp(ptr->sep, ">", ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, "<", ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, ">>", ft_strlen(ptr->sep)) == 0))
 	{
-		if (node->next && node->next->ar->arg)
+		if (ft_strncmp(ptr->sep, ">", ft_strlen(ptr->sep)) == 0)
 		{
-			node->fd = open(node->next->ar->arg, O_CREAT | O_RDWR |
+			if (ptr->next && ptr->next->ar->arg)
+			{
+				ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_RDWR |
 							O_TRUNC, 0664);
-			dup2(node->fd, 1);
+			}
+		}
+		if (ft_strncmp(ptr->sep, "<", ft_strlen(ptr->sep)) == 0)
+			check_redirect2(ptr);
+		if (ft_strncmp(ptr->sep, ">>", ft_strlen(ptr->sep)) == 0)
+		{
+			if (ptr->next && ptr->next->ar->arg)
+			{
+				ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_APPEND |
+								O_WRONLY, 0664);
+			}
+		}
+		ptr = ptr->next;
+	}
+	if (ft_strncmp(ptr->sep, ">", ft_strlen(ptr->sep)) == 0)
+	{
+		if (ptr->next && ptr->next->ar->arg)
+		{
+			ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_RDWR |
+							O_TRUNC, 0664);
+			dup2(ptr->fd, 1);
 		}
 	}
-	if (ft_strncmp(node->sep, "<", ft_strlen(node->sep)) == 0)
-		check_redirect2(node);
-	if (ft_strncmp(node->sep, ">>", ft_strlen(node->sep)) == 0)
+	if (ft_strncmp(ptr->sep, "<", ft_strlen(ptr->sep)) == 0)
+		check_redirect2(ptr);
+	if (ft_strncmp(ptr->sep, ">>", ft_strlen(ptr->sep)) == 0)
 	{
-		if (node->next && node->next->ar->arg)
+		if (ptr->next && ptr->next->ar->arg)
 		{
-			node->fd = open(node->next->ar->arg, O_CREAT | O_APPEND |
+			ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_APPEND |
 							O_WRONLY, 0664);
-			dup2(node->fd, 1);
+			dup2(ptr->fd, 1);
 		}
 	}
 }

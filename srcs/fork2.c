@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:46:13 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/26 17:07:03 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/28 00:31:18 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,23 @@ void
 int
 	skip_if_red(t_parse *node)
 {
-	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
-		">", ft_strlen(node->prev->sep)) == 0)
-		return (1);
-	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
-		"<", ft_strlen(node->prev->sep)) == 0)
-		return (1);
-	if (node->prev && node->prev->sep && ft_strncmp(node->prev->sep,
-		">>", ft_strlen(node->prev->sep)) == 0)
-		return (1);
+	t_parse	*ptr;
+
+	ptr = node;
+	while (ptr->prev && ptr->prev->sep && (ft_strncmp(ptr->prev->sep, ">", ft_strlen(node->prev->sep)) == 0 || ft_strncmp(ptr->prev->sep, "<", ft_strlen(node->prev->sep)) == 0 || ft_strncmp(ptr->prev->sep, "<", ft_strlen(node->prev->sep)) == 0 ))
+	{
+		if (ptr->prev && ptr->prev->sep && ft_strncmp(ptr->prev->sep,
+			">", ft_strlen(ptr->prev->sep)) == 0)
+			return (1);
+		if (ptr->prev && ptr->prev->sep && ft_strncmp(ptr->prev->sep,
+			"<", ft_strlen(ptr->prev->sep)) == 0)
+			return (1);
+		if (ptr->prev && ptr->prev->sep && ft_strncmp(ptr->prev->sep,
+			">>", ft_strlen(ptr->prev->sep)) == 0)
+			return (1);
+		ptr = ptr->next;
+	}
+	node = ptr->prev;
 	return (0);
 }
 
