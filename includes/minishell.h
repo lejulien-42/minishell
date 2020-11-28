@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 16:12:24 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:37:16 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,6 @@ void			get_inputs3(int ret, int is_entry);
 void			close_pipes(int is_pipe, t_parse *node);
 int				open_pipes(t_parse *node, t_exinfo *info, char *path, int *ret);
 int				init_fork(int *is_pipe, t_parse *node, int *pid);
+void			red_file(t_parse *ptr);
+void			red_dup(t_parse *ptr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/28 00:35:33 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:36:20 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,48 +23,15 @@ void
 	t_parse *ptr;
 
 	ptr = node;
-	while (ptr->next && ptr->next->sep && (ft_strncmp(ptr->sep, ">", ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, "<", ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, ">>", ft_strlen(ptr->sep)) == 0))
+	while (ptr->next && ptr->next->sep && (ft_strncmp(ptr->sep, ">",
+		ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, "<",
+		ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, ">>",
+		ft_strlen(ptr->sep)) == 0))
 	{
-		if (ft_strncmp(ptr->sep, ">", ft_strlen(ptr->sep)) == 0)
-		{
-			if (ptr->next && ptr->next->ar->arg)
-			{
-				ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_RDWR |
-							O_TRUNC, 0664);
-			}
-		}
-		if (ft_strncmp(ptr->sep, "<", ft_strlen(ptr->sep)) == 0)
-			check_redirect2(ptr);
-		if (ft_strncmp(ptr->sep, ">>", ft_strlen(ptr->sep)) == 0)
-		{
-			if (ptr->next && ptr->next->ar->arg)
-			{
-				ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_APPEND |
-								O_WRONLY, 0664);
-			}
-		}
+		red_file(ptr);
 		ptr = ptr->next;
 	}
-	if (ft_strncmp(ptr->sep, ">", ft_strlen(ptr->sep)) == 0)
-	{
-		if (ptr->next && ptr->next->ar->arg)
-		{
-			ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_RDWR |
-							O_TRUNC, 0664);
-			dup2(ptr->fd, 1);
-		}
-	}
-	if (ft_strncmp(ptr->sep, "<", ft_strlen(ptr->sep)) == 0)
-		check_redirect2(ptr);
-	if (ft_strncmp(ptr->sep, ">>", ft_strlen(ptr->sep)) == 0)
-	{
-		if (ptr->next && ptr->next->ar->arg)
-		{
-			ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_APPEND |
-							O_WRONLY, 0664);
-			dup2(ptr->fd, 1);
-		}
-	}
+	red_dup(ptr);
 }
 
 void
