@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:57:24 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/28 19:35:38 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:45:43 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void
 		{
 			ft_putstr("minishell: ");
 			ft_putstr(node->next->ar->arg);
-			ft_putstr(": No such file or directory\n");
+			ft_putstr(": No such file or directory");
 		}
 		else
 			dup2(node->fd, 0);
@@ -39,7 +39,7 @@ void
 		{
 			ft_putstr("minishell: ");
 			ft_putstr(node->next->ar->arg);
-			ft_putstr(": No such file or directory\n");
+			ft_putstr(": No such file or directory");
 		}
 	}
 }
