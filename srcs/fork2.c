@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:46:13 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/28 19:40:20 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/01 17:19:35 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int
 
 	ptr = node;
 	while (ptr->prev && ptr->prev->sep && (ft_strncmp(ptr->prev->sep, ">",
-		ft_strlen(node->prev->sep)) == 0 || ft_strncmp(ptr->prev->sep, "<",
+		ft_strlen(node->prev->sep)) == 0 || ft_strncmp(ptr->prev->sep, ">>",
 		ft_strlen(node->prev->sep)) == 0 || ft_strncmp(ptr->prev->sep, "<",
 		ft_strlen(node->prev->sep)) == 0))
 	{
