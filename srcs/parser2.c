@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 11:34:44 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/08/09 11:34:45 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/01 11:42:43 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	fill_simple(char **dest, char *src)
 	char	*tmp;
 
 	i = 0;
-	while (src[i] != '$' && src[i] != '\\' && src[i] != '\0' && src[i] != '"')
+	while (src[i] != '$' && src[i] != '\0' && src[i] != '"')
 		i++;
 	tmp = ft_strndup(src, i);
 	*dest = tmp;

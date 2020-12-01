@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 19:01:03 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/01 01:53:56 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/01 11:44:59 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ t_parse	*parser(char *str, t_shell *shell)
 	res = init_struct_parse();
 	while (str[i] != '\0' && is_sep(str[i]) == 0)
 	{
-		if (solve_norme_shit(&str[i]) == 1 && str[++i] == '\0')
-			break ;
-		else if (solve_norme_shit(&str[i]) == 1)
+		if (solve_norme_shit(&str[i]) == 1 && str[i + 1] != '\0')
 			i = i + 2;
+		else if (solve_norme_shit(&str[i]) == 1 && str[++i] == '\0')
+			break ;
 		else if (str[i] != ' ' && is_sep(str[i]) == 0 && str[i] != '\0')
 		{
 			res = take_arg(&str[i], res, shell);
