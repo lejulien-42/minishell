@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 19:01:03 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/11/17 16:15:15 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/01 01:53:56 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ t_parse	*take_arg(char *str, t_parse *res, t_shell *shell)
 	return (res);
 }
 
+int		solve_norme_shit(char *str)
+{
+	int i;
+
+	i = 0;
+	if ((str[i] == '"' || str[i] == '\'') &&
+	(str[i + 1] == str[i] || str[i + 1] == '\0'))
+		return (1);
+	return (0);
+}
+
 t_parse	*parser(char *str, t_shell *shell)
 {
 	t_parse	*res;
@@ -65,17 +76,18 @@ t_parse	*parser(char *str, t_shell *shell)
 	res = init_struct_parse();
 	while (str[i] != '\0' && is_sep(str[i]) == 0)
 	{
-		if (str[i] != ' ' && is_sep(str[i]) == 0)
+		if (solve_norme_shit(&str[i]) == 1 && str[++i] == '\0')
+			break ;
+		else if (solve_norme_shit(&str[i]) == 1)
+			i = i + 2;
+		else if (str[i] != ' ' && is_sep(str[i]) == 0 && str[i] != '\0')
 		{
 			res = take_arg(&str[i], res, shell);
 			i = i + size_arg(&str[i]);
-			if ((ft_strncmp(res->ar->arg, "export",
-			ft_strlen(res->ar->arg))) == 0)
+			if ((ft_strncmp(res->ar->arg, "export", 6)) == 0)
 				export_env(shell, res, 0);
 		}
-		else if (is_sep(str[i]) == 0)
-			i++;
-		else
+		else if (!(is_sep(str[++i]) == 0))
 			break ;
 	}
 	if (is_sep(str[i]) == 1)
