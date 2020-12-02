@@ -6,12 +6,13 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/28 19:36:20 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:22:47 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include <errno.h>
 
@@ -67,6 +68,7 @@ void
 static int
 	is_prog2(t_parse *node, t_shell *shell, char *cmd)
 {
+	struct stat	sb;
 	if (skip_if_red(node))
 		return (1);
 	if (is_built_in(node, shell))
@@ -76,7 +78,10 @@ static int
 	}
 	if (is_exist(cmd))
 	{
-		execute_prog(cmd, shell, node);
+		if (stat(cmd, &sb) == 0 && (sb.st_mode & S_IXUSR))
+			execute_prog(cmd, shell, node);
+		else
+			return (0);
 		return (1);
 	}
 	return (0);

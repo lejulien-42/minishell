@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/24 13:48:41 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/02 20:38:52 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ int
 		ft_putstr(get_env_val("PS1", &lsenv));
 	while (shell.is_active)
 		get_inputs(&shell, &i);
-	return (0);
+	return (ft_atoi(get_env_val("?", shell.envp)));
 }

@@ -6,17 +6,30 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:20:18 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/19 17:36:36 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/02 19:10:08 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
 int
 	is_prog3(t_shell *shell, char **path, t_parse *node, char *tested)
 {
+	struct stat	sb;
+
 	if (is_exist(tested))
 	{
+		if (stat(tested, &sb) == 0 && (sb.st_mode & S_IXUSR))
+		{
+		}
+		else
+		{
+			ft_putstr("not an exec\n");
+			return (0);
+		}
+			ft_putstr("help me pleasde\n");
 		execute_prog(tested, shell, node);
 		free(tested);
 		free_tab(path);
