@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 11:34:44 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/01 11:42:43 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:51:29 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	backslash_dc(char c)
 {
 	if (c == '$' || c == '`' || c == '"' || c == '\\')
 		return (1);
-	return (0);
+	return (-1);
 }
 
 int	backslash_wc(char c)
@@ -32,7 +32,7 @@ int	fill_simple(char **dest, char *src)
 	char	*tmp;
 
 	i = 0;
-	while (src[i] != '$' && src[i] != '\0' && src[i] != '"')
+	while (src[i] != '$' && src[i] != '\0' && src[i] != '"' && src[i] != '\\')
 		i++;
 	tmp = ft_strndup(src, i);
 	*dest = tmp;
@@ -46,7 +46,7 @@ int	fill_dollar(char **dest, char *src, t_shell *shell)
 	char	*tp;
 
 	i = 1;
-	while (src[i] != '$' && src[i] != '\0')
+	while (src[i] != '$' && src[i] != '\0' && src[i] != '\\')
 		i++;
 	tmp = ft_strndup(&src[1], i - 1);
 	tp = ft_strdup(get_env_val(tmp, shell->envp));
@@ -59,7 +59,7 @@ int	fill_backslash(char **dest, char *src, int (*f)(char))
 {
 	char	*tmp;
 
-	if (f(src[0]) == 0)
+	if (f(src[1]) == 0)
 	{
 		if (!(tmp = malloc(sizeof(char) * 3)))
 			return (0);
@@ -67,12 +67,18 @@ int	fill_backslash(char **dest, char *src, int (*f)(char))
 		tmp[1] = src[1];
 		tmp[2] = '\0';
 	}
-	else
+	else if (f(src[1]) == 1)
 	{
 		if (!(tmp = malloc(sizeof(char) * 2)))
 			return (0);
 		tmp[0] = src[1];
 		tmp[1] = '\0';
+	}
+	else
+	{
+		if (!(tmp = malloc(sizeof(char) * 1)))
+			return (0);
+		tmp[0] = '\0';
 	}
 	*dest = tmp;
 	return (2);

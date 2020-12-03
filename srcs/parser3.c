@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 11:49:18 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/01 11:44:16 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:26:01 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char
 	tmp = NULL;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '\\' && f(str[i + 1]) == 1)
+		if (str[i] == '\\')
 			i = i + fill_backslash(&st, &str[i], f);
 		else if (str[i] == '$')
 			i = i + fill_dollar(&st, &str[i], shell);
@@ -100,7 +100,8 @@ int
 		return (0);
 	i = 0;
 	while (str[i] != '\0' && (str[i] != '\'' || (str[i] == '\''
-		&& str[i - 1] == '\\')) && (str[i] != '"' || (str[i] == '\\')))
+		&& str[i - 1] == '\\')) && (str[i] != '"' ||
+		(str[i] == '"' && str[i - 1] == '\\')))
 	{
 		st[i] = str[i];
 		i++;
