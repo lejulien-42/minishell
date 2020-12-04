@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:20:18 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 14:00:59 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/04 14:09:31 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int
 int
 	execute2(t_parse *node)
 {
+	if (node->sep)
+		check_redirect(node);
 	if (node->is_next_pipe && dup2(node->pipes[1], 1) < 0)
 		return (0);
 	if (node->prev && node->prev->is_next_pipe == 1 &&
 		dup2(node->prev->pipes[0], 0) < 0)
 		return (0);
-	if (node->sep)
-		check_redirect(node);
 	return (1);
 }
