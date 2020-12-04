@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 16:16:57 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/04 16:42:09 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,16 @@ int
 		if (ft_strlen(node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
 			node->ar->arg[1] == '/')
 		{
-			
+			if (stat(node->ar->arg, &sb) == 0 && (sb.st_mode & S_IXUSR))
+			{
+			}
+			else
+			{
+				ft_putstr("\e[95mminichill\e[92m: \e[39m");
+				ft_putstr(node->ar->arg);
+				ft_putstr(": Permission denied\n");
+				return (1);
+			}
 		}
 		else
 		{
