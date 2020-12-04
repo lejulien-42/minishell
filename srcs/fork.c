@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 14:09:51 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/04 16:16:57 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <dirent.h>
 
 extern int	g_error;
 
@@ -94,8 +95,43 @@ int
 	int		i;
 	char	*tested;
 	char	*prepath;
+	struct stat	sb;
+	DIR			*dir;
 
 	i = 0;
+	dir = opendir(node->ar->arg);
+	if (dir)
+	{
+		if (ft_strlen (node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
+						node->ar->arg[1] == '/')
+		{
+			ft_putstr("\e[95mminichill\e[92m: \e[39m");
+			ft_putstr(node->ar->arg);
+			ft_putstr(": Is a directory\n");
+		}
+		else
+		{
+			ft_putstr("\e[95mminichill\e[92m: \e[39m");
+			ft_putstr(node->ar->arg);
+			ft_putstr(": command not found\n");
+		}
+		return (1);
+	}
+	if (open(node->ar->arg, O_RDONLY) >= 0)
+	{
+		if (ft_strlen(node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
+			node->ar->arg[1] == '/')
+		{
+			
+		}
+		else
+		{
+			ft_putstr("\e[95mminichill\e[92m: \e[39m");
+			ft_putstr(node->ar->arg);
+			ft_putstr(": command not found\n");
+			return (1);
+		}
+	}
 	if (is_prog2(node, shell, cmd))
 		return (1);
 	if (!get_env_val("PATH", shell->envp))

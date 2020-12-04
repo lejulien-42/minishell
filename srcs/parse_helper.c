@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 14:35:58 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:58:32 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void
 
 	res = db_lst(parser(str, shell));
 	node = res;
+
 	while (node != NULL)
 	{
 		if (node->ar == NULL)
