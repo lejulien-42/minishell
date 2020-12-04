@@ -30,7 +30,7 @@ NAME = minishell
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C ./libft
-	@clang $(FLAGS) -o $(NAME) $(OBJS) ./libft/libft.a
+	@gcc $(FLAGS) -o $(NAME) $(OBJS) ./libft/libft.a
 
 clean:
 	@$(MAKE) -C ./libft/. clean
