@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 15:57:49 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 14:00:06 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/06 14:23:52 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int
 	{
 		if (node->ar->next)
 		{
-			if (node->ar->next->next)
+			if (node->ar->next->next && is_num(node->ar->next->arg))
 				return (ft_exit_too_args());
 			else
 			{
