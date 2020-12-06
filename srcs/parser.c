@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 19:01:03 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/03 15:50:19 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/06 16:50:19 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,28 @@
 #include <stdio.h>
 #include "../includes/minishell.h"
 
+int size_arg2(char *str, int i)
+{
+	while (str[i] != '"' && str[i] != '\0')
+	{
+		if (str[i] == '\\' && str[i + 1] != '\0')
+			i = i + 2;
+		else
+			i++;
+	}
+	return (i);
+}
+
 int		size_arg(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (str[i] != ' ' && str[i] != '\0' && is_sep(str[i]) == 0)
 	{
-		if (str[i] == '\'')
+		if (str[i] == '\\' && str[i + 1] != '\0')
+			i = i + 2;
+		else if (str[i] == '\'')
 		{
 			i++;
 			while (str[i] != '\'' && str[i] != '\0')
@@ -29,11 +43,9 @@ int		size_arg(char *str)
 			i++;
 		}
 		else if (str[i] == '"')
-		{
+		{ 
 			i++;
-			while ((str[i] != '"' || (i != 0 &&
-			str[i] == '"' && str[i - 1] == '\\')) && str[i] != '\0')
-				i++;
+			i = size_arg2(str, i);
 			i++;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 11:34:44 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/03 15:51:29 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:39:20 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	backslash_dc(char c)
 {
 	if (c == '$' || c == '`' || c == '"' || c == '\\')
 		return (1);
-	return (-1);
+	return (0);
 }
 
 int	backslash_wc(char c)
