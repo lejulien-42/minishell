@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/02 19:22:47 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/07 13:31:10 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <dirent.h>
 
 extern int	g_error;
 
@@ -88,14 +89,79 @@ static int
 }
 
 int
+	is_seppa(char *str)
+{
+	if (ft_strncmp(str, ">", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, ">>", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "<", ft_strlen(str)) == 0)
+		return (1);
+	return (0);
+}
+
+int
 	is_prog(char *cmd, t_shell *shell, t_parse *node)
 {
 	char	**path;
 	int		i;
 	char	*tested;
 	char	*prepath;
+	struct stat	sb;
+	DIR			*dir;
 
 	i = 0;
+	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
+		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
+	{
+		
+	}
+	if (node->prev && node->prev->sep && is_seppa(node->prev->sep))
+	{
+		return (1);
+	}
+	dir = opendir(node->ar->arg);
+	if (dir)
+	{
+		if (ft_strlen (node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
+						node->ar->arg[1] == '/')
+		{
+			ft_putstr("\e[95mminichill\e[92m: \e[39m");
+			ft_putstr(node->ar->arg);
+			ft_putstr(": Is a directory\n");
+		}
+		else
+		{
+			ft_putstr("\e[95mminichill\e[92m: \e[39m");
+			ft_putstr(node->ar->arg);
+			ft_putstr(": command not found\n");
+		}
+		return (1);
+	}
+	if (open(node->ar->arg, O_RDONLY) >= 0)
+	{
+		if (ft_strlen(node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
+			node->ar->arg[1] == '/')
+		{
+			if (stat(node->ar->arg, &sb) == 0 && (sb.st_mode & S_IXUSR))
+			{
+			}
+			else
+			{
+				ft_putstr("\e[95mminichill\e[92m: \e[39m");
+				ft_putstr(node->ar->arg);
+				ft_putstr(": Permission denied\n");
+				return (1);
+			}
+		}
+		else
+		{
+			ft_putstr("\e[95mminichill\e[92m: \e[39m");
+			ft_putstr(node->ar->arg);
+			ft_putstr(": command not found\n");
+			return (1);
+		}
+	}
 	if (is_prog2(node, shell, cmd))
 		return (1);
 	if (!get_env_val("PATH", shell->envp))

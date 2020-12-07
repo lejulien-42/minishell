@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/05 21:08:15 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/06 16:21:00 by frtalleu         ###   ########.fr       */
+/*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
+/*   Updated: 2020/12/07 14:46:50 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,6 @@ void			close_pipes(int is_pipe, t_parse *node);
 int				open_pipes(t_parse *node, t_exinfo *info, char *path, int *ret);
 int				init_fork(int *is_pipe, t_parse *node, int *pid);
 void			red_file(t_parse *ptr);
+int				is_num(char *str);
 void			red_dup(t_parse *ptr);
 #endif

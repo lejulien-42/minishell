@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/01 15:37:03 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:58:32 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,15 @@ void
 
 	res = db_lst(parser(str, shell));
 	node = res;
+
 	while (node != NULL)
 	{
 		if (node->ar == NULL)
+		{
+			if (node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep))==0)
+				ft_putstr("\e[95mminichill\e[92m: \e[39msyntax error near unexpected token '|'\n");
 			return (ft_free_parse(res));
+		}
 		if (node->ar->arg)
 		{
 			g_isex = 1;
