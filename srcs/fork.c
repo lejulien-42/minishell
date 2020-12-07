@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 16:42:09 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/07 13:31:10 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,18 @@ static int
 }
 
 int
+	is_seppa(char *str)
+{
+	if (ft_strncmp(str, ">", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, ">>", ft_strlen(str)) == 0)
+		return (1);
+	else if (ft_strncmp(str, "<", ft_strlen(str)) == 0)
+		return (1);
+	return (0);
+}
+
+int
 	is_prog(char *cmd, t_shell *shell, t_parse *node)
 {
 	char	**path;
@@ -99,6 +111,15 @@ int
 	DIR			*dir;
 
 	i = 0;
+	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
+		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
+	{
+		
+	}
+	if (node->prev && node->prev->sep && is_seppa(node->prev->sep))
+	{
+		return (1);
+	}
 	dir = opendir(node->ar->arg);
 	if (dir)
 	{
