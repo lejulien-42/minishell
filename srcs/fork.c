@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/07 13:31:10 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:53:31 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,34 @@ int
 	DIR			*dir;
 
 	i = 0;
+	if ((open(node->ar->arg, O_RDONLY) < 0 || !opendir(node->ar->arg)) && is_prog2(node, shell, cmd))
+		return (1);
+	if (!get_env_val("PATH", shell->envp))
+		return (0);
+	path = ft_split(get_env_val("PATH", shell->envp), ":");
+	while (path[i])
+	{
+		if (ft_strlen(cmd) < 2 || cmd[0] != '.' && cmd[1] != '/')
+		{
+			prepath = ft_strjoin("/", cmd);
+			tested = ft_strjoin(path[i], prepath);
+			free(prepath);
+			if (is_prog3(shell, path, node, tested))
+				return (1);
+		}
+		else
+		{
+			if (open(node->ar->arg, O_RDONLY) < 0)
+			{
+				ft_putstr("\e[95mminichill\e[92m: \e[39m");
+				ft_putstr(node->ar->arg);
+				ft_putstr(": No such file or directory\n");
+				set_env("?", "127", 0, shell->envp);
+				return (1);
+			}
+		}
+		i++;
+	}
 	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
 		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
 	{
@@ -161,20 +189,6 @@ int
 			ft_putstr(": command not found\n");
 			return (1);
 		}
-	}
-	if (is_prog2(node, shell, cmd))
-		return (1);
-	if (!get_env_val("PATH", shell->envp))
-		return (0);
-	path = ft_split(get_env_val("PATH", shell->envp), ":");
-	while (path[i])
-	{
-		prepath = ft_strjoin("/", cmd);
-		tested = ft_strjoin(path[i], prepath);
-		free(prepath);
-		if (is_prog3(shell, path, node, tested))
-			return (1);
-		i++;
 	}
 	free_tab(path);
 	return (0);
