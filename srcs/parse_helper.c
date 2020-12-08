@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 15:58:32 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/08 18:27:15 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,6 @@ int
 	if (entry[i] != presumed_entry[i])
 		return (0);
 	return (1);
-}
-
-void
-	parse_tester(t_parse *res)
-{
-	t_arg	*aa;
-	t_parse	*node;
-	int		i;
-
-	i = 0;
-	node = res;
-	aa = res->ar;
-	while (node != NULL)
-	{
-		while (aa != NULL)
-		{
-			printf("arg %i => %s\n", i, aa->arg);
-			aa = aa->next;
-			i++;
-		}
-		i = 0;
-		printf("sep =>%s\n", node->sep);
-		node = node->next;
-		if (node != NULL)
-			aa = node->ar;
-	}
 }
 
 t_parse
@@ -101,6 +75,21 @@ void
 	}
 }
 
+int
+	print_pipe_error(t_parse *node)
+{
+	if (node->ar == NULL)
+	{
+		if (node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
+		{
+			ft_putstr("\e[95mminichill\e[92m: \e[39msyntax");
+			ft_putstr(" error near unexpected token '|'\n");
+		}
+		return (1);
+	}
+	return (0);
+}
+
 void
 	entry_checker(char *str, t_shell *shell)
 {
@@ -112,12 +101,8 @@ void
 
 	while (node != NULL)
 	{
-		if (node->ar == NULL)
-		{
-			if (node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep))==0)
-				ft_putstr("\e[95mminichill\e[92m: \e[39msyntax error near unexpected token '|'\n");
+		if (print_pipe_error(node) == 1)
 			return (ft_free_parse(res));
-		}
 		if (node->ar->arg)
 		{
 			g_isex = 1;
