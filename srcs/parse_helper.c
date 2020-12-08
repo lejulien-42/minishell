@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/08 18:27:15 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/08 18:44:23 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,22 @@ void
 }
 
 int
-	print_pipe_error(t_parse *node)
+	print_pipe_error(t_parse *node, t_shell *shell)
 {
+	if (node->sep && node->next && !node->next->ar)
+	{
+		ft_putstr("\e[95mminichill\e[92m: \e[39msyntax");
+		ft_putstr(" error near unexpected token `newline'\n");
+		set_env("?", "2", 0, shell->envp);
+		return (1);
+	}
 	if (node->ar == NULL)
 	{
 		if (node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
 		{
 			ft_putstr("\e[95mminichill\e[92m: \e[39msyntax");
-			ft_putstr(" error near unexpected token '|'\n");
+			ft_putstr(" error near unexpected token `|'\n");
+			set_env("?", "2", 0, shell->envp);
 		}
 		return (1);
 	}
@@ -101,7 +109,7 @@ void
 
 	while (node != NULL)
 	{
-		if (print_pipe_error(node) == 1)
+		if (print_pipe_error(node, shell) == 1)
 			return (ft_free_parse(res));
 		if (node->ar->arg)
 		{
