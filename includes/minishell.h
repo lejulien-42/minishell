@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/08 18:33:06 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/10 18:52:18 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,6 @@ int				init_fork(int *is_pipe, t_parse *node, int *pid);
 void			red_file(t_parse *ptr);
 int				is_num(char *str);
 void			red_dup(t_parse *ptr);
+void			red_dup2(t_parse *ptr);
 int				is_seppa(char *str);
 #endif

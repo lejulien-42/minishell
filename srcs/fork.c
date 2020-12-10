@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/08 18:23:03 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/10 18:51:50 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void
 		red_file(ptr);
 		ptr = ptr->next;
 	}
-	red_dup(ptr);
+	if (ptr->sep && ft_strncmp(ptr->sep, "|", ft_strlen(ptr->sep)) == 0)
+		red_dup2(ptr);
+	else
+		red_dup(ptr);
 }
 
 void
