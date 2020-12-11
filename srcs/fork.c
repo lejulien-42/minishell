@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/11 15:29:46 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/11 15:45:37 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ void
 		red_file(ptr);
 		ptr = ptr->next;
 	}
-	red_dup(ptr);
+	if (node->sep && is_seppa(node->sep) && node->next && node->next->sep &&
+		ft_strncmp(node->next->sep, "|", ft_strlen(node->next->sep)) == 0)
+		red_dup(ptr->prev);
+	else
+		red_dup(ptr);
 }
 
 void
