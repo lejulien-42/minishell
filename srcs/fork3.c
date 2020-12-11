@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 14:46:08 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 15:12:32 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/11 15:36:03 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ int
 {
 	if (!execute2(node))
 		return (0);
-	if (is_built_in(node, node->shell))
-		ex_built_in(node, node->shell);
-	else if (node->fd != -1 && (*ret = execve(path, info->av, info->env)) < 0)
-		return (0);
+	if (!(node->prev && node->prev->sep && is_seppa(node->prev->sep) &&
+		node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0))
+	{
+		if (is_built_in(node, node->shell))
+			ex_built_in(node, node->shell);
+		else if (node->fd != -1 && (*ret = execve(path, info->av, info->env)) < 0)
+			return (0);
+	}
 	if (node->sep)
 		close_redirect(node);
 	return (1);

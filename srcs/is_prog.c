@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 17:20:18 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 14:09:31 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/11 15:31:28 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int
 {
 	struct stat	sb;
 
+	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
+		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
+		execute_prog(tested, shell, node);
 	if (is_exist(tested))
 	{
 		if (stat(tested, &sb) == 0 && (sb.st_mode & S_IXUSR))

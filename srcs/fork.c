@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/08 17:53:31 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/11 15:29:46 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ int
 	DIR			*dir;
 
 	i = 0;
+	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
+		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
+		is_prog3(shell, NULL, node, node->ar->arg);
 	if ((open(node->ar->arg, O_RDONLY) < 0 || !opendir(node->ar->arg)) && is_prog2(node, shell, cmd))
 		return (1);
 	if (!get_env_val("PATH", shell->envp))
