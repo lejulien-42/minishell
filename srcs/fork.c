@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/10 18:51:50 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:53:31 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ void
 		red_file(ptr);
 		ptr = ptr->next;
 	}
-	if (ptr->sep && ft_strncmp(ptr->sep, "|", ft_strlen(ptr->sep)) == 0)
-		red_dup2(ptr);
-	else
-		red_dup(ptr);
+	red_dup(ptr);
 }
 
 void
@@ -121,7 +118,7 @@ int
 	path = ft_split(get_env_val("PATH", shell->envp), ":");
 	while (path[i])
 	{
-		if (ft_strlen(cmd) < 2 || (cmd[0] != '.' && cmd[1] != '/'))
+		if (ft_strlen(cmd) < 2 || cmd[0] != '.' && cmd[1] != '/')
 		{
 			prepath = ft_strjoin("/", cmd);
 			tested = ft_strjoin(path[i], prepath);

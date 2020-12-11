@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:57:24 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/10 18:50:45 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/11/28 19:45:43 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,31 +88,6 @@ void
 			ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_APPEND |
 							O_WRONLY, 0664);
 			dup2(ptr->fd, 1);
-		}
-	}
-}
-
-void
-	red_dup2(t_parse *ptr)
-{
-	if (ft_strncmp(ptr->prev->sep, ">", ft_strlen(ptr->prev->sep)) == 0)
-	{
-		if (ptr && ptr->ar->arg)
-		{
-			ptr->prev->fd = open(ptr->ar->arg, O_CREAT | O_RDWR |
-			O_TRUNC, 0664);
-			dup2(ptr->prev->fd, 1);
-		}
-	}
-	if (ft_strncmp(ptr->prev->sep, "<", ft_strlen(ptr->prev->sep)) == 0)
-		check_redirect2(ptr->prev);
-	if (ft_strncmp(ptr->prev->sep, ">>", ft_strlen(ptr->prev->sep)) == 0)
-	{
-		if (ptr && ptr->ar->arg)
-		{
-			ptr->prev->fd = open(ptr->ar->arg, O_CREAT | O_APPEND |
-							O_WRONLY, 0664);
-			dup2(ptr->prev->fd, 1);
 		}
 	}
 }
