@@ -6,7 +6,7 @@
 #    By: lejulien <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 18:43:38 by lejulien          #+#    #+#              #
-#    Updated: 2020/12/13 18:59:12 by lejulien         ###   ########.fr        #
+#    Updated: 2020/12/13 23:05:33 by lejulien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,29 +18,29 @@ SRCS = 	./srcs/main.c ./srcs/utils_0.c ./srcs/utils_1.c ./srcs/lst_to_str.c    \
 		./srcs/parser3.c ./srcs/cd.c ./srcs/echo.c ./srcs/built_in.c 		   \
 		./srcs/export2.c ./srcs/parse_helper2.c ./srcs/fork2.c				   \
 		./srcs/redirect.c ./srcs/is_prog.c ./srcs/get_inputs.c ./srcs/fork3.c  \
-		./srcs/parser4.c ./srcs/fork4.c
+		./srcs/parser4.c ./srcs/fork4.c ./srcs/parse_helper3.c
 
 OBJS = ${SRCS:.c=.o}
 
 FLAGS = -Wall -Wextra -Werror
 
 .c.o:
-	@gcc -c $< -o $(<:.c=.o)
+	gcc -c $< -o $(<:.c=.o)
 
 NAME = minishell
 
 $(NAME): $(OBJS)
-	@$(MAKE) -C ./libft
-	@gcc $(FLAGS) -o $(NAME) $(OBJS) ./libft/libft.a
+	$(MAKE) -C ./libft
+	gcc $(FLAGS) -o $(NAME) $(OBJS) ./libft/libft.a
 
 clean:
-	@$(MAKE) -C ./libft/. clean
-	@rm -f $(OBJS)
+	$(MAKE) -C ./libft/. clean
+	rm -f $(OBJS)
 
 fclean: clean
-	@$(MAKE) -C ./libft/. clean
-	@rm -f $(NAME)
-	@rm -f libft/libft.a
+	$(MAKE) -C ./libft/. clean
+	rm -f $(NAME)
+	rm -f libft/libft.a
 
 re: fclean $(NAME)
 

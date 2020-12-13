@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/13 19:41:30 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 23:04:12 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,4 +182,6 @@ int				checkfiles_ex(t_parse *node, struct stat sb);
 int				check_pipe_ex(t_parse *node, t_shell *shell, char *cmd);
 void			get_inputs_error(t_shell *shell, int *i);
 void			get_inputs(t_shell *shell, int *i);
+int				ft_exit_too_args();
+int				check_num_arg(t_parse *node, char *tmp, t_shell *shell);
 #endif
