@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/13 18:46:21 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 23:28:53 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,10 @@ int
 	if (node->prev && node->prev->sep && is_seppa(node->prev->sep))
 		return (1);
 	if (checkfiles_ex(node, sb))
+	{
+		set_env("?", "127", 0, shell->envp);
 		return (1);
+	}
 	free_tab(path);
 	return (0);
 }

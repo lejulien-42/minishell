@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/13 23:16:23 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 23:24:20 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			ft_putchar(char c, int fd);
 void			ft_putnbr_fd(int nb, int fd);
 void			get_pwd(t_shell *shell);
 int				ft_is_space(char *str);
-void			ft_wrong(char *str);
+void			ft_wrong(char *str, t_shell *shell);
 t_entry			*lst_skip_white_space(t_entry *entry);
 char			*lst_to_str(t_entry *entry);
 void			ft_lstclear(t_entry **lst);

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 21:55:10 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 17:42:57 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 23:24:01 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int
 */
 
 void
-	ft_wrong(char *str)
+	ft_wrong(char *str, t_shell *shell)
 {
 	int i;
 
@@ -74,4 +74,5 @@ void
 		}
 		ft_putstr(": command not found\n");
 	}
+	set_env("?", "127", 0, shell->envp);
 }
