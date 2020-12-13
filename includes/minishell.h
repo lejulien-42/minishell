@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/13 13:50:14 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/13 18:58:49 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,4 +175,9 @@ int				is_num(char *str);
 void			red_dup(t_parse *ptr);
 int				is_seppa(char *str);
 int				manage_wc2(char *str);
+int				check_and_ex(char **path, char *cmd, t_shell *shell,
+				t_parse *node);
+int				is_prog2(t_parse *node, t_shell *shell, char *cmd);
+int				checkfiles_ex(t_parse *node, struct stat sb);
+int				check_pipe_ex(t_parse *node, t_shell *shell, char *cmd);
 #endif
