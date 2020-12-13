@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/11 15:45:37 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 14:36:08 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,18 @@ void
 	t_parse *ptr;
 
 	ptr = node;
-	while (ptr->next && ptr->next->sep && (ft_strncmp(ptr->sep, ">",
-		ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, "<",
-		ft_strlen(ptr->sep)) == 0 || ft_strncmp(ptr->sep, ">>",
-		ft_strlen(ptr->sep)) == 0))
+	if (node->sep && ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
+		return ;
+	while (ptr->next && ptr->next->sep && is_seppa(ptr->sep))
 	{
 		red_file(ptr);
 		ptr = ptr->next;
 	}
 	if (node->sep && is_seppa(node->sep) && node->next && node->next->sep &&
 		ft_strncmp(node->next->sep, "|", ft_strlen(node->next->sep)) == 0)
+		red_dup(ptr->prev);
+	else if (ptr->sep && ft_strncmp(ptr->sep, "|", ft_strlen(ptr->sep)) == 0 &&
+		ptr->prev && ptr->prev->sep && is_seppa(ptr->prev->sep))
 		red_dup(ptr->prev);
 	else
 		red_dup(ptr);
@@ -118,14 +120,14 @@ int
 	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
 		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
 		is_prog3(shell, NULL, node, node->ar->arg);
-	if ((open(node->ar->arg, O_RDONLY) < 0 || !opendir(node->ar->arg)) && is_prog2(node, shell, cmd))
+	if (((open(node->ar->arg, O_RDONLY) < 0 || !opendir(node->ar->arg))) && is_prog2(node, shell, cmd))
 		return (1);
 	if (!get_env_val("PATH", shell->envp))
 		return (0);
 	path = ft_split(get_env_val("PATH", shell->envp), ":");
 	while (path[i])
 	{
-		if (ft_strlen(cmd) < 2 || cmd[0] != '.' && cmd[1] != '/')
+		if (ft_strlen(cmd) < 2 || (cmd[0] != '.' && cmd[1] != '/'))
 		{
 			prepath = ft_strjoin("/", cmd);
 			tested = ft_strjoin(path[i], prepath);
@@ -146,15 +148,8 @@ int
 		}
 		i++;
 	}
-	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
-		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
-	{
-		
-	}
 	if (node->prev && node->prev->sep && is_seppa(node->prev->sep))
-	{
 		return (1);
-	}
 	dir = opendir(node->ar->arg);
 	if (dir)
 	{
@@ -178,10 +173,7 @@ int
 		if (ft_strlen(node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
 			node->ar->arg[1] == '/')
 		{
-			if (stat(node->ar->arg, &sb) == 0 && (sb.st_mode & S_IXUSR))
-			{
-			}
-			else
+			if (!(stat(node->ar->arg, &sb) == 0 && (sb.st_mode & S_IXUSR)))
 			{
 				ft_putstr("\e[95mminichill\e[92m: \e[39m");
 				ft_putstr(node->ar->arg);
@@ -199,4 +191,12 @@ int
 	}
 	free_tab(path);
 	return (0);
+}
+
+void
+	ft_printf_shell_error(char *arg, char *str)
+{
+	ft_putstr("\e[95mminichill\e[92m: \e[39m");
+	ft_putstr(arg);
+	ft_putstr(str);
 }
