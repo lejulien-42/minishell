@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:57:24 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/28 19:45:43 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 20:52:30 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void
 		{
 			ptr->fd = open(ptr->next->ar->arg, O_CREAT | O_APPEND |
 							O_WRONLY, 0664);
+			dup2(ptr->fd, 1);
 		}
 	}
 }
