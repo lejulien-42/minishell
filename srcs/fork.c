@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/13 14:36:08 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 14:58:00 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 #include <dirent.h>
 
 extern int	g_error;
+
+static void
+	ft_printf_shell_error(char *arg, char *str)
+{
+	ft_putstr("\e[95mminichill\e[92m: \e[39m");
+	ft_putstr(arg);
+	ft_putstr(str);
+}
 
 void
 	check_redirect(t_parse *node)
@@ -139,9 +147,7 @@ int
 		{
 			if (open(node->ar->arg, O_RDONLY) < 0)
 			{
-				ft_putstr("\e[95mminichill\e[92m: \e[39m");
-				ft_putstr(node->ar->arg);
-				ft_putstr(": No such file or directory\n");
+				ft_printf_shell_error(node->ar->arg, ": No such file or directory\n");
 				set_env("?", "127", 0, shell->envp);
 				return (1);
 			}
@@ -155,48 +161,24 @@ int
 	{
 		if (ft_strlen (node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
 						node->ar->arg[1] == '/')
-		{
-			ft_putstr("\e[95mminichill\e[92m: \e[39m");
-			ft_putstr(node->ar->arg);
-			ft_putstr(": Is a directory\n");
-		}
+			ft_printf_shell_error(node->ar->arg, ": Is a directory\n");
 		else
-		{
-			ft_putstr("\e[95mminichill\e[92m: \e[39m");
-			ft_putstr(node->ar->arg);
-			ft_putstr(": command not found\n");
-		}
+			ft_printf_shell_error(node->ar->arg, ": command not found\n");
 		return (1);
 	}
-	if (open(node->ar->arg, O_RDONLY) >= 0)
+	if (open(node->ar->arg, O_RDONLY) >= 0 &&ft_strlen(node->ar->arg) > 1 &&
+		node->ar->arg[0] == '.' && node->ar->arg[1] == '/' &&
+		!(stat(node->ar->arg, &sb) == 0 && (sb.st_mode & S_IXUSR)))
 	{
-		if (ft_strlen(node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
-			node->ar->arg[1] == '/')
-		{
-			if (!(stat(node->ar->arg, &sb) == 0 && (sb.st_mode & S_IXUSR)))
-			{
-				ft_putstr("\e[95mminichill\e[92m: \e[39m");
-				ft_putstr(node->ar->arg);
-				ft_putstr(": Permission denied\n");
-				return (1);
-			}
-		}
-		else
-		{
-			ft_putstr("\e[95mminichill\e[92m: \e[39m");
-			ft_putstr(node->ar->arg);
-			ft_putstr(": command not found\n");
-			return (1);
-		}
+		ft_printf_shell_error(node->ar->arg, ": Permission denied\n");
+		return (1);
+	}
+	else
+	{
+		ft_printf_shell_error(node->ar->arg, ": command not found\n");
+		return (1);
 	}
 	free_tab(path);
 	return (0);
 }
 
-void
-	ft_printf_shell_error(char *arg, char *str)
-{
-	ft_putstr("\e[95mminichill\e[92m: \e[39m");
-	ft_putstr(arg);
-	ft_putstr(str);
-}
