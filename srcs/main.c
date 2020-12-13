@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/04 13:58:38 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 19:17:50 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void
 	ft_lstclear(entry);
 }
 
-static void
+void
 	get_inputs(t_shell *shell, int *i)
 {
 	static t_entry	*entry = NULL;
@@ -95,12 +95,6 @@ int
 	set_env("PS1", "\e[95mminichill\e[92m$ \e[39m", 0, &lsenv);
 	if (get_env_val("PS1", &lsenv) != NULL)
 		ft_putstr(get_env_val("PS1", &lsenv));
-	while (shell.is_active)
-		get_inputs(&shell, &i);
-	if (!is_num(get_env_val("?", shell.envp)))
-	{
-		ft_putstr(get_env_val("?", shell.envp));
-		set_env("?", "2", 0, shell.envp);
-	}
+	get_inputs_error(&shell, &i);
 	return (ft_atoi(get_env_val("?", shell.envp)));
 }

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:02:40 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/13 18:51:14 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 19:15:54 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,16 @@ int
 		i++;
 	}
 	return (0);
+}
+
+void
+	get_inputs_error(t_shell *shell, int *i)
+{
+	while (shell->is_active)
+		get_inputs(shell, i);
+	if (!is_num(get_env_val("?", shell->envp)))
+	{
+		ft_putstr(get_env_val("?", shell->envp));
+		set_env("?", "2", 0, shell->envp);
+	}
 }
