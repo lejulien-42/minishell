@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 19:01:03 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/06 16:50:19 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/13 13:33:07 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include "../includes/minishell.h"
 
-int size_arg2(char *str, int i)
+int		size_arg2(char *str, int i)
 {
 	while (str[i] != '"' && str[i] != '\0')
 	{
@@ -43,7 +43,7 @@ int		size_arg(char *str)
 			i++;
 		}
 		else if (str[i] == '"')
-		{ 
+		{
 			i++;
 			i = size_arg2(str, i);
 			i++;

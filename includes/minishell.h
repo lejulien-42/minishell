@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/11 15:32:16 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 13:50:14 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,4 +174,5 @@ void			red_file(t_parse *ptr);
 int				is_num(char *str);
 void			red_dup(t_parse *ptr);
 int				is_seppa(char *str);
+int				manage_wc2(char *str);
 #endif

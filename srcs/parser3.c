@@ -6,7 +6,7 @@
 /*   By: frtalleu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 11:49:18 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/06 17:01:14 by frtalleu         ###   ########.fr       */
+/*   Updated: 2020/12/13 13:51:51 by frtalleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,6 @@ int
 	return (i);
 }
 
-int manage_wc2(char *str)
-{	
-	int i;
-
-	i = 0;
-	while(str[i] != '\0' && str[i] != '"' && str[i] != '\'')
-	{
-		if (str[i] == '\\' && str[i + 1] != '\0')
-			i = i + 2;
-		else
-			i++;
-	}
-	return i;
-}
-
 int
 	manage_without_cote(char **dest, char *str, t_shell *shell, int (*f)(char))
 {
@@ -111,15 +96,10 @@ int
 	int		j;
 
 	i = 0;
-/*	while (str[i] != '\0' && (str[i] != '\'' || (str[i] == '\''
-		&& str[i - 1] == '\\')) && (str[i] != '"' || (str[i] == '\\')))
-		i++;*/
 	j = manage_wc2(str);
 	if (!(st = malloc(sizeof(char) * (j + 1))))
 		return (0);
-	while (i < j) /*(str[i] != '\0' && (str[i] != '\'' || (str[i] == '\''
-		&& str[i - 1] == '\\')) && (str[i] != '"' ||
-		(str[i] == '"' && str[i - 1] == '\\')))*/
+	while (i < j)
 	{
 		st[i] = str[i];
 		i++;
