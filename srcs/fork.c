@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 16:46:22 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/13 14:58:00 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 18:46:21 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 #include <dirent.h>
 
 extern int	g_error;
-
-static void
-	ft_printf_shell_error(char *arg, char *str)
-{
-	ft_putstr("\e[95mminichill\e[92m: \e[39m");
-	ft_putstr(arg);
-	ft_putstr(str);
-}
 
 void
 	check_redirect(t_parse *node)
@@ -80,10 +72,11 @@ void
 	}
 }
 
-static int
+int
 	is_prog2(t_parse *node, t_shell *shell, char *cmd)
 {
 	struct stat	sb;
+
 	if (skip_if_red(node))
 		return (1);
 	if (is_built_in(node, shell))
@@ -117,68 +110,24 @@ int
 int
 	is_prog(char *cmd, t_shell *shell, t_parse *node)
 {
-	char	**path;
-	int		i;
-	char	*tested;
-	char	*prepath;
+	char		**path;
+	int			i;
+	char		*tested;
+	char		*prepath;
 	struct stat	sb;
-	DIR			*dir;
 
 	i = 0;
-	if (node->prev && node->prev->sep && is_seppa(node->prev->sep) && node->sep
-		&& ft_strncmp(node->sep, "|", ft_strlen(node->sep)) == 0)
-		is_prog3(shell, NULL, node, node->ar->arg);
-	if (((open(node->ar->arg, O_RDONLY) < 0 || !opendir(node->ar->arg))) && is_prog2(node, shell, cmd))
+	if (check_pipe_ex(node, shell, cmd))
 		return (1);
 	if (!get_env_val("PATH", shell->envp))
 		return (0);
 	path = ft_split(get_env_val("PATH", shell->envp), ":");
-	while (path[i])
-	{
-		if (ft_strlen(cmd) < 2 || (cmd[0] != '.' && cmd[1] != '/'))
-		{
-			prepath = ft_strjoin("/", cmd);
-			tested = ft_strjoin(path[i], prepath);
-			free(prepath);
-			if (is_prog3(shell, path, node, tested))
-				return (1);
-		}
-		else
-		{
-			if (open(node->ar->arg, O_RDONLY) < 0)
-			{
-				ft_printf_shell_error(node->ar->arg, ": No such file or directory\n");
-				set_env("?", "127", 0, shell->envp);
-				return (1);
-			}
-		}
-		i++;
-	}
+	if (check_and_ex(path, cmd, shell, node))
+		return (1);
 	if (node->prev && node->prev->sep && is_seppa(node->prev->sep))
 		return (1);
-	dir = opendir(node->ar->arg);
-	if (dir)
-	{
-		if (ft_strlen (node->ar->arg) > 1 && node->ar->arg[0] == '.' &&
-						node->ar->arg[1] == '/')
-			ft_printf_shell_error(node->ar->arg, ": Is a directory\n");
-		else
-			ft_printf_shell_error(node->ar->arg, ": command not found\n");
+	if (checkfiles_ex(node, sb))
 		return (1);
-	}
-	if (open(node->ar->arg, O_RDONLY) >= 0 &&ft_strlen(node->ar->arg) > 1 &&
-		node->ar->arg[0] == '.' && node->ar->arg[1] == '/' &&
-		!(stat(node->ar->arg, &sb) == 0 && (sb.st_mode & S_IXUSR)))
-	{
-		ft_printf_shell_error(node->ar->arg, ": Permission denied\n");
-		return (1);
-	}
-	else
-	{
-		ft_printf_shell_error(node->ar->arg, ": command not found\n");
-		return (1);
-	}
 	free_tab(path);
 	return (0);
 }
-
