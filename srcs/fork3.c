@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 14:46:08 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/11 15:36:03 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 19:08:32 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int
 	{
 		if (is_built_in(node, node->shell))
 			ex_built_in(node, node->shell);
-		else if (node->fd != -1 && (*ret = execve(path, info->av, info->env)) < 0)
+		else if (node->fd != -1 && (*ret = execve(path, info->av, info->env))
+			< 0)
 			return (0);
 	}
 	if (node->sep)
