@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/13 23:04:12 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/13 23:16:23 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libft/libft.h"
 # include <fcntl.h>
 # include <signal.h>
+# include <sys/stat.h>
 
 /*
 ** Liste des variables d'environement
