@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/14 14:56:18 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 15:48:30 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ typedef struct	s_exinfo
 }				t_exinfo;
 
 /*
+** Liste chainée pour le parsing des entrées
+*/
+
+typedef struct	s_entry
+{
+	char		c;
+	void		*next;
+}				t_entry;
+
+/*
 ** structure pour les variables globales du shell
 */
 
@@ -51,17 +61,8 @@ typedef struct	s_shell
 	int			is_active;
 	t_envars	**envp;
 	int			sig_quit;
+	t_entry		*entry;
 }				t_shell;
-
-/*
-** Liste chainée pour le parsing des entrées
-*/
-
-typedef struct	s_entry
-{
-	char		c;
-	void		*next;
-}				t_entry;
 
 /*
 ** Liste chainee pour les arguments
@@ -167,7 +168,7 @@ int				is_prog3(t_shell *shell, char **path, t_parse *node,
 int				initialize_pipe(t_parse *node, int *is_pipe);
 int				execute2(t_parse *node);
 void			check_redirect(t_parse *node);
-void			get_inputs3(int ret, int is_entry);
+void			get_inputs3(int ret, int is_entry, t_shell *shell);
 void			close_pipes(int is_pipe, t_parse *node);
 int				open_pipes(t_parse *node, t_exinfo *info, char *path, int *ret);
 int				init_fork(int *is_pipe, t_parse *node, int *pid);

@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:02:40 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/14 14:58:22 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 15:39:39 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int
 void
 	get_inputs_error(t_shell *shell, int *i)
 {
+	shell->entry = NULL;
 	while (shell->is_active)
 		get_inputs(shell, i);
 	if (!is_num(get_env_val("?", shell->envp)))

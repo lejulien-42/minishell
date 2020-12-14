@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/14 15:14:02 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 15:48:39 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,18 @@ void
 void
 	get_inputs(t_shell *shell, int *i)
 {
-	static t_entry	*entry = NULL;
 	char			buffer[2];
 	int				ret;
 	static int		is_entry = 0;
 
 	ret = read(0, buffer, 1);
-	get_inputs3(ret, is_entry);
+	get_inputs3(ret, is_entry, shell);
 	buffer[1] = '\0';
 	if (buffer[0] == '\n')
 	{
 		is_entry = 0;
 		if (*i > 0)
-			parse_and_clear(&entry, shell);
+			parse_and_clear(&shell->entry, shell);
 		get_inputs2(i, shell);
 	}
 	else
@@ -51,25 +50,22 @@ void
 		if (ret != 0)
 		{
 			is_entry = 1;
-			entry = add_entry(entry, buffer[0]);
+			shell->entry = add_entry(shell->entry, buffer[0]);
 			*i = *i + 1;
 		}
 	}
 }
 
 void
-	get_ctrl_c(int nan)
+	signal_handler(int nan)
 {
-	(void)nan;
-	if (!g_isex)
-		ft_putstr("\n\e[95mminichill\e[92m$ \e[39m");
-}
-
-void
-	get_ctrl_bs(int nan)
-{
-	(void)nan;
-	g_isbs = 1;
+	if (nan == 2)
+	{
+		if (!g_isex)
+			ft_putstr("\n\e[95mminichill\e[92m$ \e[39m");
+	}
+	if (nan == 3)
+		g_isbs = 1;
 }
 
 int
@@ -83,8 +79,9 @@ int
 	(void)ac;
 	(void)av;
 	i = 0;
-	signal(SIGINT, get_ctrl_c);
-	signal(SIGQUIT, get_ctrl_bs);
+	g_isbs = 0;
+	signal(SIGQUIT, signal_handler);
+	signal(SIGINT, signal_handler);
 	if (*envp)
 		lsenv = ft_get_envp(&envp, &envars);
 	else

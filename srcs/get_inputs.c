@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 16:06:00 by lejulien          #+#    #+#             */
-/*   Updated: 2020/11/20 13:55:25 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 15:48:00 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void
 }
 
 void
-	get_inputs3(int ret, int is_entry)
+	get_inputs3(int ret, int is_entry, t_shell *shell)
 {
 	if (ret == 0 && is_entry == 0)
 	{
 		ft_putstr("exit\n");
-		exit(0);
+		shell->is_active = 0;
 	}
 }
