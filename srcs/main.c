@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 16:58:04 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/13 19:17:50 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 15:14:02 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	g_isex;
 int	g_error;
+int	g_isbs;
 
 void
 	parse_and_clear(t_entry **entry, t_shell *shell)
@@ -68,6 +69,7 @@ void
 	get_ctrl_bs(int nan)
 {
 	(void)nan;
+	g_isbs = 1;
 }
 
 int

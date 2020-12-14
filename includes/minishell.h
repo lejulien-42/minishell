@@ -6,7 +6,7 @@
 /*   By: frtalleu <frtalleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 14:46:45 by frtalleu          #+#    #+#             */
-/*   Updated: 2020/12/14 13:38:14 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 14:56:18 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,4 +187,5 @@ int				ft_exit_too_args();
 int				check_num_arg(t_parse *node, char *tmp, t_shell *shell);
 void			ft_free_parse(t_parse *node);
 int				check_pipe_null(t_parse *node, t_parse *res);
+void			ft_printf_shell_error(char *arg, char *str);
 #endif

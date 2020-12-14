@@ -6,7 +6,7 @@
 /*   By: lejulien <lejulien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 14:01:17 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/14 14:28:57 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 14:34:00 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int
 	is_built_in(t_parse *node, t_shell *shell)
 {
-	else if (ft_strncmp(node->ar->arg, "pwd", ft_strlen(node->ar->arg)) == 0)
+	if (ft_strncmp(node->ar->arg, "pwd", ft_strlen(node->ar->arg)) == 0)
 		return (1);
 	else if (ft_strncmp(node->ar->arg, "lambda", ft_strlen(node->ar->arg)) == 0)
 		return (1);
@@ -31,7 +31,7 @@ int
 void
 	ex_built_in(t_parse *node, t_shell *shell)
 {
-	else if (ft_strncmp(node->ar->arg, "pwd", ft_strlen(node->ar->arg)) == 0)
+	if (ft_strncmp(node->ar->arg, "pwd", ft_strlen(node->ar->arg)) == 0)
 		get_pwd(shell);
 	else if (ft_strncmp(node->ar->arg, "lambda", ft_strlen(node->ar->arg)) == 0)
 		set_env("PS1", "\e[91mHalf-Life λ \e[39m", 1, shell->envp);
