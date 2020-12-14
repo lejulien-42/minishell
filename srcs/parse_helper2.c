@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 15:57:49 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/13 23:04:32 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 13:29:33 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int
 }
 
 int
-	ft_exit_too_args()
+	ft_exit_too_args(void)
 {
 	ft_putstr("exit\n");
 	ft_putstr("\e[95mminichill\e[92m: \e[39m");
@@ -42,7 +42,7 @@ int
 	char *tmp;
 
 	if (ft_strncmp(node->ar->arg, "exit", ft_strlen(node->ar->arg)) == 0)
-		return(check_num_arg(node, tmp, shell));
+		return (check_num_arg(node, tmp, shell));
 	else if (ft_strncmp(node->ar->arg, "unset", ft_strlen(node->ar->arg)) == 0)
 	{
 		unset(shell, node);
