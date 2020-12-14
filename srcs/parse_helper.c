@@ -6,7 +6,7 @@
 /*   By: lejulien <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:39:46 by lejulien          #+#    #+#             */
-/*   Updated: 2020/12/14 13:36:15 by lejulien         ###   ########.fr       */
+/*   Updated: 2020/12/14 14:27:47 by lejulien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,6 @@ int
 	if (entry[i] != presumed_entry[i])
 		return (0);
 	return (1);
-}
-
-void
-	parse_tester(t_parse *res)
-{
-	t_arg	*aa;
-	t_parse	*node;
-	int		i;
-
-	i = 0;
-	node = res;
-	aa = res->ar;
-	while (node != NULL)
-	{
-		while (aa != NULL)
-		{
-			printf("arg %i => %s\n", i, aa->arg);
-			aa = aa->next;
-			i++;
-		}
-		i = 0;
-		printf("sep =>%s\n", node->sep);
-		node = node->next;
-		if (node != NULL)
-			aa = node->ar;
-	}
 }
 
 t_parse
