@@ -1,11 +1,3 @@
-# minishell
-
-un simple bash-like shell
-
-COMPILING : make
-
-RUNNING : ./minishell
-
 <h1 align="center">Minishell</h1>
 <h3 align="center">A little shell implementation</h3>
 
